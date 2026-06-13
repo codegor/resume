@@ -1,0 +1,44 @@
+/* ============================================================
+   RESPONSIVE BREAKPOINTS
+   Shared $bp-* literals + @mixins. @use'd BY component SFCs, e.g.
+     @use '../assets/scss/breakpoints' as bp;
+     .foo { @include bp.mobile { ... } }
+   This partial emits no CSS itself, so it is NOT @use'd from main.scss.
+   Values mirror the literals already used across the global sheet.
+   ============================================================ */
+
+$bp-mobile: 720px; // narrow phones (hero fact strip, .wrap padding)
+$bp-mobile-lg: 820px; // primary mobile cutoff (page mobile shell)
+$bp-tablet: 860px; // topbar label collapse
+$bp-desk-s: 1024px; // small desktop / large tablet
+$bp-wide: 1180px; // wide-tablet ceiling (filterbar, edu/lang grid)
+
+@mixin mobile {
+  @media (max-width: $bp-mobile-lg) {
+    @content;
+  }
+}
+
+@mixin mobile-narrow {
+  @media (max-width: $bp-mobile) {
+    @content;
+  }
+}
+
+@mixin tablet-down {
+  @media (max-width: $bp-tablet) {
+    @content;
+  }
+}
+
+@mixin desk-s-down {
+  @media (max-width: $bp-desk-s) {
+    @content;
+  }
+}
+
+@mixin wide-down {
+  @media (max-width: $bp-wide) {
+    @content;
+  }
+}

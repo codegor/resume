@@ -1,0 +1,370 @@
+/* ============================================================
+   SKILLS
+   ============================================================ */
+.more-pill {
+  display: block;
+  width: 100%;
+  text-align: center;
+  font-family: var(--sans);
+  font-size: 12.5px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: var(--muted);
+  background: color-mix(in srgb, var(--ink) 4%, transparent);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 13px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+.more-pill:hover {
+  color: var(--accent);
+  border-color: var(--accent);
+}
+.conf-more {
+  margin-top: 2px;
+  padding: 11px;
+  font-size: 12px;
+}
+.era-collapsed-row {
+  display: flex;
+}
+.epoch-group.side-left .era-collapsed-row {
+  justify-content: flex-start;
+}
+.epoch-group.side-right .era-collapsed-row {
+  justify-content: flex-end;
+}
+.era-collapsed-row .more-pill {
+  width: 46%;
+}
+.skillgroup {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: 24px 26px;
+  transition:
+    opacity 0.3s ease,
+    filter 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+.skillgroup::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+  background: var(--gc, var(--accent));
+  opacity: 0.85;
+}
+.skillgroup.dim {
+  filter: none;
+  padding: 11px 26px;
+}
+.skillgroup.dim::before {
+  opacity: 0.35;
+}
+.skillgroup.dim > * {
+  display: none !important;
+}
+.skillgroup.dim::after {
+  content: '\2022\2009\2022\2009\2022';
+  display: block;
+  text-align: center;
+  color: var(--muted);
+  font-size: 15px;
+  letter-spacing: 0.2em;
+}
+/* a run of consecutive collapsed blocks shows only ONE "• • •" */
+.skillgroup.dim + .skillgroup.dim {
+  display: none;
+}
+/* the meta groups (ide/principles/want) never match a filter — don't add a 2nd "•••" */
+.skill-meta-row .skillgroup.dim {
+  display: none !important;
+}
+.sg-collapsed {
+  display: none;
+  font-family: var(--sans);
+  font-size: 12px;
+  color: var(--muted);
+  margin-top: 4px;
+}
+.sg-head {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  margin-bottom: 4px;
+}
+.sg-head h3 {
+  font-family: var(--serif);
+  font-weight: 500;
+  font-size: 23px;
+  letter-spacing: -0.01em;
+  margin: 0;
+}
+.sg-yrs {
+  font-family: var(--sans);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 12%, transparent);
+  padding: 2px 8px;
+  border-radius: 20px;
+}
+.sg-sub {
+  font-family: var(--sans);
+  font-size: 12px;
+  color: var(--muted);
+  margin: 0 0 14px;
+}
+.skill-items {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+}
+.skill {
+  font-family: var(--sans);
+  font-size: 12.5px;
+  letter-spacing: 0.01em;
+  padding: 6px 11px;
+  border-radius: 8px;
+  border: 1px solid var(--line);
+  background: var(--bg);
+  color: var(--ink-soft);
+  cursor: pointer;
+  transition: all 0.14s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.skill:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+  transform: translateY(-1px);
+}
+.skill.active {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--accent-ink);
+}
+.skill .y {
+  font-size: 10.5px;
+  opacity: 0.6;
+}
+.skill.active .y {
+  opacity: 0.85;
+}
+/* the group's longest-practised skills get a quiet emphasis */
+.skill.skill-top {
+  font-weight: 600;
+  border-color: color-mix(in srgb, var(--gc, var(--accent)) 45%, var(--line));
+  background: color-mix(in srgb, var(--gc, var(--accent)) 7%, var(--surface));
+}
+.skill.skill-top.active {
+  background: var(--accent);
+  border-color: var(--accent);
+}
+/* "NEW" pill — top-3 newest-by-trend skills of the group (first-appeared in latest project) */
+.skill .skill-new {
+  font-size: 8.5px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  line-height: 1;
+  padding: 2px 4px;
+  margin-left: 1px;
+  border-radius: 5px;
+  background: var(--accent);
+  color: var(--accent-ink);
+}
+.skill.active .skill-new {
+  background: var(--accent-ink);
+  color: var(--accent);
+}
+/* secondary dot — other new skills beyond the top 3 */
+.skill .skill-newdot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  flex: none;
+  background: var(--accent);
+}
+.skill.active .skill-newdot {
+  background: var(--accent-ink);
+}
+/* skill search (lives in the sticky Focus bar) */
+.ss-ic {
+  width: 15px;
+  height: 15px;
+  flex: none;
+  color: var(--muted);
+}
+.ss-clear {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  border: 0;
+  border-radius: 6px;
+  background: transparent;
+  color: var(--muted);
+  cursor: pointer;
+  flex: none;
+}
+.ss-clear:hover {
+  color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 10%, transparent);
+}
+.ss-clear svg {
+  width: 13px;
+  height: 13px;
+}
+.ss-count {
+  font-family: var(--sans);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  color: var(--accent);
+  white-space: nowrap;
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  padding: 3px 6px;
+  border-radius: 6px;
+}
+.ss-count:hover,
+.ss-count.on {
+  background: color-mix(in srgb, var(--accent) 12%, transparent);
+}
+.ssc-caret {
+  font-size: 9px;
+  transition: transform 0.15s ease;
+}
+.ss-count.on .ssc-caret {
+  transform: rotate(180deg);
+}
+/* found-matches popover anchored under the search field */
+.found-panel {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  z-index: 80;
+  min-width: 260px;
+  padding: 6px;
+  border-radius: 12px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  box-shadow: var(--shadow-m);
+  animation: fadein 0.15s ease;
+}
+.fp-head {
+  font-family: var(--sans);
+  font-size: 10.5px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+  padding: 8px 10px 6px;
+}
+.fp-row {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  width: 100%;
+  text-align: left;
+  padding: 9px 10px;
+  border: 0;
+  border-radius: 8px;
+  background: transparent;
+  color: var(--ink);
+  cursor: pointer;
+  transition: background 0.13s ease;
+}
+.fp-row:hover {
+  background: color-mix(in srgb, var(--accent) 9%, transparent);
+}
+.fp-n {
+  font-family: var(--serif);
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 1;
+  color: var(--accent);
+  min-width: 22px;
+}
+.fp-l {
+  flex: 1;
+  font-family: var(--sans);
+  font-size: 13px;
+}
+.fp-go {
+  width: 15px;
+  height: 15px;
+  flex: none;
+  color: var(--muted);
+  opacity: 0;
+  transform: translateX(-3px);
+  transition: all 0.13s ease;
+}
+.fp-row:hover .fp-go {
+  opacity: 1;
+  transform: none;
+  color: var(--accent);
+}
+.fp-empty {
+  font-family: var(--sans);
+  font-size: 12.5px;
+  line-height: 1.5;
+  color: var(--muted);
+  padding: 8px 10px 10px;
+  max-width: 240px;
+}
+.ss-status {
+  font-family: var(--sans);
+  font-size: 13px;
+  color: var(--muted);
+  margin: -14px 0 30px;
+}
+.ss-status b {
+  color: var(--accent);
+}
+.sg-hits {
+  font-family: var(--sans);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  color: var(--accent);
+}
+/* longer descriptive items: same chip size, just allowed to wrap (not full-width blocks) */
+.skill-long {
+  white-space: normal;
+  text-align: left;
+  line-height: 1.4;
+  cursor: default;
+  max-width: 100%;
+  font-size: 12.5px;
+  color: var(--ink-soft);
+}
+.skill-long:hover {
+  transform: none;
+  border-color: var(--line);
+  color: var(--ink-soft);
+}
+.skill-long .y {
+  opacity: 0.6;
+}
+
+/* small list groups (ide, principles, want) */
+.skill-meta-row {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 54px;
+  margin-top: 54px;
+}

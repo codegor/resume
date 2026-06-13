@@ -1,0 +1,25 @@
+{
+  "title": "Vue.js Forge 3: AI chat & content app",
+  "filters": [
+    "ai",
+    "frontend",
+    "backend"
+  ],
+  "provider": "Vue School",
+  "url": "https://vuejsforge.com/episode-3",
+  "desc": "Two-day live build-along — an AI chat app with ChatGPT, DALL·E image generation and a Chrome extension, built in Vue & Nuxt.",
+  "skills": [
+    "Vue.js",
+    "Nuxt",
+    "OpenAI API",
+    "DALL·E 2",
+    "LLM integration",
+    "AI Image generation",
+    "AI Content generation",
+    "Prompt engineering"
+  ],
+  "year": "2023",
+  "date": "May 2023",
+  "status": "completed",
+  "certificate": false
+}

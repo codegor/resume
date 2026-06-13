@@ -1,0 +1,122 @@
+# yaml-language-server: $schema=https://coderabbit.ai/integrations/schema.v2.json
+#
+# CodeRabbit AI code review for the résumé site (Vue 3 + Vite + TypeScript).
+# Free (full Pro features) for this public repo. Conventions below mirror CLAUDE.md.
+
+language: 'en-US'
+tone_instructions: 'Senior Vue/TypeScript reviewer for a single-page résumé site. Be concise and concrete; prefer reusing existing components/utils over new code; cite file:line. Flag anything that breaks print/SCSS parity.'
+
+early_access: false
+
+reviews:
+  profile: 'assertive'
+  request_changes_workflow: false
+  high_level_summary: true
+  poem: false
+  review_status: true
+  collapse_walkthrough: false
+  changed_files_summary: true
+  sequence_diagrams: false
+
+  auto_review:
+    enabled: true
+    drafts: true
+    auto_incremental_review: true
+    base_branches:
+      - 'main'
+    ignore_title_keywords:
+      - 'WIP'
+      - '[skip review]'
+    ignore_usernames:
+      - 'dependabot[bot]'
+      - 'renovate[bot]'
+      - 'github-actions[bot]'
+
+  # ── File filters: review source, skip generated/vendored/frozen ──
+  path_filters:
+    - '!dist/**'
+    - '!legacy/**'
+    - '!react/**'
+    - '!node_modules/**'
+    - '!public/assets/**/*.{avif,webp,jpg,jpeg,png,svg,mp4,woff,woff2}'
+    - '!**/*.min.js'
+    - '!**/*.min.css'
+    - '!yarn.lock'
+
+  # ── Path-specific review guidance (mirrors CLAUDE.md working rules) ──
+  path_instructions:
+    - path: 'src/ui/**/*.vue'
+      instructions: |
+        Vue 3 `<script setup>` SFC + TypeScript. Review for:
+        - Reuse over hand-rolling: prefer the shared components — <section-block>
+          (section spacing), <section-head> (every section header), <more-pill>
+          (show-more/less), <skill-chip>/<role-chip>, <icon> — instead of new markup.
+        - State goes through the reactive `store` (composables/useStore.ts) via
+          `useStore()`; don't introduce parallel local state for shared concerns.
+        - Keep DOM structure and class names matching assets/scss/main.scss so styling
+          AND `@media print` carry over. Flag renamed/removed classes that styles rely on.
+        - Don't add per-section margin overrides — spacing is uniform via <section-block>.
+    - path: 'src/ui/utils/site-filters.ts'
+      instructions: |
+        Single source of truth for "what belongs to a filter" (tagsFor, inFilter,
+        tokensForFilter, techMatches, skillMatchesTech, projectUsesSkill…). Filtering
+        logic must live here and read `siteConfig()` — flag duplicated/ad-hoc filter
+        logic elsewhere and any reintroduction of `window.SITE_CONFIG`.
+    - path: 'src/ui/**/*.ts'
+      instructions: |
+        TypeScript: keep types in types/{config,resume}.ts authoritative; avoid `any`.
+        Reuse helpers in utils/ (icons, skills, format, contact, dom) rather than
+        re-implementing. Config is read via `siteConfig()` (config.ts), not globals.
+    - path: 'src/ui/assets/scss/**'
+      instructions: |
+        Global stylesheet. Preserve `@media print` behavior (forces light theme, expands
+        collapsed content, keeps language-bar color). Do NOT add `print-color-adjust:exact`
+        to `body` (it reprints the cream background). Don't add per-section margins — change
+        `.section`/<section-block> instead. Class names must stay in sync with the SFCs.
+    - path: 'public/assets/config.json'
+      instructions: |
+        The BASE visual/interaction config (contacts, hero, cta, videos, skillAliases…) —
+        everything EXCEPT epochs{}, which are authored in public/assets/resume/epochs/. The
+        FULL config.json is generated into dist/ by scripts/assemble-resume.mjs (not here).
+        Must stay valid JSON and match types/config.ts.
+    - path: 'public/assets/resume/**'
+      instructions: |
+        The résumé content SOURCE tree (NN_*.json file+folder pairs): base.json (top-level incl.
+        filters/providers/skills), courses/, conferences/, epochs/NN_<era>.json → NN_<co>.json →
+        NN_<role>.json. Per-item filters/outcomes/skills/cert meta live here. Must stay valid JSON
+        and match types/resume.ts. NN are oldest-first. Flag invented dates/facts.
+    - path: 'legacy/**'
+      instructions: |
+        FROZEN reference — must not be edited. Flag any change here and ask the author to
+        move it into src/ui/ instead.
+    - path: 'react/**'
+      instructions: |
+        Alternate version — must not be edited as part of normal work. Flag changes here.
+    - path: '.github/workflows/**'
+      instructions: |
+        CI/deploy workflows. Pin actions to a major version, keep `permissions` minimal,
+        never hard-code secrets (use `secrets`/`vars`). The Pages deploy builds in Docker
+        and exports dist/; CI lints + runs the Playwright suite against the built site.
+
+  tools:
+    eslint:
+      enabled: true
+    stylelint:
+      enabled: true
+    actionlint:
+      enabled: true
+    gitleaks:
+      enabled: true
+    biome:
+      enabled: false
+    markdownlint:
+      enabled: false
+
+knowledge_base:
+  learnings:
+    scope: 'auto'
+  web_search:
+    enabled: true
+
+chat:
+  auto_reply: true

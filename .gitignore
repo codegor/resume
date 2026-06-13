@@ -1,0 +1,30 @@
+.history
+.vscode
+examples/
+.claude/
+.mcp.json
+
+*.md
+!README.md
+!HOW_TO_TEST.md
+legacy/
+
+# --- Vite/Vue project (root is the Vite root; source in src/ui) ---
+node_modules/
+dist/
+.single/
+.env
+*.local
+yarn-error.log
+
+# build copies of large media (kept local for dev; production streams via VITE_MEDIA_BASE_URL)
+# public/assets/video/
+
+# playwright
+test-results/
+playwright-report/
+
+# Step-2: the résumé content is authored as a source tree (public/assets/resume/** +
+# public/assets/config.json = the BASE config, both committed). The FULL old-format
+# resume.json + config.json are GENERATED only into dist/ (already ignored) by
+# scripts/assemble-resume.mjs — they never live in public/.

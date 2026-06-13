@@ -1,0 +1,23 @@
+{
+  "extends": ["stylelint-config-standard-scss", "stylelint-config-recommended-vue/scss"],
+  "rules": {
+    "selector-class-pattern": null,
+    "scss/at-rule-no-unknown": null,
+    "custom-property-pattern": null,
+    "no-descending-specificity": null,
+    "declaration-block-no-redundant-longhand-properties": null,
+    "media-feature-range-notation": null,
+    "color-function-notation": null,
+    "alpha-value-notation": null,
+    "scss/operator-no-newline-after": null,
+    "scss/comment-no-empty": null
+  },
+  "ignoreFiles": [
+    "dist/**",
+    "node_modules/**",
+    "public/**",
+    "legacy/**",
+    "react/**",
+    "src/ui/assets/scss/_*.scss"
+  ]
+}

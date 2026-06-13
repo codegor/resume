@@ -1,0 +1,20 @@
+{
+  "title": "Fwdays + DevRain AI",
+  "filters": [
+    "ai"
+  ],
+  "cert": true,
+  "certImg": "assets/certs/certificate-fwdays-devrain-ai.jpg",
+  "url": "https://fwdays.com/en/event/fwdays-devrain-ai",
+  "desc": "Applied generative AI — autonomy of LLM agents, computer-use agents, RAG systems and AI in production.",
+  "skills": [
+    "AI / LLM",
+    "Agents",
+    "RAG",
+    "Embeddings & semantic search",
+    "Agentic AI Development",
+    "Prompt engineering"
+  ],
+  "location": "Kyiv",
+  "date": "July 2025"
+}

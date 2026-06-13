@@ -1,0 +1,26 @@
+{
+  "title": "Course: Microservices Architecture",
+  "filters": [
+    "architect",
+    "backend",
+    "devops"
+  ],
+  "cert": true,
+  "certImg": "assets/certs/course-microservices-architecture.jpg",
+  "url": "https://fwdays.com/en/event/microservice-architecture-course",
+  "desc": "Decomposing monoliths into microservices — DDD, Event Storming, interservice integration and architectural patterns.",
+  "skills": [
+    "Microservices",
+    "Distributed systems",
+    "Scalable architecture design",
+    "Event-driven Architecture",
+    "Async Architecture",
+    "API & integration design",
+    "Observability architecture",
+    "CQRS"
+  ],
+  "year": "2025",
+  "date": "August 2025",
+  "status": "completed",
+  "certificate": true
+}

@@ -1,0 +1,144 @@
+{
+  "resumeUrl": "https://codegor.github.io/resume/",
+  "_resumeUrl_note": "Canonical live/production URL of this résumé. Shown as a globe link in the top bar (opens in a new tab), as a 'Resume' item in the mobile contacts menu, in the print contacts, and in the Markdown (.md) export. Leave \"\" to hide it everywhere. Overridden at build time by the VITE_RESUME_URL env var when set (e.g. http://resume.local for a dev/staging build).",
+  "certPlaceholder": "assets/cert-placeholder.svg",
+  "_certPlaceholder_note": "Fallback image shown in place of a certificate screenshot that can't load (the offline single-file build streams cert images from <root>/assets/certs/, so offline they fail). It stays inlined in the offline single-file build; clicking it opens the prod-URL certificate in a new tab.",
+  "seo": {
+    "_note": "noindex: true asks search engines AND AI crawlers not to index this page (injects robots + noai meta tags at load). Set to false to allow indexing.",
+    "noindex": true
+  },
+  "contacts": {
+    "telegram": "https://t.me/esbukraine",
+    "telegramHandle": "@esbukraine",
+    "linkedin": "https://www.linkedin.com/in/egor-code/",
+    "github": "https://github.com/codegor/resume",
+    "email": "codeegor@gmail.com",
+    "introMessage": "Hello! I'm interested in your skills — let's work together. Could we find a time to talk?"
+  },
+  "hero": {
+    "photo": "assets/foto.jpg",
+    "photoCaption": "Egor Berezovsky",
+    "facts": [
+      {
+        "icon": "pin",
+        "t": "Uman, Ukraine · UTC+2"
+      },
+      {
+        "icon": "globe",
+        "t": "Remote only"
+      },
+      {
+        "icon": "lang",
+        "t": "English — Upper-Intermediate (B2)"
+      },
+      {
+        "icon": "clock",
+        "t": "1 month notice"
+      }
+    ],
+    "stats": [
+      {
+        "n": "16",
+        "plus": "+",
+        "l": "Years building"
+      },
+      {
+        "key": "projects",
+        "plus": "+",
+        "l": "Projects shipped"
+      },
+      {
+        "n": "11",
+        "plus": "",
+        "l": "Startups from scratch"
+      },
+      {
+        "n": "7",
+        "plus": "",
+        "l": "Mentored devs & PMs"
+      },
+      {
+        "n": "7k",
+        "plus": "+",
+        "l": "Requests/min"
+      }
+    ]
+  },
+  "cta": {
+    "line": "Can you imagine what I could build for you after five years working together?",
+    "sub": "Write to me — I'd love to hear your thoughts."
+  },
+  "testimonial": {
+    "quote": "I worked closely with Egor on key product features. His technical depth is exceptional — every architectural discussion with him is a chance to learn. Recently he pioneered AI-driven development workflows, benchmarking models and agents to streamline our engineering processes, which directly improved code quality and team efficiency. Egor plans every architectural detail before writing a line of code. I highly recommend him to any forward-thinking engineering team.",
+    "name": "Anton Kostylov",
+    "link": "https://www.linkedin.com/in/anton-kostylov-72518b1b4"
+  },
+  "neutralSkillGroups": [
+    "ide",
+    "want_to_learn"
+  ],
+  "_skillAliases_note": "Folds different spellings of the SAME tech onto one token so clicking a skill highlights every project that used it. Trailing versions are already stripped automatically (Vue.js 2.6.14 -> vue.js, Laravel 9 -> laravel); only add entries here when the BASE word differs across skills vs projects. Keys/values are lowercased, version-stripped bases.",
+  "skillAliases": {
+    "vue.js": "vue",
+    "vue": "vue",
+    "node.js": "node",
+    "node": "node",
+    "rest api": "rest",
+    "rest": "rest",
+    "css3": "css",
+    "css": "css",
+    "html5": "html",
+    "html": "html"
+  },
+  "_trendSkills_note": "Recruiter-facing CURRENT-trend / must-have skills → weight (1-5; 5 = headline must-have today, 1 = nice-to-have). Drives the quiet accent on skill chips AND decides which 'NEW' items get the bold pill (top 3 by weight per group/project/cert) vs a small dot. Applied everywhere: the skills grid, timeline project tech, and certificate/conference skills. Names are matched to chips alias-aware & version-agnostic ('Vue' matches 'Vue.js'), but prefer the exact skill display name. HOW TO UPDATE when you add a new project: skim its technologies and bump/add the in-demand ones for your target roles (keep ~5 strong entries per role group so the highlight stays selective). Leave {} to disable (the grid falls back to years-of-experience ranking; no accent elsewhere). Global — no per-era/per-role weighting yet.",
+  "trendSkills": {
+    "Agentic AI Development": 5,
+    "RAG — Retrieval-Augmented Generation": 5,
+    "TypeScript": 5,
+    "Kubernetes": 5,
+    "System Design": 5,
+    "MCP — Model Context Protocol": 4,
+    "Tool calling / function calling": 4,
+    "Multi-agent orchestration": 4,
+    "LLM evaluation — LLM-as-judge": 4,
+    "LLM observability — custom tracing": 4,
+    "Microservices": 4,
+    "Scalable architecture design": 4,
+    "Observability": 4,
+    "Infrastructure as Code": 4,
+    "CI/CD": 4,
+    "Playwright": 4,
+    "Technical Leadership": 4,
+    "OpenAI API": 3,
+    "Prompt engineering": 3,
+    "Structured outputs — JSON schema": 3,
+    "Vue.js": 3,
+    "Node.js": 3,
+    "PostgreSQL": 3,
+    "Docker": 3,
+    "AWS": 3,
+    "Domain-Driven Design — DDD": 3,
+    "Event-driven Architecture": 3,
+    "Mentoring & Coaching": 3,
+    "PHP 8.3": 2,
+    "Symfony 6.4": 2,
+    "Tailwind CSS": 2
+  },
+  "_trendReorder_note": "true = trend-weighted skills also physically move to the TOP of their group in the skills grid (sub-items stay under their parent). false (default) = highlight/accent only, original order preserved.",
+  "trendReorder": false,
+  "markers": [],
+  "videos": {
+    "intro": {
+      "src": "assets/video/long.mp4",
+      "previewSrc": "assets/video/long_preview.mp4",
+      "poster": "assets/intro-poster.jpg",
+      "caption": "Hi, I'm Egor — here's a little about how I work."
+    },
+    "intro_short": {
+      "src": "assets/video/short.mp4",
+      "previewSrc": "assets/video/short_preview.mp4",
+      "poster": "assets/intro-poster.jpg",
+      "caption": "Hi, I'm Egor — the 30-second version."
+    }
+  }
+}

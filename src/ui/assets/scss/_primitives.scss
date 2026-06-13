@@ -1,0 +1,158 @@
+/* ============================================================
+   SHARED UI PRIMITIVES
+   Low-level controls reused by 2+ components — one home, no duplication.
+   Component-specific contextual/responsive overrides stay with their owner
+   (e.g. .dl-wrap .has-tip, .footer .cbtn, topbar @media .cbtn, .footer .cta).
+   ------------------------------------------------------------
+   .cbtn    — contact button (TopBar, AppFooter)
+   .iconbtn — icon button    (TopBar, ContactMenu)
+   .has-tip — hover tooltip  (TopBar; data-tip attr)
+   .bigbtn  — primary CTA btn (CTA, FeedbackForm)
+   ============================================================ */
+
+.cbtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-family: var(--sans);
+  font-size: 12.5px;
+  font-weight: 500;
+  padding: 6px 10px;
+  border-radius: 8px;
+  border: 1px solid var(--line);
+  background: var(--surface);
+  color: var(--ink);
+  text-decoration: none;
+  transition: all 0.16s ease;
+  white-space: nowrap;
+}
+.cbtn:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-s);
+}
+.cbtn svg {
+  width: 15px;
+  height: 15px;
+  flex: none;
+}
+.cbtn .lbl {
+}
+.iconbtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  border: 1px solid var(--line);
+  background: var(--surface);
+  color: var(--ink);
+  transition: all 0.16s ease;
+}
+.iconbtn:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+.iconbtn.on {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+.iconbtn svg {
+  width: 17px;
+  height: 17px;
+}
+/* styled hover tooltip (keeps the top bar one line — labels live in the tip) */
+.has-tip {
+  position: relative;
+}
+.has-tip::after {
+  content: attr(data-tip);
+  position: absolute;
+  top: calc(100% + 9px);
+  right: 0;
+  background: var(--ink);
+  color: var(--bg);
+  font-family: var(--sans);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  padding: 5px 10px;
+  border-radius: 6px;
+  white-space: nowrap;
+  opacity: 0;
+  transform: translateY(-3px);
+  pointer-events: none;
+  transition:
+    opacity 0.15s ease,
+    transform 0.15s ease;
+  z-index: 70;
+}
+.has-tip:hover::after,
+.has-tip:focus-visible::after {
+  opacity: 1;
+  transform: none;
+}
+@media (hover: none) {
+  .has-tip::after {
+    display: none;
+  }
+}
+
+.bigbtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  font-family: var(--sans);
+  font-size: 15px;
+  font-weight: 600;
+  padding: 15px 24px;
+  border-radius: 11px;
+  text-decoration: none;
+  border: 0;
+  transition:
+    transform 0.15s ease,
+    box-shadow 0.15s ease;
+}
+.bigbtn svg {
+  width: 19px;
+  height: 19px;
+}
+.bigbtn.primary {
+  background: var(--accent);
+  color: var(--accent-ink);
+}
+.bigbtn.ghost {
+  background: transparent;
+  color: var(--bg);
+  border: 1.5px solid color-mix(in srgb, var(--bg) 40%, transparent);
+}
+[data-theme='dark'] .bigbtn.ghost {
+  color: var(--ink);
+  border-color: var(--line);
+}
+.bigbtn:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-m);
+}
+
+/* modal close button — shared by VideoModal + GuideModal (each positions it;
+   GuideModal overrides top/right via its scoped .guide-close) */
+.vmodal-close {
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  z-index: 10;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: var(--accent);
+  color: var(--accent-ink);
+  border: 2px solid #f2e9da;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.45);
+}

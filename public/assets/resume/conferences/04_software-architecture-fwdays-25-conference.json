@@ -1,0 +1,22 @@
+{
+  "title": "Software Architecture fwdays'25 conference",
+  "filters": [
+    "architect",
+    "backend"
+  ],
+  "cert": true,
+  "certImg": "assets/certs/certificate-architecture-fwdays-2025.jpg",
+  "url": "https://fwdays.com/en/event/architecture-fwdays-2025",
+  "desc": "Practical software architecture — microservices, DDD, maintainability, security and designing for scale.",
+  "skills": [
+    "Software Architecture",
+    "Microservices",
+    "Domain-Driven Design — DDD",
+    "Security",
+    "Event-driven Architecture",
+    "Design patterns & best practices",
+    "Security architecture"
+  ],
+  "location": "Kyiv",
+  "date": "September 2025"
+}

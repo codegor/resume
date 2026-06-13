@@ -1,0 +1,43 @@
+{
+  "role": "Excel Macros Developer",
+  "client": "Construction Company (JW) (Product Company)",
+  "period": "10.2012 – 03.2014",
+  "project": "Resource management system (startup from scratch)",
+  "filters": [
+    "backend",
+    "qa"
+  ],
+  "description": "Material and finance management, and accounting. About 30 active users.",
+  "technologies": [
+    "VBA Excel",
+    "Regression testing",
+    "Team Leadership",
+    "Technical Leadership",
+    "Project Management",
+    "Project Estimation",
+    "Roadmap Prioritization",
+    "Resource Allocation",
+    "Risk Management",
+    "Strategic Planning",
+    "Decision-making under Uncertainty",
+    "Stakeholder Communication",
+    "Cross-functional Leadership",
+    "Conflict Resolution",
+    "Hiring & Team Building",
+    "Mentoring & Coaching",
+    "Agile / Scrum",
+    "Code review",
+    "Windows 8",
+    "Exploratory testing",
+    "Manual QA",
+    "Bug tracking",
+    "From Scratch",
+    "Software Architecture",
+    "System Design",
+    "Monolithic architecture",
+    "Data modeling",
+    "DB design"
+  ],
+  "team": "2 persons (1x PM, 1x VBA dev)",
+  "responsibility": "System administration, support, and functionality updates"
+}

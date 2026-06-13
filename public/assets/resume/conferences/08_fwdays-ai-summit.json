@@ -1,0 +1,23 @@
+{
+  "title": "Fwdays AI Summit",
+  "filters": [
+    "ai",
+    "architect"
+  ],
+  "cert": true,
+  "certImg": "assets/certs/certificate-fwdays-ai-summit.jpg",
+  "url": "https://fwdays.com/en/event/fwdays-ai-summit",
+  "desc": "How AI is transforming product development — AI coding tools (Cursor, Claude Code), prompt engineering, agents & MCP, RAG, evals, AI architecture and AI for tech leadership.",
+  "skills": [
+    "AI / LLM",
+    "Agents",
+    "RAG",
+    "Prompt engineering",
+    "LLM integration",
+    "Multi-agent orchestration",
+    "MCP — Model Context Protocol",
+    "AI/ML architecture"
+  ],
+  "location": "Kyiv",
+  "date": "April 2026"
+}

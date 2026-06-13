@@ -1,0 +1,58 @@
+/* ============================================================
+   Egor Berezovsky — Résumé site · Editorial
+   ============================================================ */
+
+/* ---------- TOKENS ---------- */
+:root {
+  --bg: #f1e9dc;
+  --bg2: #ece3d4;
+  --surface: #f8f2e8;
+  --ink: #211c16;
+  --ink-soft: #4a4239;
+  --muted: #837a6b;
+  --faint: #a89e8c;
+  --line: #ddd2bf;
+  --line-soft: #e7dccb;
+  --accent: #cf5320;
+  --accent-2: #d9551d;
+  --accent-ink: #fdf6ec;
+
+  /* epoch hues — low chroma, walk through time */
+  --e1: oklch(0.66 0.1 78); /* 2009–11  amber */
+  --e2: oklch(0.64 0.13 50); /* 2011–12  terracotta */
+  --e3: oklch(0.63 0.16 33); /* 2012–20  signature red-orange */
+  --e4: oklch(0.6 0.075 258); /* 2020–22  muted indigo (pandemic/remote) */
+  --e5: oklch(0.64 0.085 168); /* 2023–26  muted teal (AI) */
+
+  --serif: 'Newsreader', Georgia, serif;
+  --body: 'Spectral', Georgia, serif;
+  --sans: 'Archivo', system-ui, sans-serif;
+
+  --maxw: 1180px;
+  --shadow-s: 0 1px 2px rgba(40, 30, 18, 0.06), 0 2px 8px rgba(40, 30, 18, 0.05);
+  --shadow-m: 0 6px 24px rgba(40, 30, 18, 0.1), 0 2px 6px rgba(40, 30, 18, 0.06);
+  --shadow-l: 0 18px 60px rgba(30, 22, 12, 0.22);
+}
+
+[data-theme='dark'] {
+  --bg: #18140f;
+  --bg2: #14110c;
+  --surface: #211c16;
+  --ink: #ede4d4;
+  --ink-soft: #cabfab;
+  --muted: #9a8f7c;
+  --faint: #6f6555;
+  --line: #3a3328;
+  --line-soft: #2c261d;
+  --accent: #f0703a;
+  --accent-2: #ee6a33;
+  --accent-ink: #18140f;
+  --e1: oklch(0.72 0.11 78);
+  --e2: oklch(0.7 0.14 50);
+  --e3: oklch(0.7 0.16 36);
+  --e4: oklch(0.68 0.09 258);
+  --e5: oklch(0.72 0.1 168);
+  --shadow-s: 0 1px 2px rgba(0, 0, 0, 0.4);
+  --shadow-m: 0 6px 24px rgba(0, 0, 0, 0.45);
+  --shadow-l: 0 18px 60px rgba(0, 0, 0, 0.6);
+}

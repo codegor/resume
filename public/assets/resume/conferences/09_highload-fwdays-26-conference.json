@@ -1,0 +1,25 @@
+{
+  "title": "Highload fwdays'26 conference",
+  "filters": [
+    "architect",
+    "devops",
+    "backend"
+  ],
+  "cert": true,
+  "certImg": "assets/certs/certificate-highload-fwdays-2026.jpg",
+  "url": "https://fwdays.com/en/event/highload-fwdays-2026",
+  "desc": "fwdays' high-load systems conference — hands-on scaling, architecture, databases, observability and DevOps for systems that withstand any load.",
+  "skills": [
+    "High load",
+    "Scalable architecture design",
+    "Databases",
+    "Observability",
+    "DevOps",
+    "Performance architecture",
+    "Caching architecture",
+    "High availability & reliability",
+    "Distributed systems"
+  ],
+  "location": "Kyiv",
+  "date": "June 2026"
+}

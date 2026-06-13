@@ -1,0 +1,316 @@
+# How to test this résumé — a human walkthrough
+
+> A story-driven manual QA pass. Each scene is **a goal a real visitor might have**,
+> the **exact path** to do it, and **what you should see**. Walk top-to-bottom once and
+> you'll have exercised every ability the page has.
+>
+> **Where to test:** open `http://resume.local` (the served dev build) or the built
+> `dist/index.html`. The app is ready when the "Loading résumé…" line is gone and the
+> hero is painted (internally `window.__appReady` is set). Most state persists in
+> `localStorage` — see _Scene 0_ to start clean.
+
+---
+
+## Scene 0 — Start clean (so persisted state doesn't fool you)
+
+The site remembers **theme**, **Headlines**, and **Recent · 5y** across reloads
+(`resume-theme`, `resume-compact`, `resume-recent` in `localStorage`).
+
+1. Open the page.
+2. Open dev-tools console and run `localStorage.clear()`, then reload.
+3. **You should see:** warm-cream **light** theme, full (not Headlines) view, all eras
+   present. The top bar, hero with photo + round video bubble, the **Focus** filter bar,
+   Skills, the curved timeline, "How I work", a testimonial, Certificates, Education /
+   Languages / Other, and a footer with a feedback box.
+
+> Tip: the in-app field guide is the canonical feature list. Click **"How to use"**
+> (top bar, ⓘ) any time — every story below mirrors one of its entries.
+
+---
+
+## Scene 1 — First impression & the guided tour
+
+1. Click **How to use** in the top bar.
+2. **See:** a modal titled _"How to read this résumé"_ listing ~14 numbered stories
+   (feed to AI, last 5 years, Headlines, filter by role, find a skill, etc.).
+3. Press **Esc** (or click the ✕ / the dark backdrop).
+4. **See:** the modal closes.
+
+---
+
+## Scene 2 — Read me through one role's lens (Focus filters)
+
+1. In the **Focus** bar, click a role chip — e.g. **AI**, **Architect**, **Team Lead**,
+   **Back-end**, **Front-end**, **QA**, or **DevOps**. Each chip shows a **count**.
+2. **See:**
+   - The chip turns terracotta (active).
+   - **Skills** narrow to that role's groups/skills.
+   - **Timeline** keeps only projects relevant to the role.
+   - Each project's **Technologies** show only the relevant ones; the rest collapse
+     behind a **"+N more"** pill.
+   - **Always-learning** courses & conferences filter too.
+   - A collapsed era shows a **"+N more roles"** pill.
+3. Click **Clear** (or the chip again, or the `✕`) → everything returns to "all".
+   - On a narrow window the word "Clear" compacts to a `✕`.
+
+**Cross-check the count:** the number on a chip should equal the projects left on the
+timeline when that filter is active.
+
+---
+
+## Scene 3 — Find where I used a specific skill (skill highlight)
+
+1. Click a **skill chip that has the ↗ icon** (in Skills, or a project's Technologies).
+2. **See:**
+   - A small toast: _"Highlighting "X" across skills & projects"_.
+   - That skill lights up **everywhere** it appears — Skills groups and every project
+     that used it.
+   - The page **scrolls to Skills** (to the matching group).
+   - A pill for the active skill appears in the Focus bar with an `✕`.
+3. Click the same chip again, or the pill's `✕` → highlight clears.
+
+---
+
+## Scene 4 — Filter the whole résumé by a project-only tool (funnel chips)
+
+1. Click a chip with the **⏷ funnel icon** — a project-specific term that is _not_ a
+   standalone skill (e.g. _"Sentry Catch lib"_).
+2. **See:** a toast _"Filtering everything by "X""_ and the page jumps to the
+   **timeline**, now filtered by that term (different behaviour from Scene 3's
+   skill-highlight).
+3. Clear via the active-skill pill `✕`.
+
+---
+
+## Scene 5 — Check one exact tool from a vacancy (search)
+
+1. In the Focus bar's **search box** ("Search a skill — e.g. RabbitMQ, RAG…"), type a
+   real term, e.g. `postgres`, `RabbitMQ`, `RAG`, `Symfony`.
+2. **See:**
+   - On first keystroke the page scrolls to **Skills**, which narrows to matching skills
+     — _including ones normally hidden behind "+N more"_.
+   - A **"N found ▾"** button appears. Click it for a breakdown panel: counts of
+     matching **skills / projects / courses & conferences**, each a jump link.
+3. Type nonsense (e.g. `zzzz`) → panel says _"Nothing matches… try a shorter spelling"_.
+4. Click the **✕** in the search field → query clears, full Skills returns.
+
+---
+
+## Scene 6 — The 30-second version (Headlines / compact)
+
+1. Click the **Headlines** toggle (top bar, near the brand).
+2. **See:**
+   - The page collapses to essentials — a short intro, headline skills & languages;
+     most sections hide.
+   - **Recent · 5y also turns on automatically** (Headlines implies recent).
+3. Reload the page → **Headlines is still on** (persisted). Toggle it back off.
+
+---
+
+## Scene 7 — Only the last 5 years (Recent · 5y)
+
+1. With Headlines **off**, click **Recent · 5y**.
+2. **See:** the timeline keeps only roles whose work **ended within the last 5
+   years**; Skills narrow to skills used **in those recent roles _or_ in courses /
+   conferences from the last 5 years**; the **Always-learning** section likewise keeps
+   only recent courses/conferences; older eras/skills drop.
+   - The 5-year window is measured from the résumé's **last-update date** (`updated` in
+     `base.json`), not the wall clock — so the cut-off matches the dates printed on the page.
+   - Sanity: the **Agent Development (AI / LLM)** group shows **no "+N more"** under
+     Recent (every AI skill is within 5y); a skill used only in a pre-window project
+     (e.g. an old PHP-era tech) stays hidden.
+3. Toggle off → everything returns. (This one also persists across reload.)
+
+---
+
+## Scene 8 — Open everything at once (Expand all)
+
+1. Click **Expand all**.
+2. **See:** every role and every conference/course card expands together — good for a
+   full read-through or **Ctrl-F** across all detail.
+3. **Now collapse one card by hand:** the **Expand all** toggle drops off, but the other
+   cards stay open.
+4. Click **Expand all** again → re-opens everything.
+
+---
+
+## Scene 9 — Read a conference or course card (description + programme link)
+
+In the timeline, conferences and courses appear as cards tagged **CONFERENCE** or
+**COURSE**. A card that has detail shows a **⌄ chevron** at the top-right.
+
+1. Find such a card — e.g. **"Course: Software Architecture Design in Practice"** or
+   **"Fwdays + DevRain AI"** — and click its header (or use **Expand all**, Scene 8).
+2. **See:** the card opens to a **one-line description** of what the course/conference
+   covered, plus a **"View programme on fwdays ↗"** link.
+3. Click the link → the matching **fwdays programme page** opens in a new tab.
+4. Click the header again → it collapses.
+5. **Both conferences _and_ courses** behave this way (courses gained descriptions +
+   programme links in June 2026). The link label adapts to the destination: **"View
+   programme on fwdays ↗"** for fwdays events, and a generic **"View programme ↗"** for
+   non-fwdays ones — e.g. **Vue.js Forge 3**, which links to `vuejsforge.com`.
+
+---
+
+## Scene 10 — Exact dates of a role
+
+1. **Hover the (i)** next to a role title in the timeline.
+2. **See:** a tooltip with the precise **start–end dates** for that specific project.
+   (In print, those dates render inline instead — see Scene 14.)
+
+---
+
+## Scene 11 — Watch the intro video
+
+1. Click the **round video bubble** next to the hero photo.
+2. **See:** a modal plays a talking-head intro — the **30-second cut** when Headlines is
+   on, the **full version** otherwise. Close it (✕ / Esc / backdrop).
+3. Also try a **project video** if a timeline project shows a play affordance.
+
+---
+
+## Scene 12 — Spot what's new and in demand (badges)
+
+1. Scan the Skills section (and timeline / certificates).
+2. **See:**
+   - **Highlighted chips** (soft tint + bolder text) = skills _in demand right now_.
+   - A bold orange **NEW** badge = the freshest, most in-demand skills just started.
+   - Other first-time skills get a small dot or a lightly highlighted chip.
+   - Mnemonic: **highlighted = hot now, NEW = newly added.**
+
+---
+
+## Scene 13 — Download / feed to an AI (the ⤓ menu)
+
+Click the **download (⤓)** button in the top bar. It opens a menu with three items:
+
+1. **Print / Save as PDF** — see Scene 14.
+2. **Markdown (.md) — for ATS & AI**
+   - Click it → a `.md` of the **entire** résumé downloads (every skill, project, course,
+     conference, fully expanded).
+   - Open it: plain text, parser-friendly. Paste it into Claude/ChatGPT or an ATS.
+3. **Download offline version** (hidden in the already-offline single-file build)
+   - Click it → one self-contained `.html` downloads.
+   - **Test it:** open that file with **no network / file://** — it should render the
+     full résumé (styles + content inlined). Videos stream from the configured media URL,
+     so they need network; everything else works offline.
+
+---
+
+## Scene 14 — Read it on paper / Save as PDF (print mode)
+
+1. **⤓ → Print / Save as PDF** (preferred — it expands content and waits for images
+   before printing). A raw **Ctrl/Cmd-P** also works.
+2. In the print preview **see:**
+   - Forced **light theme**, white background.
+   - **All** collapsed content expanded.
+   - Hero = **portrait left / intro right**.
+   - **Clickable** contact links; role dates shown **inline**.
+   - Language bars keep their colour; a clickable page-link in the footer.
+   - No cream background bleeding onto the page (it shouldn't).
+3. Close the dialog → the page returns to its previous theme (light/dark restored).
+
+> A4 ≈ 794px wide, which is below the 820px mobile breakpoint — print and mobile layouts
+> are independent, so verify both separately.
+
+---
+
+## Scene 15 — Switch the mood (theme)
+
+1. Click the **moon / sun** icon.
+2. **See:** the whole site flips between warm-cream **light** and **dark**.
+3. Reload → the chosen theme **persists**.
+
+---
+
+## Scene 16 — Navigate & get in touch
+
+1. **Section nav** (the on-page jump dots/links): click through to jump between sections;
+   the active section should track as you scroll.
+2. **Contacts** (top bar): **Telegram · LinkedIn · GitHub · Email**.
+   - Telegram / LinkedIn / GitHub open in a new tab.
+   - **Email** opens a `mailto:` with a pre-filled subject & intro body.
+3. **Feedback box** at the very bottom of the footer — leave a note and submit; confirm
+   the expected success/acknowledgement behaviour.
+
+---
+
+## Scene 17 — Mobile layout (≤ 820px)
+
+1. Resize the window to **390 × 844** (iPhone 12) — or use device emulation.
+2. **See:** the mobile layout engages — contact labels collapse to icons / a menu, the
+   Focus bar wraps, the search field spans full width. Re-run Scenes 2, 5, 6 on mobile.
+3. Resize back to desktop → layout restores.
+
+---
+
+## Scene 18 — The serpentine timeline (resize/zoom redraw)
+
+1. Look at the curved **"spine"** threading the timeline dots.
+2. **Resize** the window and **zoom** the browser (Ctrl +/−).
+3. **See:** the spine **re-measures and redraws** to keep hitting the era dots (it's an
+   SVG measured from `.epoch-dot` positions; recomputes on resize/zoom). No broken or
+   detached curve.
+
+---
+
+## Scene 19 — Robustness / error state
+
+1. **Healthy boot:** console has **no errors**; the boot-error screen does **not** appear.
+2. **Broken-data check (optional):** if `assets/config.json` or `assets/resume.json`
+   404s or is malformed, the app shows the **boot-error / "Couldn't load data"** screen
+   instead of a half-rendered page. Confirm a _good_ build does **not** trip it.
+
+---
+
+## Scene 20 — Language (i18n)
+
+The site is i18n-ready but **ships with English only**, so the **language switcher is
+hidden** until a second locale is registered (`availableLangs().length > 1`). To exercise
+the machinery:
+
+1. **English (default):** every visible string renders in English; `<html lang="en">`;
+   the document title is _"Egor Berezovsky — Résumé"_. The console shows **no
+   `[i18n] missing …` lines** on a good build (every key resolves from `src/ui/locales/en.json`).
+2. **Add a locale to test** (dev only): create `src/ui/locales/<code>.json` from `en.json`,
+   translate a few values, register it in `src/ui/composables/i18n.ts` (`dictionaries` +
+   `PLURAL_ORDER` if needed), and rebuild. Then:
+   - A **language switcher appears in the footer** (under the contact-handle line: `EN · <CODE>`).
+   - Click the other language → **UI strings, localized data fields (any `{ "en": …, "<code>": … }`
+     value in `config.json`/`resume.json`), the document title, and `<html lang>` all switch
+     live, with no page reload**; the active button is terracotta.
+   - The choice **persists** (`localStorage['resume-lang']`) and `?lang=<code>` in the URL
+     selects it on load (an unknown `?lang=` falls back to English).
+   - Any phrase missing from `<code>.json` falls back to English **and** logs one
+     `console.info('[i18n] missing …')` per key.
+3. Remove the temporary locale to return to the en-only ship.
+
+> Authoring: add `{ "en": "…", "<code>": "…" }` only to text fields — never to
+> dates/periods, tech names, ids, or URLs (the filter/sort engine parses those). See
+> `CONFIG_GUIDE.md → Localizing content`.
+
+---
+
+## Quick coverage checklist
+
+- [ ] Guided tour modal opens/closes (Esc)
+- [ ] Focus role filters + counts + Clear
+- [ ] Skill-highlight chips (↗) light up site-wide + toast + clear
+- [ ] Funnel chips (⏷) filter whole résumé
+- [ ] Search narrows Skills + "N found" breakdown + empty state
+- [ ] Headlines (auto-enables Recent · 5y) + persists
+- [ ] Recent · 5y standalone + persists
+- [ ] Expand all + hand-collapse drops the toggle
+- [ ] Conference/course card expands → one-line description + programme link ("View programme on fwdays ↗" for fwdays; generic "View programme ↗" for non-fwdays, e.g. Vue.js Forge 3 → vuejsforge.com; courses included)
+- [ ] Role-date (i) tooltip
+- [ ] Intro video modal (30s in Headlines, full otherwise)
+- [ ] NEW badges & highlighted chips
+- [ ] Markdown export downloads & is complete
+- [ ] Offline `.html` opens with no network
+- [ ] Print / Save as PDF (light, expanded, clickable, inline dates)
+- [ ] Theme toggle + persists
+- [ ] Section nav + contacts + feedback box
+- [ ] Mobile ≤820px layout
+- [ ] Serpentine spine redraws on resize/zoom
+- [ ] No console errors / no boot-error screen on a good build
+- [ ] English-only: language switcher hidden, no `[i18n] missing` console lines; (dev) a 2nd locale switches UI + data + title + `<html lang>` live and persists

@@ -1,0 +1,22 @@
+{
+  "period": "02.2023 – 05.2026",
+  "era": "The age of generative AI",
+  "colorVar": "--e5",
+  "ghostYear": "2023",
+  "side": "left",
+  "meanwhile": [
+    {
+      "t": "ChatGPT launches",
+      "y": "Nov 2022"
+    },
+    {
+      "t": "Claude released",
+      "y": "2023"
+    },
+    {
+      "t": "The AI-agent era begins",
+      "y": "2024"
+    }
+  ],
+  "photoQuery": "AI neural network servers 2023"
+}

@@ -1,0 +1,26 @@
+{
+  "period": "07.2009 – 06.2011",
+  "era": "The PHP & jQuery years",
+  "colorVar": "--e1",
+  "ghostYear": "2009",
+  "side": "left",
+  "meanwhile": [
+    {
+      "t": "Node.js is born",
+      "y": "2009"
+    },
+    {
+      "t": "Bitcoin",
+      "y": "2009"
+    },
+    {
+      "t": "Redis & MongoDB",
+      "y": "2009"
+    },
+    {
+      "t": "Instagram",
+      "y": "2010"
+    }
+  ],
+  "photoQuery": "early web development 2009 php jquery desk"
+}

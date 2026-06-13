@@ -1,0 +1,344 @@
+/* ============================================================
+   PRINT  (prints the current filtered view — content auto-expands)
+   ============================================================ */
+.print-contacts,
+.print-footer {
+  display: none;
+}
+
+@media print {
+  @page {
+    size: A4;
+    margin: 12mm 14mm 15mm;
+  }
+  /* period (i): show the dates inline as plain text instead of a hover tip */
+  .period-info {
+    position: static;
+    margin-left: 6px;
+    color: #555;
+    cursor: default;
+  }
+  .period-info svg {
+    display: none;
+  }
+  .period-info .period-tip {
+    position: static;
+    transform: none;
+    opacity: 1;
+    pointer-events: none;
+    background: none;
+    color: #555;
+    box-shadow: none;
+    padding: 0;
+    border-radius: 0;
+    font-size: 9pt;
+    font-weight: 500;
+    white-space: nowrap;
+  }
+  .period-info .period-tip::before {
+    content: '(';
+  }
+  .period-info .period-tip::after {
+    content: ')';
+    border: 0;
+    position: static;
+  }
+  html,
+  body {
+    background: #fff !important;
+    color: #1a1a1a;
+    font-size: 10.5pt;
+  }
+  body::before {
+    display: none;
+  }
+  /* surfaces print on clean white paper */
+  .hero,
+  .section,
+  .cta,
+  .footer,
+  .epoch-card,
+  .marker-card,
+  .project,
+  .skillgroup,
+  .cert,
+  .conf,
+  .edu,
+  .lang {
+    background: #fff !important;
+  }
+
+  /* hide screen-only chrome / interactive affordances */
+  .topbar,
+  .section-nav,
+  .filterbar,
+  .skill-banner,
+  .feedback,
+  .cta-actions,
+  .cta-deco,
+  .cta-keep,
+  .cta-top,
+  .ss-status,
+  .dl-menu,
+  .vnote,
+  .hero-photo-vid,
+  .more-pill,
+  .ttag.tech-more,
+  .project-expand,
+  .marker-exp {
+    display: none !important;
+  }
+
+  .wrap {
+    max-width: 100%;
+    padding: 0;
+  }
+  .section {
+    padding: 10px 0;
+  } /* NO break-inside avoid — let content flow & fill pages */
+  h1,
+  h2,
+  h3,
+  .section-head,
+  .sub-h {
+    break-after: avoid;
+  }
+  /* No forced page breaks between sections — everything flows continuously so the PDF
+     has no big blank gaps (the screen / offline HTML is the rich interactive copy; the
+     print/PDF just needs to be compact). Section headers stay glued to their following
+     content via break-after:avoid above, so none are orphaned at the foot of a page. */
+  /* short sections stay whole: push to the next page if they don't fit, else keep */
+  #education,
+  #languages,
+  #beyond,
+  #reference,
+  #how-i-work {
+    break-inside: avoid;
+  }
+
+  /* fact strip + outcomes + testimonial keep their accents on paper */
+  .hero-facts {
+    margin: -6px 0 18px;
+    padding: 8px 0;
+  }
+  .hf {
+    font-size: 9.5pt;
+  }
+  .hf-ic {
+    color: var(--accent) !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  .outcome {
+    break-inside: avoid;
+    background: #fff !important;
+  }
+  .oc-delta {
+    color: var(--accent) !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  .tst-quote::before {
+    color: var(--accent) !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  .tst-link {
+    color: var(--accent) !important;
+  }
+
+  /* hero: portrait left, intro right, compact */
+  .hero {
+    padding-top: 2px;
+  }
+  .hero-folio {
+    margin-bottom: 14px;
+  }
+  .hero-grid {
+    display: grid !important;
+    grid-template-columns: 150px 1fr;
+    column-gap: 26px;
+    row-gap: 0;
+    align-items: start;
+    grid-template-areas: 'photo name' 'photo roles' 'photo lead' 'photo pc' !important;
+  }
+  .hg-photo {
+    align-self: start;
+  }
+  .hero-photo-col {
+    align-items: flex-start;
+  }
+  .hero-photo {
+    display: block; /* kill the inline baseline gap so the photo fills its frame (no fallback strip) */
+    width: 150px;
+    height: 188px;
+    box-shadow: none;
+  }
+  .hero-name {
+    font-size: 46px !important;
+  }
+  .hero-roles {
+    gap: 10px;
+  }
+  .hero-stats {
+    gap: 16px;
+    margin-top: 18px;
+  }
+  .print-contacts {
+    display: flex !important;
+    flex-wrap: wrap;
+    gap: 7px 22px;
+    margin-top: 14px;
+    font-family: var(--sans);
+    font-size: 10pt;
+  }
+  .print-contacts a {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    color: var(--accent) !important;
+    text-decoration: none;
+  }
+  .print-contacts svg {
+    width: 13px;
+    height: 13px;
+  }
+
+  /* timeline → clean single column that flows across pages */
+  .tl-spine,
+  .era-cloud-zone,
+  .epoch-ghostyear,
+  .epoch-tint,
+  .epoch-dot,
+  .epoch::after {
+    display: none !important;
+  }
+  .epochs {
+    gap: 16px;
+  }
+  .epoch-group {
+    gap: 12px;
+  }
+  .epoch {
+    display: block;
+    justify-content: flex-start;
+    --cardw: 100%;
+    padding-left: 14px;
+    border-left: 2.5px solid var(--ec);
+  }
+  .epoch-card,
+  .marker-card {
+    width: 100% !important;
+    box-shadow: none;
+    border: none;
+    border-radius: 0;
+    overflow: visible;
+  }
+  .epoch-inner {
+    padding: 0 0 0 4px;
+  }
+  .epoch-card.reveal,
+  .reveal-section,
+  .reveal-up {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  /* always show project bodies; let long cards FLOW across pages so they fill the
+     sheet instead of jumping wholesale and leaving big gaps */
+  .project {
+    break-inside: auto;
+    border-color: #ddd;
+  }
+  /* NB: deliberately NO `break-after: avoid` on the epoch header chain
+     (.epoch-era/.epoch-title/.epoch-meta/.epoch-summary/.project-head). Keeping that
+     whole ~1000px block together pushed it wholesale to the next page when it didn't
+     fit, leaving a big blank gap. Letting it flow packs the pages with no empty space
+     (a header may rarely sit near a page foot, which the user prefers over the gap). */
+  /* the "+N earlier eras" summary pill (Recent view) SHOULD print so the reader
+     knows older roles were collapsed */
+  .epoch-more-row {
+    display: flex !important;
+  }
+  .epoch-more-row .more-pill {
+    display: inline-block !important;
+    color: var(--accent) !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  .mp-arrow {
+    display: none !important;
+  }
+  .project.dim,
+  .project.dim + .project.dim,
+  .project-collapsed,
+  .skillgroup.dim {
+    display: none !important;
+  }
+  .project-body {
+    grid-template-rows: 1fr !important;
+  }
+  .project-body > div {
+    overflow: visible !important;
+  }
+
+  .cert,
+  .conf,
+  .skillgroup,
+  .lang-row,
+  .edu,
+  .hero-quote {
+    break-inside: avoid;
+  }
+  /* flatten the Q&A card for print: no surface fill, keep the accent bar as a border */
+  .hero-qa {
+    background: none;
+    border-radius: 0;
+    border-left: 2px solid var(--accent);
+    padding: 2px 0 2px 14px;
+  }
+  .hero-qa::before {
+    display: none;
+  }
+  .cert {
+    box-shadow: none;
+  }
+
+  /* only the small colored chips/bars are allowed to print their fill */
+  .lang-bar,
+  .lang-bar i,
+  .cbadge.done,
+  .tag-role {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  .cta,
+  .footer {
+    background: #fff !important;
+    color: #1a1a1a !important;
+  }
+
+  /* links: keep clickable, accent the important ones */
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+  .print-contacts a,
+  .marker-link,
+  .footer-contacts a,
+  .print-footer a {
+    color: var(--accent) !important;
+  }
+
+  /* page-link footer (clickable) repeated at the foot of the document */
+  .print-footer {
+    display: block !important;
+    margin-top: 18px;
+    padding-top: 10px;
+    border-top: 1px solid #ddd;
+    font-family: var(--sans);
+    font-size: 9pt;
+    color: var(--muted);
+  }
+}

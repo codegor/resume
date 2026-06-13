@@ -1,0 +1,30 @@
+{
+  "title": "Course: Agentic Engineering for large projects",
+  "filters": [
+    "ai",
+    "architect"
+  ],
+  "cert": true,
+  "certImg": "assets/certs/course-agentic-engineering-for-large-projects.jpg",
+  "url": "https://fwdays.com/en/event/rules-ide-course",
+  "desc": "Agentic IDEs in large, brownfield & legacy codebases — rules, agent skills, MCP and spec-driven development.",
+  "skills": [
+    "AI agents",
+    "Agentic IDE",
+    "Legacy",
+    "Brownfield",
+    "Agentic AI Development",
+    "Claude Code",
+    "Cursor",
+    "Spec-Driven Development (SDD)",
+    "OpenSpec",
+    "Multi-agent orchestration",
+    "MCP — Model Context Protocol",
+    "Legacy Modernization"
+  ],
+  "year": "2026",
+  "date": "March 2026",
+  "pin": 90,
+  "status": "completed",
+  "certificate": true
+}

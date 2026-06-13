@@ -1,0 +1,21 @@
+{
+  "title": "Crash Course: Technical Leadership",
+  "filters": [
+    "lead"
+  ],
+  "cert": true,
+  "certImg": "assets/certs/crash-course-technical-leadership.jpg",
+  "url": "https://fwdays.com/en/event/tech-lead-course",
+  "desc": "Technical leadership beyond senior — architecture, communication and decision-making for tech leads.",
+  "skills": [
+    "Team Lead",
+    "Mentoring & Coaching",
+    "Strategic Planning",
+    "Technical Leadership",
+    "Decision-making under Uncertainty"
+  ],
+  "year": "2026",
+  "date": "April 2026",
+  "status": "completed",
+  "certificate": true
+}

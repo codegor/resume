@@ -1,0 +1,23 @@
+{
+  "title": "Highload fwdays'25 conference",
+  "filters": [
+    "architect",
+    "devops",
+    "backend"
+  ],
+  "cert": true,
+  "certImg": "assets/certs/certificate-highload-fwdays-2025.jpg",
+  "url": "https://fwdays.com/en/event/highload-fwdays-2025",
+  "desc": "Hands-on high-load development — scaling, architecture, databases, caching and DevOps (Kyiv, 14 June 2025).",
+  "skills": [
+    "High load",
+    "Scalable architecture design",
+    "Caching architecture",
+    "Databases",
+    "DevOps",
+    "Performance architecture",
+    "High availability & reliability"
+  ],
+  "location": "Kyiv",
+  "date": "June 2025"
+}

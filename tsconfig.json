@@ -1,0 +1,33 @@
+{
+  "compilerOptions": {
+    "target": "ES2020",
+    "useDefineForClassFields": true,
+    "module": "ESNext",
+    "lib": ["ES2020", "DOM", "DOM.Iterable"],
+    "skipLibCheck": true,
+    "moduleResolution": "bundler",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true,
+    "jsx": "preserve",
+    "strict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noFallthroughCasesInSwitch": true,
+    "verbatimModuleSyntax": true,
+    "paths": { "@/*": ["./src/ui/*"] },
+    "types": ["vite/client"]
+  },
+  "include": [
+    "env.d.ts",
+    "src/ui/main.ts",
+    "src/ui/App.vue",
+    "src/ui/config.ts",
+    "src/ui/components/**/*.vue",
+    "src/ui/composables/**/*.ts",
+    "src/ui/utils/**/*.ts",
+    "src/ui/types/**/*.ts",
+    "src/ui/locales/**/*.json"
+  ],
+  "exclude": ["node_modules", "dist", "src/tests"]
+}

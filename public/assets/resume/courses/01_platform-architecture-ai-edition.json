@@ -1,0 +1,23 @@
+{
+  "title": "Platform Architecture AI edition",
+  "filters": [
+    "architect",
+    "ai"
+  ],
+  "cert": true,
+  "certImg": "assets/certs/platform-architecture-ai-edition.jpg",
+  "url": "https://fwdays.com/en/event/platform-architecture-course",
+  "desc": "Platform architecture — scalable, predictable platforms with safe releases, observability and AI-assisted development.",
+  "skills": [
+    "Platform architecture",
+    "AI",
+    "Scalability",
+    "AI/ML architecture",
+    "Cloud-native architecture",
+    "Scalable architecture design"
+  ],
+  "year": "2026",
+  "date": "May 2026",
+  "status": "enrolled",
+  "certificate": false
+}

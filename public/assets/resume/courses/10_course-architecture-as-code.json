@@ -1,0 +1,23 @@
+{
+  "title": "Course: Architecture as Code",
+  "filters": [
+    "architect",
+    "devops"
+  ],
+  "cert": true,
+  "certImg": "assets/certs/course-architecture-as-code.jpg",
+  "url": "https://fwdays.com/en/event/architecture-as-code-course",
+  "desc": "Architecture as Code — versioned diagrams, documentation and architecture decision records (ADRs).",
+  "skills": [
+    "Architecture",
+    "Infrastructure as Code",
+    "Diagrams as Code",
+    "Documentation",
+    "Documentation as Code",
+    "Architecture Decision Records — ADRs"
+  ],
+  "year": "2026",
+  "date": "January 2026",
+  "status": "completed",
+  "certificate": true
+}

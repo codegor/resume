@@ -1,0 +1,19 @@
+{
+  "title": "PHP fwdays'25 conference",
+  "filters": [
+    "backend"
+  ],
+  "cert": true,
+  "certImg": "assets/certs/certificate-php-fwdays-2025.jpg",
+  "url": "https://fwdays.com/en/event/php-fwdays-2025",
+  "desc": "Modern PHP — the Symfony & Laravel ecosystem, performance and engineering best practices.",
+  "skills": [
+    "PHP",
+    "Symfony",
+    "Laravel",
+    "Dependency Injection",
+    "Performance optimization"
+  ],
+  "location": "Kyiv",
+  "date": "October 2025"
+}

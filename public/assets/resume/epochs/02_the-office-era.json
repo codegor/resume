@@ -1,0 +1,22 @@
+{
+  "period": "06.2011 – 09.2012",
+  "era": "The office era",
+  "colorVar": "--e2",
+  "ghostYear": "2011",
+  "side": "right",
+  "meanwhile": [
+    {
+      "t": "Laravel released",
+      "y": "Jun 2011"
+    },
+    {
+      "t": "Trello & Kanban go mainstream",
+      "y": "2011"
+    },
+    {
+      "t": "Bootstrap",
+      "y": "2011"
+    }
+  ],
+  "photoQuery": "office developers 2011 dual monitors"
+}

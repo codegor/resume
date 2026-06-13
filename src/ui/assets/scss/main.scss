@@ -1,0 +1,23 @@
+/* ============================================================
+   GLOBAL STYLESHEET — ordered @use list; the cascade is these partials
+   concatenated in order. Style taxonomy (where a rule should live):
+     • _tokens      — design tokens (:root vars + [data-theme=dark])
+     • _base        — reset + layout primitives (.wrap, .section rhythm, paper texture)
+     • _breakpoints — $bp-* vars + responsive @mixins (used BY components; emits nothing,
+                      so it is intentionally NOT @use'd here)
+     • _primitives  — shared low-level UI reused by 2+ components (.cbtn/.iconbtn/.has-tip/.bigbtn)
+     • <SFC scoped> — each component owns its own look (+ its component-local @media)
+     • _hero (820 shell) / _timeline / _print / _misc utils — INTENTIONALLY global:
+                      cross-cutting page frame, serpentine geometry, print orchestration,
+                      reveal + [data-compact] state utilities (not yet-to-migrate)
+   @media print stays LAST so its equal-specificity overrides win. */
+@use 'tokens';
+@use 'base';
+@use 'primitives';
+@use 'topbar';
+@use 'hero';
+@use 'skills';
+@use 'timeline';
+@use 'edu-lang';
+@use 'misc';
+@use 'print';

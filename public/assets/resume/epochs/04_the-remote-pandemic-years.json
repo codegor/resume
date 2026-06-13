@@ -1,0 +1,22 @@
+{
+  "period": "12.2020 – 11.2022",
+  "era": "The remote / pandemic years",
+  "colorVar": "--e4",
+  "ghostYear": "2020",
+  "side": "right",
+  "meanwhile": [
+    {
+      "t": "COVID-19 — the world goes remote",
+      "y": "2020"
+    },
+    {
+      "t": "Zoom boom",
+      "y": "2020"
+    },
+    {
+      "t": "GPT-3",
+      "y": "2020"
+    }
+  ],
+  "photoQuery": "empty city street pandemic 2020 home office"
+}

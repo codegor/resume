@@ -1,0 +1,34 @@
+{
+  "period": "10.2012 – 12.2020",
+  "era": "The startup decade · went fully remote",
+  "colorVar": "--e3",
+  "ghostYear": "2012",
+  "side": "left",
+  "meanwhile": [
+    {
+      "t": "TypeScript",
+      "y": "2012"
+    },
+    {
+      "t": "Docker",
+      "y": "2013"
+    },
+    {
+      "t": "React",
+      "y": "2013"
+    },
+    {
+      "t": "Vue.js",
+      "y": "2014"
+    },
+    {
+      "t": "Kubernetes",
+      "y": "2014"
+    },
+    {
+      "t": "TikTok goes global",
+      "y": "2018"
+    }
+  ],
+  "photoQuery": "startup laptop coworking 2015 docker vue"
+}

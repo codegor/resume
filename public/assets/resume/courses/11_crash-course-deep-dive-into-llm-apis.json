@@ -1,0 +1,28 @@
+{
+  "title": "Crash Course: Deep Dive into LLM APIs",
+  "filters": [
+    "ai",
+    "backend"
+  ],
+  "cert": true,
+  "certImg": "assets/certs/crash-course-deep-dive-into-llm-apis.jpg",
+  "url": "https://fwdays.com/en/event/llm-api-course",
+  "desc": "LLM APIs in depth — transformer fundamentals, configuring models via API and building production RAG with context engineering.",
+  "skills": [
+    "LLM integration",
+    "OpenAI API",
+    "Claude API",
+    "Embeddings",
+    "Structured outputs — JSON schema",
+    "Tool calling / function calling",
+    "Batch API",
+    "Prompt engineering",
+    "LLM cost optimization",
+    "MCP — Model Context Protocol",
+    "Multi-agent orchestration"
+  ],
+  "year": "2026",
+  "date": "February 2026",
+  "status": "completed",
+  "certificate": true
+}

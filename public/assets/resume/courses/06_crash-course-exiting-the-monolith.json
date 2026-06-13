@@ -1,0 +1,25 @@
+{
+  "title": "Crash Course: Exiting the Monolith",
+  "filters": [
+    "architect",
+    "backend"
+  ],
+  "cert": true,
+  "certImg": "assets/certs/crash-course-exiting-the-monolith.jpg",
+  "url": "https://fwdays.com/en/event/exiting-monolith-course",
+  "desc": "Monolith to microservices — gradual, controlled migration to serverless on AWS Lambda, drawn from real e-commerce cases.",
+  "skills": [
+    "Microservices",
+    "Serverless / AWS Lambda",
+    "Refactoring",
+    "Monolithic architecture",
+    "Distributed systems",
+    "Event-driven Architecture",
+    "Legacy Modernization",
+    "CQRS"
+  ],
+  "year": "2026",
+  "date": "May 2026",
+  "status": "completed",
+  "certificate": true
+}

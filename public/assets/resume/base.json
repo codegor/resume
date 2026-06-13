@@ -1,0 +1,1313 @@
+{
+  "name": "Egor Berezovsky",
+  "updated": "2026-06-13",
+  "contacts": {
+    "telegram": "@esbukraine",
+    "email": "codeegor@gmail.com",
+    "linkedin": "egor-code"
+  },
+  "experience_years": "16+",
+  "summary": "16+ years of experience in development of scalable and reliable web applications.",
+  "tagline": "If you look for a person with scrupulousness and attention to detail, we are exactly on the way!",
+  "about_me": {
+    "short_interview": {
+      "question": "What power are you endowed with?",
+      "answer": "My strength is **automating the processes** around me — and being an idea generator."
+    }
+  },
+  "how_i_work": {
+    "label": "Principle",
+    "title": "Bug-free by design",
+    "lead": "My base rule isn't *“no bugs”* — it's **correctness engineered in**, so whole classes of bugs can't exist in the first place.",
+    "points": [
+      {
+        "title": "Architecture first",
+        "desc": "Every detail planned before a line of code is written."
+      },
+      {
+        "title": "Typed contracts",
+        "desc": "SOLID, typed APIs and schema-tested boundaries."
+      },
+      {
+        "title": "Bug-proof coding rules",
+        "desc": "A personal collection of practices and principles that catch mistakes at the coding step — as the code is written."
+      },
+      {
+        "title": "QA gates in PR",
+        "desc": "Nothing merges until checks pass in CI."
+      }
+    ]
+  },
+  "filters": [
+    {
+      "id": "all",
+      "label": "All"
+    },
+    {
+      "id": "ai",
+      "label": "AI / LLM",
+      "short": "AI",
+      "roleLabel": "AI/LLM",
+      "skillGroups": [
+        "agent_development"
+      ],
+      "keywords": [
+        "openai",
+        "claude",
+        "gpt",
+        "dall",
+        "llm",
+        "rag",
+        "embedding",
+        "agent",
+        "nuxt"
+      ]
+    },
+    {
+      "id": "architect",
+      "label": "Architect",
+      "roleLabel": "Architect",
+      "skillGroups": [
+        "software_architect"
+      ],
+      "keywords": [
+        "microservice",
+        "soa",
+        "ddd",
+        "domain",
+        "architecture",
+        "event",
+        "cqrs",
+        "saga"
+      ]
+    },
+    {
+      "id": "lead",
+      "label": "Team Lead",
+      "short": "Team lead",
+      "roleLabel": "Team Lead",
+      "skillGroups": [
+        "team_lead"
+      ],
+      "keywords": [
+        "jira",
+        "trello",
+        "scrum",
+        "agile",
+        "kanban",
+        "mentor"
+      ]
+    },
+    {
+      "id": "backend",
+      "label": "Back-end",
+      "roleLabel": "Back-end",
+      "skillGroups": [
+        "back_end"
+      ],
+      "keywords": [
+        "php",
+        "symfony",
+        "laravel",
+        "mysql",
+        "postgres",
+        "redis",
+        "mongo",
+        "graphql",
+        "node",
+        "express",
+        "rabbitmq",
+        "doctrine",
+        "elasticsearch",
+        "memcached",
+        "rest",
+        "api",
+        "twig"
+      ]
+    },
+    {
+      "id": "frontend",
+      "label": "Front-end",
+      "roleLabel": "Front-end",
+      "skillGroups": [
+        "front_end"
+      ],
+      "keywords": [
+        "javascript",
+        "vue",
+        "react",
+        "nuxt",
+        "css",
+        "html",
+        "typescript",
+        "sass",
+        "scss",
+        "webpack",
+        "vite",
+        "jquery"
+      ]
+    },
+    {
+      "id": "qa",
+      "label": "QA",
+      "roleLabel": "QA",
+      "skillGroups": [
+        "qa"
+      ],
+      "keywords": [
+        "test",
+        "jest",
+        "phpunit",
+        "cypress",
+        "selenium",
+        "qa",
+        "exploratory"
+      ]
+    },
+    {
+      "id": "devops",
+      "label": "DevOps",
+      "roleLabel": "DevOps",
+      "skillGroups": [
+        "devops"
+      ],
+      "keywords": [
+        "docker",
+        "kubernetes",
+        "nginx",
+        "prometheus",
+        "grafana",
+        "terraform",
+        "ansible",
+        "aws",
+        "gitlab",
+        "jenkins",
+        "cron",
+        "centrifugo",
+        "ci",
+        "cd",
+        "sentry"
+      ]
+    }
+  ],
+  "providers": {
+    "fwdays": {
+      "logo": "assets/providers/fwdays.png"
+    },
+    "Vue School": {
+      "logo": "assets/providers/vueschool.png"
+    }
+  },
+  "skills": {
+    "note": "y – years, m – months of experience",
+    "agent_development": {
+      "title": "Agent Development (AI / LLM)",
+      "experience": "1.5y",
+      "items": [
+        "Agentic AI Development (1y)",
+        "Claude Code (6m)",
+        "Cursor (6m)",
+        "GitHub Copilot (1.5y)",
+        "Spec-Driven Development (SDD) (6m)",
+        "OpenSpec (6m)",
+        "LLM integration (1.5y)",
+        "OpenAI API (1.5y)",
+        "OpenRouter",
+        "AI Content generation (1.5y)",
+        "Batch API (1.5y)",
+        "Embeddings & semantic search (1y)",
+        "Content moderation (1y)",
+        "Prompt engineering (1.5y)",
+        "Automated content pipelines (1.5y)",
+        "AI Image generation (1y)",
+        "DALL·E (1y)",
+        "Reliable AI services (1.5y)",
+        "RAG — Retrieval-Augmented Generation (1y)",
+        "Vector databases — pgvector (1y)",
+        "Tool calling / function calling (1y)",
+        "Structured outputs — JSON schema (1y)",
+        "LLM cost optimization (1y)",
+        "Frontier models — GPT, Claude (1.5y)",
+        "LLM evaluation — LLM-as-judge (1y)",
+        "LLM observability — custom tracing (1y)",
+        "Guardrails & prompt-injection safety (1y)",
+        "MCP — Model Context Protocol (6m)",
+        "Hybrid search & reranking (1y)",
+        "Multi-agent orchestration (1y)",
+        "Multimodal AI — vision (1y)"
+      ]
+    },
+    "software_architect": {
+      "experience": "13y",
+      "items": [
+        "Scalable architecture design (8y)",
+        "Software Architecture (14y)",
+        "System Design (14y)",
+        "Solution Architecture (12y)",
+        "From Scratch (13y)",
+        "Monolithic architecture (10y)",
+        "Microservices (3y)",
+        "Distributed systems (5y)",
+        "Event-driven Architecture (7y)",
+        "Async Architecture (9y)",
+        "CQRS (3y)",
+        "Caching architecture (6y)",
+        "Real-time data architecture (6y)",
+        "API & integration design (12y)",
+        "REST (12y)",
+        "GraphQL (3y)",
+        "Data modeling (13y)",
+        "DB design (13y)",
+        "Performance architecture (9y)",
+        "High load (5y)",
+        "High availability & reliability (6y)",
+        "Cloud-native architecture (6y)",
+        "Security architecture (9y)",
+        "AI/ML architecture (3y)",
+        "RAG (3y)",
+        "Observability architecture (7y)",
+        "Infrastructure as Code (5y)",
+        "Domain-Driven Design — DDD (3y)",
+        "Design patterns & best practices (11y)",
+        "SOLID (11y)",
+        "DRY (11y)",
+        "YAGNI (11y)",
+        "KISS (11y)",
+        "Getting Real — book (14y)",
+        "Reusable in-house libraries (11y)",
+        "Legacy Modernization (9y)",
+        "Modern Architecture (11y)",
+        "Legacy Architecture (6y)",
+        "Architecture Decision Records — ADRs (3y)",
+        "Documentation as Code (5y)",
+        "Documentation (7y)"
+      ]
+    },
+    "team_lead": {
+      "experience": "3.5y",
+      "tools": [
+        {
+          "name": "Jira",
+          "experience": "5y"
+        },
+        {
+          "name": "Agile / Scrum",
+          "experience": "4y"
+        },
+        {
+          "name": "Trello",
+          "experience": "3y"
+        },
+        {
+          "name": "Gantt charts",
+          "experience": "3y"
+        },
+        {
+          "name": "Figma",
+          "experience": "3y"
+        },
+        {
+          "name": "Technical Leadership",
+          "experience": "12y"
+        },
+        {
+          "name": "Team Leadership",
+          "experience": "7y"
+        },
+        {
+          "name": "Project Management",
+          "experience": "4y"
+        },
+        {
+          "name": "Project Estimation",
+          "experience": "13y"
+        },
+        {
+          "name": "Roadmap Prioritization",
+          "experience": "10y"
+        },
+        {
+          "name": "Resource Allocation",
+          "experience": "4y"
+        },
+        {
+          "name": "Risk Management",
+          "experience": "10y"
+        },
+        {
+          "name": "Strategic Planning",
+          "experience": "10y"
+        },
+        {
+          "name": "Decision-making under Uncertainty",
+          "experience": "12y"
+        },
+        {
+          "name": "Stakeholder Communication",
+          "experience": "7y"
+        },
+        {
+          "name": "Cross-functional Leadership",
+          "experience": "9y"
+        },
+        {
+          "name": "Conflict Resolution",
+          "experience": "10y"
+        },
+        {
+          "name": "Hiring & Team Building",
+          "experience": "4y"
+        },
+        {
+          "name": "Mentoring & Coaching",
+          "experience": "9y"
+        },
+        {
+          "name": "Code Review",
+          "experience": "12y"
+        },
+        {
+          "name": "Documentation",
+          "experience": "7y"
+        }
+      ],
+      "highlights": [
+        {
+          "name": "Product & UX improvement proposals",
+          "experience": "12y"
+        }
+      ]
+    },
+    "back_end": {
+      "experience": "15y",
+      "items": [
+        {
+          "name": "Node.js",
+          "experience": "4y"
+        },
+        {
+          "name": "Express.js",
+          "experience": "1m"
+        },
+        {
+          "name": "PHP 8.3",
+          "experience": "12y",
+          "details": [
+            {
+              "name": "Laravel 9",
+              "experience": "4y"
+            },
+            {
+              "name": "Symfony 6.4",
+              "experience": "4y",
+              "components": [
+                "Messenger",
+                "Console",
+                "HttpClient"
+              ]
+            },
+            {
+              "name": "Laravel Nova",
+              "experience": "1y"
+            },
+            {
+              "name": "Laravel Horizon",
+              "experience": "5m"
+            },
+            {
+              "name": "Laravel Passport",
+              "experience": "1y"
+            },
+            {
+              "name": "pthreads"
+            },
+            {
+              "name": "GraphQL",
+              "experience": "3y"
+            }
+          ]
+        },
+        {
+          "name": "MySQL",
+          "experience": "12y"
+        },
+        {
+          "name": "PostgreSQL",
+          "experience": "5y"
+        },
+        {
+          "name": "Elasticsearch",
+          "experience": "4y"
+        },
+        {
+          "name": "Redis",
+          "experience": "5y"
+        },
+        {
+          "name": "MongoDB",
+          "experience": "3y"
+        },
+        {
+          "name": "Memcached",
+          "experience": "3y"
+        },
+        {
+          "name": "YII"
+        },
+        {
+          "name": "CodeIgniter 3.0",
+          "experience": "1y"
+        },
+        {
+          "name": "Zend 1.14",
+          "experience": "3y"
+        },
+        {
+          "name": "Doctrine 2.0",
+          "experience": "5y"
+        },
+        {
+          "name": "WordPress",
+          "experience": "6y"
+        },
+        {
+          "name": "EasyAdmin",
+          "experience": "3y"
+        },
+        {
+          "name": "API Platform",
+          "experience": "2m"
+        },
+        {
+          "name": "Swagger",
+          "experience": "3y"
+        },
+        {
+          "name": "Moodle",
+          "experience": "1m"
+        },
+        {
+          "name": "Twig",
+          "experience": "5y"
+        },
+        {
+          "name": "REST API",
+          "experience": "12y"
+        },
+        {
+          "name": "AJAX",
+          "experience": "9y"
+        },
+        {
+          "name": "JSON",
+          "experience": "1y"
+        },
+        {
+          "name": "HTTP",
+          "experience": "14y"
+        },
+        {
+          "name": "WebSocket",
+          "experience": "5y"
+        },
+        {
+          "name": "Microservices",
+          "experience": "3y"
+        },
+        {
+          "name": "RabbitMQ",
+          "experience": "3y"
+        },
+        {
+          "name": "Kafka",
+          "experience": "3y"
+        },
+        {
+          "name": "Mercure",
+          "experience": "3y"
+        },
+        {
+          "name": "SOAP",
+          "experience": "2y"
+        },
+        {
+          "name": "XML",
+          "experience": "2y"
+        },
+        {
+          "name": ".pdf/.docx/.xls generation"
+        },
+        {
+          "name": "DOM parsing",
+          "experience": "5m"
+        },
+        {
+          "name": "OpenAI API",
+          "experience": "3y",
+          "details": [
+            "Batch API",
+            "Moderation API",
+            "embeddings"
+          ]
+        },
+        {
+          "name": "OpenRouter",
+          "experience": "3y"
+        },
+        {
+          "name": "Facebook Graph API",
+          "experience": "3y"
+        },
+        {
+          "name": "newsAPI",
+          "experience": "3y"
+        },
+        {
+          "name": "SerpApi",
+          "experience": "3y"
+        },
+        {
+          "name": "Payment services API",
+          "experience": "3y"
+        },
+        {
+          "name": "Centrifugo",
+          "experience": "3y"
+        },
+        {
+          "name": "Python",
+          "experience": "3y"
+        },
+        {
+          "name": "Delphi",
+          "experience": "1y"
+        },
+        {
+          "name": "VBA",
+          "experience": "2y"
+        },
+        {
+          "name": "C++/С",
+          "experience": "1y"
+        },
+        {
+          "name": "Assembler",
+          "experience": "1y"
+        },
+        {
+          "name": "Gravitec",
+          "experience": "3y"
+        },
+        {
+          "name": "Socket.io",
+          "experience": "4y"
+        },
+        {
+          "name": "Flow optimization",
+          "experience": "3y"
+        },
+        {
+          "name": "pgvector",
+          "experience": "3y"
+        },
+        {
+          "name": "Vector DB",
+          "experience": "3y"
+        },
+        {
+          "name": "Doctrine Second Level Cache",
+          "experience": "3y"
+        },
+        {
+          "name": "DB optimization",
+          "experience": "3y"
+        },
+        {
+          "name": "Query optimization",
+          "experience": "3y"
+        },
+        {
+          "name": "Performance optimization",
+          "experience": "3y"
+        },
+        {
+          "name": "Cache optimization",
+          "experience": "3y"
+        },
+        {
+          "name": "Refactoring",
+          "experience": "3y"
+        },
+        {
+          "name": "Analytics",
+          "experience": "3y"
+        },
+        {
+          "name": "Legacy",
+          "experience": "7y"
+        },
+        {
+          "name": "Go",
+          "experience": "2y"
+        },
+        {
+          "name": "SQL",
+          "experience": "12y"
+        },
+        {
+          "name": "NoSQL",
+          "experience": "5y"
+        },
+        {
+          "name": "Authentication & Authorization",
+          "experience": "12y"
+        },
+        {
+          "name": "JWT",
+          "experience": "2y"
+        },
+        {
+          "name": "OAuth 2.0",
+          "experience": "1y"
+        },
+        {
+          "name": "Eloquent",
+          "experience": "4y"
+        },
+        {
+          "name": "ORM",
+          "experience": "9y"
+        },
+        {
+          "name": "OpenAPI",
+          "experience": "3y"
+        },
+        {
+          "name": "Webhooks",
+          "experience": "3y"
+        },
+        {
+          "name": "Queue workers / Background jobs",
+          "experience": "4y"
+        },
+        {
+          "name": "Server-Sent Events — SSE",
+          "experience": "3y"
+        },
+        {
+          "name": "Rate limiting",
+          "experience": "5y"
+        },
+        {
+          "name": "Dependency Injection",
+          "experience": "5y"
+        },
+        {
+          "name": "API versioning",
+          "experience": "3y"
+        },
+        {
+          "name": "Serverless / AWS Lambda"
+        },
+        {
+          "name": "Cron / scheduled jobs",
+          "experience": "10y"
+        }
+      ]
+    },
+    "front_end": {
+      "experience": "15y",
+      "items": [
+        {
+          "name": "JavaScript",
+          "experience": "8y"
+        },
+        {
+          "name": "TypeScript",
+          "experience": "2y"
+        },
+        {
+          "name": "ES6+"
+        },
+        {
+          "name": "Vue.js",
+          "experience": "7y"
+        },
+        {
+          "name": "Vuex",
+          "experience": "4y"
+        },
+        {
+          "name": "Ractive.js",
+          "experience": "1y"
+        },
+        {
+          "name": "jQuery",
+          "experience": "8y"
+        },
+        {
+          "name": "SPA",
+          "experience": "5y"
+        },
+        {
+          "name": "REST API",
+          "experience": "12y"
+        },
+        {
+          "name": "AJAX",
+          "experience": "9y"
+        },
+        {
+          "name": "JSON",
+          "experience": "1y"
+        },
+        {
+          "name": "HTTP",
+          "experience": "12y"
+        },
+        {
+          "name": "WebSocket",
+          "experience": "5y"
+        },
+        {
+          "name": "HTML5",
+          "experience": "8y"
+        },
+        {
+          "name": "CSS3",
+          "experience": "9y"
+        },
+        {
+          "name": "SCSS",
+          "experience": "3y"
+        },
+        {
+          "name": "Bootstrap",
+          "experience": "3y"
+        },
+        {
+          "name": "Quasar",
+          "experience": "9m"
+        },
+        {
+          "name": "Vuetify",
+          "experience": "2m"
+        },
+        {
+          "name": "Figma",
+          "experience": "3y"
+        },
+        {
+          "name": "Webpack",
+          "experience": "3y"
+        },
+        {
+          "name": "Web design",
+          "experience": "3y"
+        },
+        {
+          "name": "UX/UI",
+          "experience": "3y"
+        },
+        {
+          "name": "SEO",
+          "experience": "3y"
+        },
+        {
+          "name": "YouTube integration",
+          "experience": "3y"
+        },
+        {
+          "name": "Legacy",
+          "experience": "7y"
+        },
+        {
+          "name": "Responsive design",
+          "experience": "10y"
+        },
+        {
+          "name": "Mobile-first",
+          "experience": "5m"
+        },
+        {
+          "name": "Cross-browser compatibility",
+          "experience": "6y"
+        },
+        {
+          "name": "CSS Grid",
+          "experience": "2y"
+        },
+        {
+          "name": "Flexbox",
+          "experience": "4y"
+        },
+        {
+          "name": "Component-based architecture",
+          "experience": "6y"
+        },
+        {
+          "name": "Component library / Design system",
+          "experience": "4y"
+        },
+        {
+          "name": "State management",
+          "experience": "4y"
+        },
+        {
+          "name": "Vue Router",
+          "experience": "4y"
+        },
+        {
+          "name": "Code splitting / lazy loading",
+          "experience": "6y"
+        },
+        {
+          "name": "Web Components"
+        },
+        {
+          "name": "Accessibility — WCAG / ARIA"
+        },
+        {
+          "name": "Core Web Vitals",
+          "experience": "3y"
+        },
+        {
+          "name": "Composition API",
+          "experience": "3y"
+        },
+        {
+          "name": "Pinia"
+        },
+        {
+          "name": "Vite"
+        },
+        {
+          "name": "Nuxt.js"
+        },
+        {
+          "name": "SSR / SSG",
+          "experience": "4y"
+        },
+        {
+          "name": "PWA",
+          "experience": "4y"
+        },
+        {
+          "name": "Tailwind CSS",
+          "experience": "1y"
+        },
+        {
+          "name": "i18n / Localization",
+          "experience": "7y"
+        },
+        {
+          "name": "ESLint",
+          "experience": "2y"
+        },
+        {
+          "name": "Prettier",
+          "experience": "2y"
+        },
+        {
+          "name": "Material UI",
+          "experience": "2m"
+        },
+        {
+          "name": "Chrome plugin development",
+          "experience": "5m"
+        }
+      ]
+    },
+    "qa": {
+      "experience": "16y",
+      "items": [
+        {
+          "name": "Jest",
+          "experience": "2y"
+        },
+        {
+          "name": "PHPUnit",
+          "experience": "3y"
+        },
+        {
+          "name": "TestCafe",
+          "experience": "2y"
+        },
+        {
+          "name": "Cypress",
+          "experience": "3y"
+        },
+        {
+          "name": "Playwright",
+          "experience": "3y"
+        },
+        {
+          "name": "Selenium",
+          "experience": "1y"
+        },
+        {
+          "name": "Storybook",
+          "experience": "2y"
+        },
+        {
+          "name": "Postman",
+          "experience": "7m"
+        },
+        {
+          "name": "Lighthouse",
+          "experience": "3y"
+        },
+        {
+          "name": "SonarQube",
+          "experience": "3y"
+        },
+        {
+          "name": "Jira",
+          "experience": "5y"
+        },
+        {
+          "name": "Trello",
+          "experience": "3y"
+        },
+        {
+          "name": "Swagger",
+          "experience": "3y"
+        },
+        {
+          "name": "OpenAPI",
+          "experience": "3y"
+        },
+        "Unit testing (2y)",
+        "Integration testing (5y)",
+        "E2E testing (2y)",
+        "Regression testing (15y)",
+        "Smoke testing (2y)",
+        "Testing strategy",
+        "Test pyramid",
+        "Test plan design",
+        "Test case design",
+        "Test coverage 80%+ (2y)",
+        "API mocking (2y)",
+        "API stubbing (2y)",
+        "Contract testing (2y)",
+        "API schema testing (4y)",
+        "Accessibility testing",
+        "Usability Testing (3y)",
+        "Test data factories (2y)",
+        "Linting (2y)",
+        "Static code analysis (2m)",
+        "Code review (12y)",
+        "QA gates in PR",
+        "Tests in CI/CD (5y)",
+        "Exploratory testing (15y)",
+        "Manual QA (15y)",
+        "Bug tracking (15y)"
+      ]
+    },
+    "devops": {
+      "title": "DevOps (SRE)",
+      "experience": "13y",
+      "items": [
+        {
+          "name": "AWS",
+          "experience": "4y"
+        },
+        {
+          "name": "Digital Ocean",
+          "experience": "4y"
+        },
+        {
+          "name": "CloudFlare",
+          "experience": "8y"
+        },
+        {
+          "name": "DNS",
+          "experience": "4y"
+        },
+        {
+          "name": "Ubuntu",
+          "experience": "16y"
+        },
+        {
+          "name": "Alpine",
+          "experience": "3y"
+        },
+        {
+          "name": "Kubernetes",
+          "experience": "3y"
+        },
+        {
+          "name": "Docker",
+          "experience": "6y"
+        },
+        {
+          "name": "Jenkins",
+          "experience": "5y"
+        },
+        {
+          "name": "CI/CD",
+          "experience": "5y"
+        },
+        {
+          "name": "Helm",
+          "experience": "3y"
+        },
+        {
+          "name": "VictoriaLogs",
+          "experience": "3y"
+        },
+        {
+          "name": "Observability",
+          "experience": "3y"
+        },
+        {
+          "name": "Service tracing",
+          "experience": "3y"
+        },
+        {
+          "name": "Linux",
+          "experience": "16y"
+        },
+        {
+          "name": "Windows",
+          "experience": "15y"
+        },
+        {
+          "name": "Bitbucket",
+          "experience": "4y"
+        },
+        {
+          "name": "GitHub"
+        },
+        {
+          "name": "GitLab",
+          "experience": "4y"
+        },
+        {
+          "name": "Bitbucket Pipelines",
+          "experience": "5y"
+        },
+        {
+          "name": "makefile",
+          "experience": "2y"
+        },
+        {
+          "name": "bash scripts",
+          "experience": "7y"
+        },
+        {
+          "name": "Nginx",
+          "experience": "15y"
+        },
+        {
+          "name": "HTTP2"
+        },
+        {
+          "name": "GZIP"
+        },
+        {
+          "name": "Brotli"
+        },
+        {
+          "name": "PHP-fpm",
+          "experience": "2y"
+        },
+        {
+          "name": "php-daemons"
+        },
+        {
+          "name": "supervisor",
+          "experience": "5m"
+        },
+        {
+          "name": "sentry",
+          "experience": "7y"
+        },
+        {
+          "name": "Cron",
+          "experience": "9y"
+        },
+        {
+          "name": "Grafana",
+          "experience": "3y"
+        },
+        {
+          "name": "Prometheus",
+          "experience": "3y"
+        },
+        {
+          "name": "Node",
+          "experience": "1y"
+        },
+        {
+          "name": "node-daemons",
+          "experience": "1m"
+        },
+        {
+          "name": "pm2",
+          "experience": "1m"
+        },
+        {
+          "name": "MySQL clusters",
+          "experience": "9m"
+        },
+        {
+          "name": "PostgreSQL clusters",
+          "experience": "5m"
+        },
+        {
+          "name": "Elasticsearch",
+          "experience": "4y"
+        },
+        {
+          "name": "Redis",
+          "experience": "5y"
+        },
+        {
+          "name": "file sync",
+          "experience": "9m"
+        },
+        {
+          "name": "Chrome driver"
+        },
+        {
+          "name": "Git",
+          "experience": "16y"
+        },
+        {
+          "name": "Composer",
+          "experience": "12y"
+        },
+        {
+          "name": "Npm",
+          "experience": "8y"
+        },
+        {
+          "name": "SSH",
+          "experience": "15y"
+        },
+        {
+          "name": "sudo"
+        },
+        {
+          "name": "security",
+          "experience": "10y"
+        },
+        {
+          "name": "ssh tunnel"
+        },
+        {
+          "name": "Amplify",
+          "experience": "1y"
+        },
+        "Ansible (3y)",
+        "Load balancing (5y)",
+        "Secrets management (3y)",
+        "Managed Kubernetes — EKS (2m)",
+        "SLA / SLO / SLI (1y)",
+        "Incident Response (3y)",
+        "Disaster recovery & backups (5y)",
+        "Chaos engineering (2m)",
+        "yarn (3y)",
+        "cPanel (1m)"
+      ]
+    },
+    "ide": [
+      {
+        "name": "GitHub Copilot",
+        "experience": "1.5y"
+      },
+      {
+        "name": "Cursor",
+        "experience": "6m"
+      },
+      {
+        "name": "Claude Code ext.",
+        "experience": "6m"
+      },
+      {
+        "name": "VS Code",
+        "experience": "3y"
+      },
+      {
+        "name": "PHPStorm",
+        "experience": "6y"
+      },
+      {
+        "name": "NetBeans",
+        "experience": "4y"
+      },
+      {
+        "name": "Visual Studio .Net",
+        "experience": "1y"
+      }
+    ],
+    "want_to_learn": [
+      "To stay in the loop on AI trends, implementing AI assistants and automation in projects.",
+      "Improve command skills to use AI on development",
+      "More work with AI-driven documentation on code",
+      "Kubernetes — production orchestration, scaling, and cluster operations",
+      "AI agent building — multi-agent systems and agentic workflows"
+    ]
+  },
+  "education": [
+    {
+      "institution": "Kharkov National University of Radioelectronics",
+      "period": "2006 – 2009",
+      "degree": "Master's degree",
+      "specialty": "Radio engineering",
+      "honors": "Diploma with honors",
+      "additional": [
+        "Programming in C++ (MS Visual Studio)",
+        "USB computer interface and the principles of writing programs for this interface",
+        "FPGA technology, Analog-to-digital converters",
+        "Computer repairing and software setting up (Linux / Windows)"
+      ]
+    },
+    {
+      "institution": "Kharkov Radio Technical School",
+      "period": "2002 – 2006",
+      "specialty": "Designing, production, and maintenance of radio engineering devices",
+      "honors": "Diploma with honors",
+      "additional": [
+        "P-CAD 2002 and Multisim (Electronics Workbench)",
+        "Architecture of Atmel microcontrollers (AVR series, in detail), PIC, TMS",
+        "Programming in the languages VB, C, and Assembler for AVR microcontrollers"
+      ]
+    }
+  ],
+  "languages": [
+    {
+      "language": "English",
+      "level": "Upper Intermediate"
+    },
+    {
+      "language": "Ukrainian",
+      "level": "Advanced level"
+    },
+    {
+      "language": "Russian",
+      "level": "Mastery level"
+    }
+  ],
+  "other_skills": [
+    "Advanced user of MS Word, Excel; development of macros in VBA",
+    "Experienced user of Photoshop and GIMP: editing photos and drawings, etc.",
+    "Video content creation: filming with drone and iPhone, and video editing (VN and other editors)",
+    "User of CAD software: design and project development for construction",
+    "IoT and AI: setting up and tuning of GSM alarm systems and video surveillance in buildings",
+    "3D printing of nodes on a 3D printer",
+    "3D modeling of nodes and sections for construction with an object under construction, creating components for projects (SketchUp)",
+    "Development of electronic equipment, including microcontroller-based equipment. In particular, I participated in the development of software and circuitry for the STEP-F satellite",
+    "Repair of telephones, laptops, and other computer and radio equipment",
+    "Some other activities in the field of house construction and car repairing",
+    "Built a solar panel with a sun-tracking system",
+    "JW"
+  ],
+  "professional_courses": {
+    "provider": "fwdays"
+  },
+  "conferences": {
+    "provider": "fwdays"
+  }
+}

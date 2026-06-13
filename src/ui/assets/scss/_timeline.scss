@@ -1,0 +1,835 @@
+/* ============================================================
+   TIMELINE (serpentine)
+   ============================================================ */
+.timeline {
+  position: relative;
+  margin-top: 18px;
+}
+.tl-spine {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+  overflow: visible;
+}
+.tl-spine path {
+  fill: none;
+}
+
+.epochs {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 44px;
+}
+
+.epoch {
+  position: relative;
+  display: flex;
+  --cardw: 46%;
+}
+.epoch.side-left {
+  justify-content: flex-start;
+}
+.epoch.side-right {
+  justify-content: flex-end;
+}
+.epoch.marker {
+  --cardw: 40%;
+}
+/* horizontal stub from the centered spine to each side card */
+.epoch::after {
+  content: '';
+  position: absolute;
+  top: 36px;
+  height: 2px;
+  background: var(--ec);
+  opacity: 0.55;
+  z-index: 0;
+  transition: all 0.5s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+.epoch.side-left::after {
+  left: var(--cardw);
+  width: calc(50% - var(--cardw));
+}
+.epoch.side-right::after {
+  right: var(--cardw);
+  width: calc(50% - var(--cardw));
+}
+/* when a card is zoomed-in (centered), its inner edge moves toward the spine —
+   shorten the connector by the same amount so it meets the border, not crosses it */
+.epoch.centered.side-left::after {
+  left: calc(var(--cardw) + var(--cardw) * 0.007);
+  width: calc(50% - var(--cardw) - var(--cardw) * 0.007);
+}
+.epoch.centered.side-right::after {
+  right: calc(var(--cardw) + var(--cardw) * 0.007);
+  width: calc(50% - var(--cardw) - var(--cardw) * 0.007);
+}
+.epoch-card {
+  position: relative;
+  width: var(--cardw);
+  border-radius: 18px;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  background: var(--surface);
+  box-shadow: var(--shadow-s);
+  transform: scale(1);
+  transition:
+    transform 0.5s cubic-bezier(0.2, 0.7, 0.2, 1),
+    opacity 0.5s ease,
+    box-shadow 0.4s ease;
+}
+.epoch.centered .epoch-card {
+  box-shadow: var(--shadow-m);
+  transform: scale(1.014);
+}
+.epoch-card.is-min {
+  opacity: 1;
+}
+.epoch-card.is-min .epoch-inner {
+  padding-bottom: 22px;
+}
+.epoch-card.is-min .epoch-title {
+  font-size: 23px;
+  margin-bottom: 14px;
+}
+.epoch-card.is-min .more-pill {
+  margin-top: 2px;
+}
+/* scroll reveal (opacity only — transform reserved for centered zoom) */
+.epoch-card.reveal {
+  opacity: 0;
+}
+
+/* era background — generated IT word-cloud, tiled down the whole era (card + its markers) */
+.epoch-group {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 26px;
+}
+.era-cloud-zone {
+  position: absolute;
+  top: 10px;
+  bottom: 6px;
+  width: 46%;
+  z-index: 0;
+  pointer-events: none;
+  background-image: var(--cloud);
+  background-repeat: no-repeat;
+  background-size: 86% auto;
+  background-position: top center;
+  opacity: 0.68;
+  -webkit-mask-image: linear-gradient(to bottom, #000 74%, transparent 97%);
+  mask-image: linear-gradient(to bottom, #000 74%, transparent 97%);
+}
+.epoch-group.side-left .era-cloud-zone {
+  right: 0;
+  left: auto;
+}
+.epoch-group.side-right .era-cloud-zone {
+  left: 0;
+  right: auto;
+}
+/* collapsed eras (•••) hide their background word cloud */
+.epoch-group:has(.epoch-card.is-min) .era-cloud-zone {
+  display: none;
+}
+[data-theme='dark'] .era-cloud-zone {
+  opacity: 0.5;
+}
+.epoch-tint {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background: var(--ec);
+  opacity: 0.07;
+}
+/* ghost year + scattered era words */
+.epoch-ghostyear {
+  position: absolute;
+  z-index: 0;
+  bottom: -22px;
+  right: 18px;
+  font-family: var(--serif);
+  font-weight: 600;
+  font-size: 168px;
+  line-height: 1;
+  letter-spacing: -0.03em;
+  color: var(--ec);
+  opacity: 0.07;
+  user-select: none;
+}
+
+.epoch-inner {
+  position: relative;
+  z-index: 1;
+  padding: 26px 30px 28px;
+}
+.epoch-era {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  font-family: var(--sans);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ec);
+  margin-bottom: 4px;
+}
+.epoch-era .ddot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--ec);
+}
+.epoch-period {
+  font-family: var(--sans);
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+}
+.epoch-title {
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: clamp(26px, 3.6vw, 36px);
+  letter-spacing: -0.02em;
+  margin: 6px 0 2px;
+  line-height: 1;
+  color: var(--muted);
+}
+.epoch-meta {
+  font-family: var(--sans);
+  font-size: 12px;
+  color: var(--muted);
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+  margin-bottom: 12px;
+}
+.epoch-meta .mtag {
+  display: inline-flex;
+  gap: 5px;
+  align-items: center;
+}
+.epoch-summary {
+  font-size: 15px;
+  line-height: 1.55;
+  color: var(--muted);
+  max-width: 52ch;
+  font-style: italic;
+}
+
+/* meanwhile strip */
+.meanwhile {
+  margin-top: 16px;
+  border-top: 1px dashed var(--line);
+  padding-top: 13px;
+}
+.meanwhile-label {
+  font-family: var(--sans);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ec);
+  margin-bottom: 8px;
+}
+.meanwhile-items {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.mw {
+  font-family: var(--sans);
+  font-size: 11px;
+  color: var(--muted);
+  padding: 4px 9px;
+  border-radius: 6px;
+  background: color-mix(in srgb, var(--ec) 8%, transparent);
+  border: 1px solid color-mix(in srgb, var(--ec) 20%, transparent);
+  white-space: nowrap;
+}
+.mw em {
+  font-style: normal;
+  font-weight: 600;
+  color: color-mix(in srgb, var(--ec) 80%, var(--muted));
+}
+
+/* projects in epoch — THE MAIN CONTENT (kept prominent vs lighter epoch chrome) */
+.epoch-projects {
+  margin-top: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.project {
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--bg);
+  box-shadow: var(--shadow-s);
+  transition:
+    opacity 0.3s ease,
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+.project.match {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--accent) 25%, transparent);
+}
+.project.dim {
+  padding: 0;
+}
+.project.dim > * {
+  display: none !important;
+}
+.project.dim::after {
+  content: '\2022\2009\2022\2009\2022';
+  display: block;
+  text-align: center;
+  color: var(--muted);
+  font-size: 14px;
+  letter-spacing: 0.2em;
+  padding: 12px;
+}
+.project.dim + .project.dim {
+  display: none;
+}
+.project-collapsed {
+  display: none;
+  align-items: center;
+  gap: 8px;
+  padding: 11px 16px;
+  font-family: var(--sans);
+  font-size: 12px;
+  color: var(--muted);
+}
+.project-collapsed .dots {
+  color: var(--accent);
+  font-weight: 700;
+}
+
+.project-head {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  padding: 16px 18px;
+  cursor: pointer;
+  user-select: none;
+}
+.project-head:hover {
+  background: color-mix(in srgb, var(--accent) 5%, transparent);
+}
+.pv-note {
+  flex: none;
+}
+.project-head .ph-main {
+  flex: 1;
+  min-width: 0;
+}
+.project-role {
+  font-family: var(--serif);
+  font-weight: 600;
+  font-size: 20px;
+  letter-spacing: -0.01em;
+  line-height: 1.15;
+  color: var(--ink);
+}
+.role-last {
+  white-space: nowrap;
+}
+/* (i) period hint next to the role title */
+.period-info {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  vertical-align: 2px;
+  margin-left: 7px;
+  color: var(--muted);
+  cursor: help;
+}
+.period-info svg {
+  width: 14px;
+  height: 14px;
+}
+.period-info:hover {
+  color: var(--accent);
+}
+.period-tip {
+  position: absolute;
+  left: 50%;
+  bottom: calc(100% + 7px);
+  transform: translateX(-50%) translateY(2px);
+  background: var(--ink);
+  color: var(--bg);
+  font-family: var(--sans);
+  font-size: 11.5px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+  padding: 5px 10px;
+  border-radius: 5px;
+  opacity: 0;
+  pointer-events: none;
+  transition:
+    opacity 0.15s ease,
+    transform 0.15s ease;
+  z-index: 30;
+  box-shadow: var(--shadow-m);
+}
+.period-tip::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 5px solid transparent;
+  border-top-color: var(--ink);
+}
+.period-info:hover .period-tip {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+.project-where {
+  font-family: var(--sans);
+  font-size: 12px;
+  color: var(--muted);
+  margin-top: 3px;
+}
+.project-where b {
+  color: var(--ink-soft);
+  font-weight: 600;
+}
+.project-tags-mini {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  margin-top: 9px;
+}
+.project-expand {
+  flex: none;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: 1px solid var(--line);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--surface);
+  color: var(--muted);
+  transition: all 0.2s ease;
+}
+.project.open .project-expand {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--accent-ink);
+  transform: rotate(180deg);
+}
+.project-expand svg {
+  width: 14px;
+  height: 14px;
+}
+
+.project-body {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.4s ease;
+}
+.project.open .project-body {
+  grid-template-rows: 1fr;
+}
+.project-body > div {
+  overflow: hidden;
+}
+.project-body-inner {
+  padding: 0 18px 18px;
+}
+.project-desc {
+  font-size: 15.5px;
+  line-height: 1.6;
+  color: var(--ink);
+}
+.ach-title,
+.tech-title {
+  font-family: var(--sans);
+  font-size: 10.5px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin: 18px 0 9px;
+}
+.ach-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+}
+.ach-list li {
+  position: relative;
+  padding-left: 22px;
+  font-size: 14.5px;
+  line-height: 1.5;
+  color: var(--ink-soft);
+}
+.ach-list li::before {
+  content: '';
+  position: absolute;
+  left: 4px;
+  top: 9px;
+  width: 7px;
+  height: 7px;
+  border-radius: 2px;
+  background: var(--ec);
+  transform: rotate(45deg);
+}
+.ach-list li b {
+  color: var(--ink);
+  font-weight: 600;
+}
+.tech-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.ttag {
+  font-family: var(--sans);
+  font-size: 11px;
+  letter-spacing: 0.01em;
+  padding: 4px 9px;
+  border-radius: 7px;
+  border: 1px solid var(--line);
+  background: var(--surface);
+  color: var(--ink-soft);
+  cursor: pointer;
+  transition: all 0.14s ease;
+  /* pills never wrap internally; clamp pathological labels instead */
+  white-space: nowrap;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.ttag:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+  transform: translateY(-1px);
+}
+.ttag.skill-linked {
+  border-color: color-mix(in srgb, var(--accent) 55%, var(--line));
+}
+.ttag.filter-linked {
+  border-color: color-mix(in srgb, var(--accent) 35%, var(--line));
+}
+.ttag.skill-linked,
+.ttag.filter-linked {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+.ttag-ic {
+  width: 11px;
+  height: 11px;
+  flex: none;
+  color: var(--accent);
+  opacity: 0.8;
+}
+/* the label span carries the ellipsis inside the flex-variant chips */
+.ttag-label {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.ttag.filter-linked .ttag-ic {
+  opacity: 0.7;
+}
+.ttag.tech-more {
+  border-style: dashed;
+  color: var(--muted);
+  font-weight: 600;
+  background: transparent;
+}
+.ttag.tech-more:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+/* current-trend "must-have" tech/skill — a quiet accent (mirrors the grid's .skill-top) */
+.ttag.ttag-trend {
+  font-weight: 600;
+  border-color: color-mix(in srgb, var(--accent) 50%, var(--line));
+  background: color-mix(in srgb, var(--accent) 7%, var(--surface));
+}
+/* "NEW" pill — top-3 newest-by-trend skills on a project/cert/conference */
+.ttag .ttag-new {
+  font-size: 8px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  line-height: 1;
+  padding: 2px 4px;
+  margin-left: 4px;
+  border-radius: 5px;
+  background: var(--accent);
+  color: var(--accent-ink);
+}
+/* secondary "new" (beyond the top 3) — a quiet chip highlight instead of a dot glyph,
+   so project tech lists don't gain yet another little marker next to the jump icon */
+.ttag.ttag-new-soft:not(.ttag-trend) {
+  border-color: color-mix(in srgb, var(--accent) 35%, var(--line));
+  background: color-mix(in srgb, var(--accent) 5%, var(--surface));
+}
+.project-foot {
+  display: flex;
+  gap: 18px;
+  flex-wrap: wrap;
+  padding: 0 18px 16px;
+  font-family: var(--sans);
+  font-size: 11.5px;
+  color: var(--muted);
+}
+.project-foot .pf b {
+  color: var(--ink-soft);
+  font-weight: 600;
+}
+
+/* conference / certificate marker on the rail */
+.epoch.marker {
+}
+.marker-card {
+  width: var(--cardw);
+  border-radius: 14px;
+  border: 1px dashed var(--line);
+  background: color-mix(in srgb, var(--surface) 70%, transparent);
+  overflow: hidden;
+}
+.marker-row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 18px;
+}
+.marker-card.open .marker-row,
+.marker-row {
+  cursor: pointer;
+}
+.marker-main {
+  flex: 1;
+  min-width: 0;
+}
+.marker-exp {
+  flex: none;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  border: 1px solid var(--line);
+  background: var(--surface);
+  color: var(--muted);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+.marker-exp svg {
+  width: 13px;
+  height: 13px;
+}
+.epoch.marker.open .marker-exp,
+.conf-item.open .marker-exp {
+  background: var(--ec);
+  border-color: var(--ec);
+  color: #fff;
+  transform: rotate(180deg);
+}
+.marker-body {
+  padding: 0 18px 16px;
+}
+.marker-desc {
+  font-size: 14px;
+  line-height: 1.55;
+  color: var(--ink-soft);
+  margin: 0 0 11px;
+}
+.marker-skills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 9px;
+}
+.marker-link {
+  font-family: var(--sans);
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--ec);
+  text-decoration: none;
+}
+.marker-link:hover {
+  text-decoration: underline;
+}
+/* conferences rendered inside the epoch card */
+.epoch-confs {
+  margin-top: 18px;
+  border-top: 1px dashed var(--line);
+  padding-top: 16px;
+}
+.epoch-confs-h {
+  font-family: var(--sans);
+  font-size: 10.5px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ec);
+  margin-bottom: 11px;
+}
+.conf-item {
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--bg);
+  margin-bottom: 10px;
+  box-shadow: var(--shadow-s);
+}
+.conf-item .marker-row {
+  padding: 13px 15px;
+  align-items: flex-start; /* chevron rides top-right, level with the kicker */
+}
+.conf-item .marker-body {
+  padding: 0 15px 14px;
+}
+.marker-kicker {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--sans);
+  font-size: 10.5px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ec);
+  margin-bottom: 7px;
+}
+.marker-kicker svg {
+  width: 13px;
+  height: 13px;
+}
+.conf-item.dim {
+  box-shadow: none;
+  background: transparent;
+}
+.conf-item.dim > * {
+  display: none !important;
+}
+.conf-item.dim::after {
+  content: '\2022\2009\2022\2009\2022';
+  display: block;
+  text-align: center;
+  color: var(--muted);
+  font-size: 14px;
+  letter-spacing: 0.2em;
+  padding: 11px;
+}
+.conf-item.dim + .conf-item.dim {
+  display: none;
+}
+.mc-t {
+  font-family: var(--serif);
+  font-weight: 500;
+  font-size: 17px;
+  line-height: 1.2;
+}
+.mc-s {
+  font-family: var(--sans);
+  font-size: 11.5px;
+  color: var(--muted);
+  margin-top: 2px;
+}
+
+/* node dot — centered on the spine */
+.epoch-dot {
+  position: absolute;
+  top: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  background: var(--surface);
+  border: 3px solid var(--ec);
+  z-index: 3;
+  box-shadow: 0 0 0 4px var(--bg);
+}
+
+@media (max-width: 820px) {
+  .era-cloud-zone {
+    display: none;
+  }
+  .epoch-group {
+    gap: 18px;
+  }
+  .epoch {
+    justify-content: flex-start;
+    --cardw: 100%;
+  }
+  .epoch::after {
+    display: none;
+  }
+  .epoch-card,
+  .marker-card {
+    width: 100%;
+  }
+  .tl-spine {
+    display: none;
+  }
+  .epoch {
+    padding-left: 28px;
+  }
+  .epoch-dot {
+    left: -6px;
+    right: auto;
+    top: 18px;
+    transform: none;
+  }
+}
+
+/* Mobile "headline first" card header: the title spans the full width, the video
+   avatar drops to a small chip on the meta row next to the subtitle + chevron.
+   `screen`-scoped so A4 print (~794px) keeps the desktop flex layout. */
+@media screen and (max-width: 820px) {
+  .project-head.has-video {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    grid-template-areas:
+      'role role role'
+      'note where expand'
+      'tags tags tags';
+    column-gap: 10px;
+    row-gap: 8px;
+  }
+  .project-head.has-video .ph-main {
+    display: contents;
+  }
+  .project-head.has-video .project-role {
+    grid-area: role;
+  }
+  .project-head.has-video .pv-note {
+    grid-area: note;
+    align-self: center;
+  }
+  .project-head.has-video .project-where {
+    grid-area: where;
+    align-self: center;
+    margin-top: 0;
+  }
+  .project-head.has-video .project-expand {
+    grid-area: expand;
+    align-self: center;
+  }
+  .project-head.has-video .project-tags-mini {
+    grid-area: tags;
+    margin-top: 0;
+  }
+}

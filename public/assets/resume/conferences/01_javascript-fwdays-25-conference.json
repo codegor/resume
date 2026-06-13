@@ -1,0 +1,22 @@
+{
+  "title": "JavaScript fwdays'25 conference",
+  "filters": [
+    "frontend"
+  ],
+  "cert": true,
+  "certImg": "assets/certs/certificate-javascript-fwdays-2025.jpg",
+  "url": "https://fwdays.com/en/event/javascript-fwdays-2025",
+  "desc": "JS frameworks, dev tools, performance and the JavaScript ecosystem (Kyiv, 24 May 2025).",
+  "skills": [
+    "JavaScript",
+    "Vue.js",
+    "Performance",
+    "Front-end",
+    "TypeScript",
+    "ES6+",
+    "Core Web Vitals",
+    "Performance optimization"
+  ],
+  "location": "Kyiv",
+  "date": "May 2025"
+}

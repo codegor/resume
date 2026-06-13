@@ -1,0 +1,21 @@
+{
+  "title": "Workshop: Domain Driven Design",
+  "filters": [
+    "architect",
+    "backend"
+  ],
+  "cert": true,
+  "certImg": "assets/certs/workshop-domain-driven-design.jpg",
+  "url": "https://fwdays.com/en/event/domain-driven-design-workshop",
+  "desc": "Domain-Driven Design — bounded contexts, context maps and the building blocks (entities, aggregates, repositories) for scalable systems.",
+  "skills": [
+    "Domain-Driven Design — DDD",
+    "Bounded contexts",
+    "Modeling",
+    "Data modeling",
+    "Event-driven Architecture"
+  ],
+  "year": "2025",
+  "status": "completed",
+  "certificate": true
+}

@@ -1,0 +1,35 @@
+# Run the app — local or production — arch-repo style. No test logic here:
+# Playwright runs from the Makefile via the official Playwright docker image.
+services:
+  # Production-style static serve of the built dist/ (also a fine local preview).
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        VITE_MEDIA_BASE_URL: ${VITE_MEDIA_BASE_URL:-}
+        VITE_DEFAULT_MEDIA_BASE_URL: ${VITE_DEFAULT_MEDIA_BASE_URL:-}
+        VITE_RESUME_URL: ${VITE_RESUME_URL:-}
+    image: resume
+    container_name: resume-web
+    ports:
+      - '${WEB_PORT:-8081}:80'
+    # Healthcheck is defined in the Dockerfile (HEALTHCHECK) so the image is
+    # self-contained; no need to repeat it here.
+    restart: unless-stopped
+
+  # Optional local dev server with HMR (yarn dev). Enable with: docker compose --profile dev up
+  dev:
+    image: node:22-alpine
+    container_name: resume-dev
+    working_dir: /app
+    command: sh -c "corepack enable && yarn install && yarn dev"
+    environment:
+      VITE_MEDIA_BASE_URL: ${VITE_MEDIA_BASE_URL:-}
+      VITE_DEFAULT_MEDIA_BASE_URL: ${VITE_DEFAULT_MEDIA_BASE_URL:-}
+      VITE_RESUME_URL: ${VITE_RESUME_URL:-}
+    volumes:
+      - ./:/app
+    ports:
+      - '${DEV_PORT:-3000}:3000'
+    profiles: ['dev']

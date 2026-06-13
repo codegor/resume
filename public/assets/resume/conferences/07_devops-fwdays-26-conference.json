@@ -1,0 +1,23 @@
+{
+  "title": "DevOps fwdays'26 conference",
+  "filters": [
+    "devops"
+  ],
+  "cert": true,
+  "certImg": "assets/certs/certificate-devops-fwdays-2026.jpg",
+  "url": "https://fwdays.com/en/event/devops-fwdays-2026",
+  "desc": "DevOps & SRE — Kubernetes operators, CI/CD, automation, infrastructure and the role of AI in DevOps.",
+  "skills": [
+    "DevOps",
+    "Kubernetes",
+    "CI/CD",
+    "SRE",
+    "Docker",
+    "Helm",
+    "Incident Response",
+    "SLA / SLO / SLI",
+    "Observability"
+  ],
+  "location": "Kyiv",
+  "date": "February 2026"
+}
