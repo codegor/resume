@@ -7,7 +7,7 @@
                       so it is intentionally NOT @use'd here)
      • _primitives  — shared low-level UI reused by 2+ components (.cbtn/.iconbtn/.has-tip/.bigbtn)
      • <SFC scoped> — each component owns its own look (+ its component-local @media)
-     • _hero (820 shell) / _timeline / _print / _misc utils — INTENTIONALLY global:
+     • _hero (980 shell) / _timeline / _print / _misc utils — INTENTIONALLY global:
                       cross-cutting page frame, serpentine geometry, print orchestration,
                       reveal + [data-compact] state utilities (not yet-to-migrate)
    @media print stays LAST so its equal-specificity overrides win. */

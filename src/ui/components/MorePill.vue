@@ -35,7 +35,6 @@ function onClick() {
   const wasOpen = props.open
   const el = root.value
   emit('toggle')
-  // when collapsing, bring the pill back to where it was before expanding
   if (wasOpen && el) {
     nextTick(() =>
       requestAnimationFrame(() => {

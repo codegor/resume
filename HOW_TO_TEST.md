@@ -11,6 +11,28 @@
 
 ---
 
+## Standard test matrix — run after every change
+
+Walk the scenes below in **each** of these contexts; a change isn't "done" until all pass.
+Use the browser dev-tools device toolbar (or `Playwright browser_resize`) for the widths.
+
+| Mode               | Width / how                              | What's special                                                                                            |
+| ------------------ | ---------------------------------------- | --------------------------------------------------------------------------------------------------------- |
+| **Desktop**        | ≥ 1281px                                 | Full top bar (labelled contacts), full Focus chip row on one line.                                        |
+| **iPad Pro**       | **1024px** — the **"iPad"** size         | Compact one-line top bar (icon contacts + ⓘ), Focus chips still full.                                     |
+| **iPad Mini**      | 768px                                    | Mobile shell: view switches in their own sticky bar; Focus bar collapses to a rail once stuck to the top. |
+| **iPhone**         | ~390–393px                               | Mobile shell; the Focus rail swipes horizontally and the ⓘ menu mirrors the switches when scrolled.       |
+| **Galaxy Z**       | 344px                                    | Narrowest phone — nothing clips or overflows; rail funnel + pills stay legible.                           |
+| **Print / PDF**    | Download ▾ → Print (or `window.print`)   | Light theme, expanded content, and **no top bar / switches bar / Focus bar / section-nav** on paper.      |
+| **Markdown (.md)** | Download ▾ → Markdown                    | The exported `.md` mirrors the visible résumé.                                                            |
+| **Offline**        | open `dist/resume_offline.html` directly | Single inlined file works with no server (videos stream from the CDN).                                    |
+
+> Breakpoint ladder to expect: **>1200** full desktop top bar · **981–1200** compact one-line top bar +
+> full Focus chips · **≤980** mobile shell (switches hand off) + the Focus bar collapses to its rail when
+> it sticks to the top, re-expanding at its home position.
+
+---
+
 ## Scene 0 — Start clean (so persisted state doesn't fool you)
 
 The site remembers **theme**, **Headlines**, and **Recent · 5y** across reloads
@@ -210,7 +232,7 @@ Click the **download (⤓)** button in the top bar. It opens a menu with three i
    - No cream background bleeding onto the page (it shouldn't).
 3. Close the dialog → the page returns to its previous theme (light/dark restored).
 
-> A4 ≈ 794px wide, which is below the 820px mobile breakpoint — print and mobile layouts
+> A4 ≈ 794px wide, which is below the 980px mobile breakpoint — print and mobile layouts
 > are independent, so verify both separately.
 
 ---
@@ -235,11 +257,12 @@ Click the **download (⤓)** button in the top bar. It opens a menu with three i
 
 ---
 
-## Scene 17 — Mobile layout (≤ 820px)
+## Scene 17 — Mobile layout (≤ 980px)
 
 1. Resize the window to **390 × 844** (iPhone 12) — or use device emulation.
-2. **See:** the mobile layout engages — contact labels collapse to icons / a menu, the
-   Focus bar wraps, the search field spans full width. Re-run Scenes 2, 5, 6 on mobile.
+2. **See:** the mobile shell engages — contact labels collapse to icons / a menu, the view
+   switches move to their own sticky bar, and the Focus bar collapses to a horizontal rail once
+   it sticks to the top (the ⓘ menu then mirrors the switches). Re-run Scenes 2, 5, 6 on mobile.
 3. Resize back to desktop → layout restores.
 
 ---
@@ -310,7 +333,7 @@ the machinery:
 - [ ] Print / Save as PDF (light, expanded, clickable, inline dates)
 - [ ] Theme toggle + persists
 - [ ] Section nav + contacts + feedback box
-- [ ] Mobile ≤820px layout
+- [ ] Mobile ≤980px layout
 - [ ] Serpentine spine redraws on resize/zoom
 - [ ] No console errors / no boot-error screen on a good build
 - [ ] English-only: language switcher hidden, no `[i18n] missing` console lines; (dev) a 2nd locale switches UI + data + title + `<html lang>` live and persists

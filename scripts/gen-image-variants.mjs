@@ -20,7 +20,7 @@ import { fileURLToPath } from 'node:url'
 import { dirname, resolve, join } from 'node:path'
 import { createRequire } from 'node:module'
 
-const here = dirname(fileURLToPath(import.meta.url)) // <repo>/scripts
+const here = dirname(fileURLToPath(import.meta.url))
 const require = createRequire(resolve(here, '../package.json'))
 const sharp = require('sharp')
 

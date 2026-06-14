@@ -1,7 +1,7 @@
 import { test, expect, openApp } from './fixtures'
 
 test.beforeEach(({}, testInfo) => {
-  test.skip(testInfo.project.name !== 'iphone', 'mobile masthead is the ≤820px layout')
+  test.skip(testInfo.project.name !== 'iphone', 'mobile masthead is the ≤980px layout')
 })
 
 test('mobile masthead renders the hero and contact menu', async ({ page }) => {

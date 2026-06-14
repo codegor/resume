@@ -5,13 +5,75 @@ import { siteConfig } from '@/config'
 // scroll target isn't hidden underneath it.
 const STICKY_TOPBAR_OFFSET = 110
 
+// Only one self-correcting scroll runs at a time; a newer one cancels the previous synchronously.
+let activeScrollCancel: (() => void) | null = null
+
+/** Abort any in-flight scroll self-correction (a newer jump or a user-chosen scroll supersedes it). */
+export function cancelScrollCorrection(): void {
+  activeScrollCancel?.()
+}
+
+// Re-assert after the scroll settles: the mobile Focus bar collapses as the page crosses its home,
+// shifting everything below it ~200px mid-scroll, so a one-shot scrollTo lands off. Converges in
+// 1–2 hops, no-op when nothing shifts. (Removing the re-assert breaks the section-nav jumps.)
+// The loop self-cancels on a newer scrollToEl or any real user scroll/keypress, so its ~10s window
+// can't yank the page back to a stale target after the user has moved on. Programmatic scrolls
+// (window.scrollBy/scrollTo) don't fire wheel/touch/keydown, so the correction still runs normally.
+function scrollToEl(el: HTMLElement): void {
+  cancelScrollCorrection()
+  let alive = true
+  const go = (): void => {
+    const delta = Math.round(el.getBoundingClientRect().top) - STICKY_TOPBAR_OFFSET
+    window.scrollTo({ top: window.scrollY + delta, behavior: 'smooth' })
+  }
+  const cancel = (): void => {
+    if (!alive) return
+    alive = false
+    window.removeEventListener('wheel', cancel)
+    window.removeEventListener('touchmove', cancel)
+    window.removeEventListener('keydown', cancel)
+    if (activeScrollCancel === cancel) activeScrollCancel = null
+  }
+  activeScrollCancel = cancel
+  window.addEventListener('wheel', cancel, { passive: true })
+  window.addEventListener('touchmove', cancel, { passive: true })
+  window.addEventListener('keydown', cancel)
+
+  go()
+  let tries = 0
+  let lastY = NaN
+  let stable = 0
+  let frames = 0
+  const watch = (): void => {
+    if (!alive) return
+    if (frames++ > 600) return cancel() // hard stop (~10s) so a continuously-scrolling user can't pin this
+    const y = Math.round(window.scrollY)
+    if (y === lastY) {
+      stable += 1
+    } else {
+      stable = 0
+      lastY = y
+    }
+    if (stable >= 4) {
+      const delta = Math.round(el.getBoundingClientRect().top) - STICKY_TOPBAR_OFFSET
+      if (Math.abs(delta) > 3 && tries < 5) {
+        tries += 1
+        stable = 0
+        lastY = NaN
+        go()
+      } else {
+        return cancel() // landed within tolerance (or gave up after a few corrections)
+      }
+    }
+    requestAnimationFrame(watch)
+  }
+  requestAnimationFrame(watch)
+}
+
 /** Smooth-scroll to an element id, leaving room for the sticky top bar. */
 export function scrollToId(id: string): void {
   const el = document.getElementById(id)
-  if (el) {
-    const y = el.getBoundingClientRect().top + window.scrollY - STICKY_TOPBAR_OFFSET
-    window.scrollTo({ top: y, behavior: 'smooth' })
-  }
+  if (el) scrollToEl(el)
 }
 
 /**
@@ -24,12 +86,8 @@ export function scrollToId(id: string): void {
 export function scrollToActiveSkillGroup(): void {
   const chip = document.querySelector<HTMLElement>('#skills .skill.active')
   const target = chip?.closest<HTMLElement>('.skillgroup') ?? null
-  if (target && target.offsetParent !== null) {
-    const y = target.getBoundingClientRect().top + window.scrollY - STICKY_TOPBAR_OFFSET
-    window.scrollTo({ top: y, behavior: 'smooth' })
-  } else {
-    scrollToId('skills')
-  }
+  if (target && target.offsetParent !== null) scrollToEl(target)
+  else scrollToId('skills')
 }
 
 /**
@@ -62,6 +120,7 @@ export function goHome(e: MouseEvent): void {
   if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button !== 0) return
   if (isOfflineBuild()) return
   e.preventDefault()
+  cancelScrollCorrection() // a lingering section re-assert must not yank us back off the top
   window.scrollTo({ top: 0, behavior: 'smooth' })
   if (window.location.hash) {
     history.replaceState(null, '', window.location.pathname + window.location.search)

@@ -1,7 +1,7 @@
 // Unit tests for the i18n composable: phrase-as-key fallback, interpolation, plurals,
 // missing-key logging (any lang), and lang switching. Runs in the node env (the module
 // guards all DOM/localStorage access), so we test pure logic only.
-import { describe, it, expect, vi, beforeEach } from 'vitest'
+import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest'
 import {
   t,
   tc,
@@ -11,8 +11,17 @@ import {
   _registerLocaleForTests,
 } from '../../ui/composables/i18n'
 
+// Several cases below deliberately look up throwaway phrases (`No. {year}`, `{n} project`) that
+// aren't in en.json, so the composable fires its dev-time `[i18n] missing …` console.info. That's
+// expected behaviour, not a real missing translation — silence it so it doesn't masquerade as a
+// failure in the test output. The one case that actually asserts on the log makes its own spy.
 beforeEach(() => {
   lang.value = 'en'
+  vi.spyOn(console, 'info').mockImplementation(() => {})
+})
+
+afterEach(() => {
+  vi.restoreAllMocks()
 })
 
 describe('t()', () => {

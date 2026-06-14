@@ -23,7 +23,7 @@
 <script setup lang="ts">
 import { ref, computed, onMounted, onUnmounted, nextTick } from 'vue'
 import { useStore } from '@/composables/useStore'
-import { scrollToId } from '@/utils/dom'
+import { scrollToId, cancelScrollCorrection } from '@/utils/dom'
 
 interface NavItem {
   id: string
@@ -50,8 +50,10 @@ let raf = 0
 const items = computed(() => TARGETS.filter((t) => t.id === 'top' || present.value[t.id]))
 
 function go(id: string): void {
-  if (id === 'top') window.scrollTo({ top: 0, behavior: 'smooth' })
-  else scrollToId(id)
+  if (id === 'top') {
+    cancelScrollCorrection() // a lingering section re-assert must not yank us back off the top
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+  } else scrollToId(id)
 }
 
 // scrollspy: the active region = the last target section whose top has passed
@@ -181,7 +183,7 @@ onUnmounted(() => {
   transform: translateY(-50%);
 }
 
-@media (max-width: 820px) {
+@media (max-width: 980px) {
   .section-nav {
     right: 10px;
     bottom: 76px;

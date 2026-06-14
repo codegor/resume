@@ -187,8 +187,8 @@ const countText = computed(() => {
   return cProvider.value ? summary + ' · ' + cProvider.value : summary
 })
 /* default visible counts: desktop 4 courses / 3 confs, iPad 3, phone 1 (rest behind "+N more") */
-const courseCap = computed(() => (vw.value <= 820 ? 1 : vw.value <= 1180 ? 3 : 4))
-const confCap = computed(() => (vw.value <= 820 ? 1 : 3))
+const courseCap = computed(() => (vw.value <= 980 ? 1 : vw.value <= 1180 ? 3 : 4))
+const confCap = computed(() => (vw.value <= 980 ? 1 : 3))
 const courseParts = computed(() => partition(courses.value, 'certificate', courseCap.value))
 const confParts = computed(() => partition(confs.value, 'conference', confCap.value))
 const shownCourses = computed(() =>

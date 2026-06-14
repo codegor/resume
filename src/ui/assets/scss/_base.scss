@@ -4,6 +4,9 @@
 html {
   scroll-behavior: smooth;
   background: var(--bg);
+  // keep scrollY put when the mobile Focus bar collapses (its height change is above the viewport);
+  // without this, scroll-anchoring nudges scrollY and the collapse controller (App.vue) oscillates
+  overflow-anchor: none;
 }
 @media (prefers-reduced-motion: reduce) {
   html {
@@ -13,6 +16,7 @@ html {
 
 body {
   margin: 0;
+  overflow-x: clip; // no stray horizontal scroll on mobile; `clip` (not `hidden`) keeps sticky working
   background: var(--bg);
   color: var(--ink);
   font-family: var(--body);

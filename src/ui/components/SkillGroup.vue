@@ -6,10 +6,10 @@
   >
     <div class="sg-head">
       <h3>{{ title }}</h3>
-      <span v-if="q && searchChips" class="sg-hits"
+      <span v-if="q && searchChips && searchChips.length > 0" class="sg-hits"
         >{{ searchChips.length }} <tc one="match" other="matches" :n="searchChips.length"
       /></span>
-      <span v-if="exp" class="sg-yrs">{{ exp }}</span>
+      <span v-if="exp && !zeroMatch" class="sg-yrs">{{ exp }}</span>
     </div>
     <div class="sg-collapsed">{{ collapsedNames || title }} …</div>
     <div class="skill-items">
@@ -158,6 +158,10 @@ function floatTrend(list: Chip[]): Chip[] {
 }
 const searchChips = computed(() =>
   q.value ? chips.value.filter((c) => skillSearchMatch(c.name, q.value)) : null,
+)
+// search × focus collision: the group stays visible with no matches — hide its count + years
+const zeroMatch = computed(
+  () => q.value !== '' && !!searchChips.value && searchChips.value.length === 0,
 )
 // Search ALONE (no focus filter) hides a zero-match group — unchanged. In a search × focus
 // collision the (focus-scoped) group stays visible and collapses to "+N more" instead.

@@ -18,7 +18,6 @@ test('the guide renders its stories and closes via the close button', async ({ p
 
   const modal = page.locator('.guide-modal')
   await expect(modal).toBeVisible()
-  // content actually renders
   await expect(modal.locator('.guide-title')).toContainText('How to read this résumé')
   expect(await modal.locator('.guide-story').count()).toBeGreaterThan(5)
 
@@ -39,7 +38,6 @@ test('the guide renders its stories and closes via the close button', async ({ p
   expect(style.w, 'close button must keep its 42px size').toBe('42px')
   expect(style.h).toBe('42px')
 
-  // Functional: clicking the button (not Esc) closes the modal.
   await closeBtn.click()
   await expect(modal).toHaveCount(0)
 })

@@ -13,7 +13,7 @@ export function offlineFileName(name?: string | null, updated?: string | null): 
       .toLowerCase()
       .replace(/[^a-z0-9]+/g, '_')
       .replace(/^_+|_+$/g, '') || 'resume'
-  const m = String(updated || '').match(/(\d{4})-(\d{2})/) // YYYY-MM
-  const date = m ? `${m[2]}.${m[1]}` : '' // → MM.YYYY
+  const m = String(updated || '').match(/(\d{4})-(\d{2})/)
+  const date = m ? `${m[2]}.${m[1]}` : ''
   return date ? `${slug}_resume_offline_${date}.html` : `${slug}_resume_offline.html`
 }

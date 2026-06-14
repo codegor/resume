@@ -5,7 +5,7 @@ import { existsSync, mkdirSync, copyFileSync, rmSync, readFileSync } from 'node:
 import { fileURLToPath } from 'node:url'
 import { dirname, resolve } from 'node:path'
 
-const repoRoot = dirname(dirname(fileURLToPath(import.meta.url))) // <repo>/scripts → <repo>
+const repoRoot = dirname(dirname(fileURLToPath(import.meta.url)))
 const dist = resolve(repoRoot, 'dist')
 const src = resolve(dist, '.single/index.html')
 
@@ -19,8 +19,8 @@ function offlineFileName(name, updated) {
       .toLowerCase()
       .replace(/[^a-z0-9]+/g, '_')
       .replace(/^_+|_+$/g, '') || 'resume'
-  const m = String(updated || '').match(/(\d{4})-(\d{2})/) // YYYY-MM
-  const date = m ? `${m[2]}.${m[1]}` : '' // → MM.YYYY
+  const m = String(updated || '').match(/(\d{4})-(\d{2})/)
+  const date = m ? `${m[2]}.${m[1]}` : ''
   return date ? `${slug}_resume_offline_${date}.html` : `${slug}_resume_offline.html`
 }
 
