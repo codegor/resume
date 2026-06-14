@@ -5,6 +5,12 @@
   <div v-else-if="!store.ready" class="loading"><t>Loading résumé…</t></div>
   <template v-else>
     <top-bar />
+    <!-- Mobile only: the view switches live in their own sticky bar (on desktop they stay
+         inline in the top bar). As you scroll, the Focus bar slides up and covers this bar
+         (handoff); while it's covered the switches are mirrored into the ⓘ menu. -->
+    <div class="switches-bar">
+      <div class="wrap"><view-toggles /></div>
+    </div>
     <hero />
     <div class="wrap cta-top"><cta /></div>
     <filter-bar />
@@ -24,7 +30,7 @@
 </template>
 
 <script setup lang="ts">
-import { watch, nextTick } from 'vue'
+import { watch, nextTick, onMounted, onBeforeUnmount } from 'vue'
 import { useStore } from '@/composables/useStore'
 import { setSiteConfig } from '@/config'
 import { buildDerivedConfig } from '@/utils/site-data'
@@ -149,6 +155,34 @@ function revealNew(): void {
   })
 }
 
+// Mobile only: mirror the view switches into the ⓘ menu while they're scrolled out of view.
+// The visual handoff (the Focus bar covering the sticky .switches-bar) is pure CSS; this just
+// flips store.switchesInMenu when the Focus bar has reached the top slot. rAF-throttled like
+// SectionNav. The flag is forced off on desktop so the menu never mirrors there.
+const TOPBAR_H = 60
+let switchesRaf = 0
+function syncSwitchesMenu(): void {
+  switchesRaf = 0
+  if (window.innerWidth > 820) {
+    store.switchesInMenu = false
+    return
+  }
+  const fb = document.getElementById('filterbar')
+  store.switchesInMenu = !!(fb && fb.getBoundingClientRect().top <= TOPBAR_H + 1)
+}
+function onSwitchesScroll(): void {
+  if (!switchesRaf) switchesRaf = requestAnimationFrame(syncSwitchesMenu)
+}
+onMounted(() => {
+  window.addEventListener('scroll', onSwitchesScroll, { passive: true })
+  window.addEventListener('resize', onSwitchesScroll)
+})
+onBeforeUnmount(() => {
+  window.removeEventListener('scroll', onSwitchesScroll)
+  window.removeEventListener('resize', onSwitchesScroll)
+  if (switchesRaf) cancelAnimationFrame(switchesRaf)
+})
+
 watch(
   () => store.theme,
   (v) => {
@@ -173,7 +207,11 @@ watch(
 watch(
   () => store.ready,
   (v) => {
-    if (v) nextTick(() => setupReveal())
+    if (v)
+      nextTick(() => {
+        setupReveal()
+        syncSwitchesMenu()
+      })
   },
 )
 watch(

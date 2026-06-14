@@ -6,6 +6,6 @@ test.beforeEach(({}, testInfo) => {
 
 test('Expand all opens project cards', async ({ page }) => {
   await openApp(page)
-  await page.locator('.tb-toggles .essw', { hasText: 'Expand all' }).click()
+  await page.locator('.tb-toggles .essw:visible', { hasText: 'Expand all' }).click()
   await expect(page.locator('.project.open').first()).toBeVisible()
 })

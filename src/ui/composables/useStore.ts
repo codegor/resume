@@ -29,6 +29,10 @@ export const store = reactive({
   // state from this), even though their wrappers stop click propagation.
   openMenu: null as string | null,
   printing: false,
+  // mobile only: true while the on-page view switches have scrolled out of view (the Focus
+  // bar has taken the sticky slot) — the ⓘ menu mirrors them while this is set. Transient
+  // scroll state, driven by the controller in App.vue; not persisted.
+  switchesInMenu: false,
 
   setFilter(id: string) {
     this.activeFilter = id

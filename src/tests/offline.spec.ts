@@ -106,7 +106,7 @@ test('the offline file: theme + Headlines toggles work', async ({ page }) => {
   await expect(html).not.toHaveAttribute('data-theme', before || 'light')
 
   await expect(html).toHaveAttribute('data-compact', 'off')
-  await page.locator('.tb-toggles .essw', { hasText: 'Headlines' }).click()
+  await page.locator('.tb-toggles .essw:visible', { hasText: 'Headlines' }).click()
   await expect(html).toHaveAttribute('data-compact', 'on')
 })
 
