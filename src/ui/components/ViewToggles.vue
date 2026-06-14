@@ -1,5 +1,5 @@
 <template>
-  <div class="tb-toggles">
+  <div :class="['tb-toggles', { 'is-compact': compact }]">
     <button
       :class="['essw', { on: store.compact }]"
       :title="$t('Headlines — only the key skills & languages (recent ones first)')"
@@ -29,6 +29,10 @@
 
 <script setup lang="ts">
 import { useStore } from '@/composables/useStore'
+
+// `compact` → a tighter one-line variant used when the switches are mirrored inside the ⓘ
+// dropdown menu on mobile (smaller gap/padding/font so all three fit on a single row).
+defineProps<{ compact?: boolean }>()
 
 const store = useStore()
 </script>

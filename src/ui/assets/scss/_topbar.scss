@@ -311,6 +311,74 @@
     padding: 9px;
   }
 }
+
+/* ============================================================
+   MOBILE: switches in their own sticky bar + ⓘ-menu mirror
+   ============================================================
+   On mobile the view switches move out of the (sticky) top bar into their own sticky bar
+   right below it. As the page scrolls, the Focus filter bar (sticky, z:50, opaque) slides up
+   and covers this bar — the switches "hand off" the top slot. While they're covered, a scroll
+   controller in App.vue sets store.switchesInMenu, and the ⓘ menu mirrors them at its end. */
+.switches-bar {
+  display: none;
+}
+@media (max-width: 820px) {
+  /* the inline copy in the top bar (a direct child of .topbar-inner) is folded into the
+     sticky .switches-bar below — scope to the direct child so the ⓘ-menu mirror, which is
+     also a descendant of .topbar, is NOT hidden */
+  .topbar-inner > .tb-toggles {
+    display: none;
+  }
+  .switches-bar {
+    display: block;
+    position: sticky;
+    top: 60px; /* directly under the 60px brand bar */
+    z-index: 49; /* BELOW .filterbar (z:50) so the Focus bar covers it on handoff */
+    background: color-mix(in srgb, var(--bg) 86%, transparent);
+    backdrop-filter: blur(12px) saturate(1.2);
+    border-bottom: 1px solid var(--line);
+  }
+  .switches-bar > .wrap {
+    padding-top: 8px;
+    padding-bottom: 8px;
+  }
+
+  /* ⓘ menu only exists on mobile — keep it on-screen (anchored right:0 to a near-edge button,
+     so cap to the viewport with a left margin) yet wide enough for the mirrored switches */
+  .tb-menu {
+    width: min(340px, calc(100vw - 44px));
+  }
+  .tb-menu-switches {
+    padding: 2px 6px 7px;
+  }
+  /* compact one-line switch row inside the ⓘ dropdown (ViewToggles `compact` prop): a smaller
+     knob + tight padding so Headlines / Recent · 5y / Expand all fit without truncating, even
+     on ~344px phones. Ellipsis is a last-resort safety net. */
+  .tb-toggles.is-compact {
+    width: 100%;
+    flex-wrap: nowrap;
+    gap: 4px;
+    justify-content: space-between;
+  }
+  .tb-toggles.is-compact .essw {
+    flex: 0 1 auto;
+    min-width: 0;
+    gap: 4px;
+    padding: 6px 5px;
+    font-size: 10px;
+  }
+  .tb-toggles.is-compact .essw-knob {
+    width: 22px;
+  }
+  .tb-toggles.is-compact .essw.on .essw-knob::after {
+    transform: translateX(5px);
+  }
+  .tb-toggles.is-compact .essw-lbl {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+}
 /* labels drop progressively so the top bar always stays one row */
 @media (max-width: 1024px) {
   .cbtn .lbl {

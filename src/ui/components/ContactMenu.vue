@@ -41,6 +41,12 @@
       <button class="tb-menu-row hot" @click="guide()">
         <icon name="info" /><t>How to use this résumé</t>
       </button>
+      <!-- Mobile only: while the on-page view switches are scrolled out of view, mirror them
+           here (zipped to one line) so they stay reachable. App.vue sets the flag. -->
+      <template v-if="store.switchesInMenu">
+        <div class="tb-menu-sep"></div>
+        <div class="tb-menu-switches" @click.stop><view-toggles compact /></div>
+      </template>
     </div>
   </div>
 </template>
