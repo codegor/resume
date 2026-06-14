@@ -111,7 +111,7 @@ function playPause() {
 
 <style scoped lang="scss">
 .vmodal-vid {
-  cursor: pointer; // click the video to play / pause
+  cursor: pointer;
 }
 
 .vmodal-back {
@@ -286,7 +286,7 @@ function playPause() {
   background: rgba(255, 255, 255, 0.1);
 }
 
-@media (max-width: 820px) {
+@media (max-width: 980px) {
   .vmodal-cap {
     font-size: 15px;
     max-width: 70vmin;

@@ -20,7 +20,6 @@ test('a no-match skill search shows the empty-state message', async ({ page }) =
   const empty = page.locator('#skills .skills-empty')
   await expect(empty).toBeVisible()
   await expect(empty).toContainText('No skill matches')
-  // a real skill clears it
   await page.locator('.fb-search input').fill('postgres')
   await expect(empty).toHaveCount(0)
 })

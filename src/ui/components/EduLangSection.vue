@@ -148,7 +148,7 @@ const otherList = computed(() => (store.data!.other_skills || []).filter((o) => 
   color: var(--accent);
 }
 
-@media (max-width: 820px) {
+@media (max-width: 980px) {
   /* single column; the <ul> also carries default margin + 40px padding-left to zero */
   .other-list {
     grid-template-columns: 1fr;

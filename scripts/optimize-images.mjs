@@ -13,7 +13,7 @@ import { fileURLToPath } from 'node:url'
 import { dirname, resolve, join, extname } from 'node:path'
 import { createRequire } from 'node:module'
 
-const here = dirname(fileURLToPath(import.meta.url)) // <repo>/scripts
+const here = dirname(fileURLToPath(import.meta.url))
 // sharp is a devDependency in the repo-root package.json — resolve it from there.
 const require = createRequire(resolve(here, '../package.json'))
 const sharp = require('sharp')

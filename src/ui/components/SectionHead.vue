@@ -65,7 +65,7 @@ defineProps<{
   font-size: 34px;
 }
 
-@media screen and (max-width: 820px) {
+@media screen and (max-width: 980px) {
   .section-head {
     flex-direction: column;
     align-items: flex-start;

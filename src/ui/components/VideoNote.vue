@@ -79,7 +79,7 @@ onMounted(() => {
     (es) =>
       es.forEach((e) => {
         vis.value = e.isIntersecting
-        if (e.isIntersecting) loaded.value = true // fetch the clip on first reveal
+        if (e.isIntersecting) loaded.value = true
         const v = vid.value
         if (!v) return
         if (e.isIntersecting) v.play().catch(() => {})
@@ -214,7 +214,7 @@ function open(e?: Event) {
   white-space: nowrap;
 }
 
-@media (max-width: 820px) {
+@media (max-width: 980px) {
   .vnote.size-m {
     width: 48px;
     height: 48px;

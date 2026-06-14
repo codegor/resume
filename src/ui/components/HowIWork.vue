@@ -89,7 +89,7 @@ const points = computed(() => hw.value?.points || [])
   margin: 0;
 }
 
-@media screen and (max-width: 820px) {
+@media screen and (max-width: 980px) {
   .hiw-lead {
     margin-bottom: 22px;
   }

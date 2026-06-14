@@ -1,0 +1,14 @@
+# Code owners for codegor/resume.
+# A PR that touches a path below requires review/approval from the listed owner
+# when the branch ruleset's "Require review from Code Owners" is enabled
+# (Settings -> Rules -> Rulesets -> protect-main).
+
+# Default owner for the whole repo
+*                       @codegor
+
+# CodeRabbit AI review config -- changes require @codegor approval
+/.coderabbit.yaml       @codegor
+
+# Protect the ownership + CI/deploy config themselves
+/.github/CODEOWNERS      @codegor
+/.github/workflows/      @codegor

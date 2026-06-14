@@ -31,7 +31,6 @@ test('Recent·5y narrows the eras and still prints healthy', async ({ page }) =>
 test('skill search "symfony" narrows skills and still prints healthy', async ({ page }) => {
   await openApp(page)
   await page.locator('.fb-search input').fill('symfony')
-  // the found-count badge appears, and the Skills section narrows to the matching chip
   await expect(page.locator('.fb-search .ss-count')).toBeVisible()
   await expect(
     page

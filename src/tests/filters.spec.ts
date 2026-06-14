@@ -1,6 +1,8 @@
 import { test, expect, openApp } from './fixtures'
 
-test('a role filter activates, narrows projects, and clears', async ({ page }) => {
+test('a role filter activates, narrows projects, and clears', async ({ page }, testInfo) => {
+  // on mobile a filter click collapses the Focus bar to its rail — that flow lives in focus-rail.spec.ts
+  test.skip(testInfo.project.name === 'iphone', 'expanded-bar filter flow is desktop/iPad only')
   await openApp(page)
   const before = await page.locator('.epoch-group .project').count()
 
@@ -9,7 +11,6 @@ test('a role filter activates, narrows projects, and clears', async ({ page }) =
   await expect(role).toHaveClass(/on/)
   await expect(page.locator('.filterbar .chip.on')).toHaveCount(1)
 
-  // a filter removes non-matching projects from the timeline
   const after = await page.locator('.epoch-group .project').count()
   expect(after).toBeLessThanOrEqual(before)
 

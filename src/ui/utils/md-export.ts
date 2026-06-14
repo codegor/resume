@@ -249,8 +249,9 @@ export function downloadResumeMarkdown(
 ): void {
   const md = buildResumeMarkdown(data, cfg)
   const blob = new Blob([md], { type: 'text/markdown;charset=utf-8' })
-  const d = lastModified ? new Date(lastModified) : null
-  const stamp = d && !isNaN(d.getTime()) ? d.toISOString().slice(0, 10) : data.updated || ''
+  const src = data.updated || lastModified
+  const d = src ? new Date(src) : null
+  const stamp = d && !isNaN(d.getTime()) ? d.toISOString().slice(0, 10) : ''
   const a = document.createElement('a')
   a.href = URL.createObjectURL(blob)
   a.download = `${(data.name || 'resume').replace(/\s+/g, '-')}-Resume${stamp ? `-${stamp}` : ''}.md`

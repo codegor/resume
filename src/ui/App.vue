@@ -155,31 +155,63 @@ function revealNew(): void {
   })
 }
 
-// Mobile only: mirror the view switches into the ⓘ menu while they're scrolled out of view.
-// The visual handoff (the Focus bar covering the sticky .switches-bar) is pure CSS; this just
-// flips store.switchesInMenu when the Focus bar has reached the top slot. rAF-throttled like
-// SectionNav. The flag is forced off on desktop so the menu never mirrors there.
+// Mobile (≤980px) scroll controller: collapses the Focus bar to its rail once it sticks to the top
+// (store.focusOpen) and mirrors the view switches into the ⓘ menu while they're covered
+// (store.switchesInMenu). Forced to desktop values above 980px.
 const TOPBAR_H = 60
+const mqMobile = window.matchMedia('(max-width: 980px)')
 let switchesRaf = 0
+// has the Focus bar reached its sticky top? drives BOTH the rail collapse and the switches hand-off
+let stuck = false
+function applyMobile(): void {
+  store.isMobile = mqMobile.matches
+  if (!mqMobile.matches) store.focusOpen = true // desktop always renders the full Focus bar
+}
 function syncSwitchesMenu(): void {
   switchesRaf = 0
-  if (window.innerWidth > 820) {
+  if (!store.isMobile) {
     store.switchesInMenu = false
+    store.focusOpen = true
+    stuck = false
     return
   }
   const fb = document.getElementById('filterbar')
-  store.switchesInMenu = !!(fb && fb.getBoundingClientRect().top <= TOPBAR_H + 1)
+  if (!fb) return
+  const top = fb.getBoundingClientRect().top
+  // hysteresis dead-band so sub-pixel jitter at the line can't flip the state every frame; the
+  // collapse not nudging scrollY (overflow-anchor:none in _base.scss) is what stops it oscillating
+  if (top <= TOPBAR_H) stuck = true
+  else if (top >= TOPBAR_H + 16) stuck = false
+  // don't collapse the Focus bar while the search input is focused — it lives only in the expanded
+  // bar, so collapsing would yank it out mid-keystroke (FilterBar relies on this)
+  const ae = document.activeElement
+  const typingSearch = ae instanceof HTMLElement && !!ae.closest('.fb-search')
+  if (store.focusOpen) {
+    if (stuck && !typingSearch) store.focusOpen = false
+  } else if (!stuck) {
+    store.focusOpen = true
+  }
+  // the switches bar is covered the whole time the Focus bar is stuck — independent of whether the
+  // bar is held open (funnel tap / typing) — so mirror the switches into the ⓘ menu while stuck
+  store.switchesInMenu = stuck
 }
 function onSwitchesScroll(): void {
   if (!switchesRaf) switchesRaf = requestAnimationFrame(syncSwitchesMenu)
 }
+function onMqChange(): void {
+  applyMobile()
+  syncSwitchesMenu()
+}
 onMounted(() => {
   window.addEventListener('scroll', onSwitchesScroll, { passive: true })
   window.addEventListener('resize', onSwitchesScroll)
+  mqMobile.addEventListener('change', onMqChange)
+  applyMobile()
 })
 onBeforeUnmount(() => {
   window.removeEventListener('scroll', onSwitchesScroll)
   window.removeEventListener('resize', onSwitchesScroll)
+  mqMobile.removeEventListener('change', onMqChange)
   if (switchesRaf) cancelAnimationFrame(switchesRaf)
 })
 

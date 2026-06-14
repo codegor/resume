@@ -33,6 +33,10 @@ export const store = reactive({
   // bar has taken the sticky slot) — the ⓘ menu mirrors them while this is set. Transient
   // scroll state, driven by the controller in App.vue; not persisted.
   switchesInMenu: false,
+  // mobile (≤980px): Focus bar expanded? driven by the scroll controller in App.vue; not persisted
+  focusOpen: true,
+  // ≤980px mobile shell; kept fresh by a matchMedia listener in App.vue
+  isMobile: window.matchMedia('(max-width: 980px)').matches,
 
   setFilter(id: string) {
     this.activeFilter = id
@@ -40,6 +44,9 @@ export const store = reactive({
   },
   setSkill(name: string | null) {
     this.activeSkill = name
+  },
+  setFocusOpen(v: boolean) {
+    this.focusOpen = v
   },
   toggleTheme() {
     this.theme = this.theme === 'dark' ? 'light' : 'dark'
@@ -88,6 +95,14 @@ export const store = reactive({
     this.activeFilter = 'all'
     this.activeSkill = null
     this.recentOnly = false
+    this.skillQuery = ''
+  },
+  /* clear only what the mobile rail's ✕ advertises + counts — the focus filter, skill highlight
+     and skill search — and NOT the Recent·5y view, which it neither shows nor badges. (clearAll
+     additionally resets recentOnly, so don't use it for that button.) */
+  clearFilters() {
+    this.activeFilter = 'all'
+    this.activeSkill = null
     this.skillQuery = ''
   },
   openVideo(k: string) {

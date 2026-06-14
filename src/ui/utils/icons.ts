@@ -106,6 +106,12 @@ export const ICONS: Record<string, IconDef> = {
     sw: 2,
     inner: '<path d="M4 5h16l-6 7v6l-4-2v-4z" stroke-linejoin="round"/>',
   },
+  'funnel-more': {
+    stroke: 'currentColor',
+    sw: 1.8,
+    inner:
+      '<path d="M4 4h16l-6 7v3.5l-4 2V11L4 4Z" stroke-linejoin="round" stroke-linecap="round"/><circle cx="7" cy="20.5" r="1" fill="currentColor" stroke="none"/><circle cx="12" cy="20.5" r="1" fill="currentColor" stroke="none"/><circle cx="17" cy="20.5" r="1" fill="currentColor" stroke="none"/>',
+  },
   pin: {
     stroke: 'currentColor',
     sw: 1.8,

@@ -35,8 +35,6 @@ reviews:
   # ── File filters: review source, skip generated/vendored/frozen ──
   path_filters:
     - '!dist/**'
-    - '!legacy/**'
-    - '!react/**'
     - '!node_modules/**'
     - '!public/assets/**/*.{avif,webp,jpg,jpeg,png,svg,mp4,woff,woff2}'
     - '!**/*.min.js'
