@@ -35,14 +35,14 @@
         </button>
       </template>
       <button
-        v-if="collapseModern && (!skillsOpen || store.printing) && restModern > 0"
+        v-if="collapse && (!skillsOpen || store.printing) && restCount > 0"
         class="skill skill-more"
         @click="skillsOpen = true"
       >
-        +{{ restModern }} <t>more</t>
+        +{{ restCount }} <t>more</t>
       </button>
       <button
-        v-if="collapseModern && skillsOpen && !store.printing"
+        v-if="collapse && skillsOpen && !store.printing"
         class="skill skill-more"
         @click="skillsOpen = false"
       >
@@ -159,7 +159,11 @@ function floatTrend(list: Chip[]): Chip[] {
 const searchChips = computed(() =>
   q.value ? chips.value.filter((c) => skillSearchMatch(c.name, q.value)) : null,
 )
-const searchHidden = computed(() => q.value !== '' && searchChips.value!.length === 0)
+// Search ALONE (no focus filter) hides a zero-match group — unchanged. In a search × focus
+// collision the (focus-scoped) group stays visible and collapses to "+N more" instead.
+const searchHidden = computed(
+  () => q.value !== '' && store.activeFilter === 'all' && searchChips.value!.length === 0,
+)
 const collapsedNames = computed(() =>
   chips.value
     .filter((c) => (c.name || '').length <= 24)
@@ -200,12 +204,27 @@ const collapseModern = computed(
 const restModern = computed(() =>
   collapseModern.value ? chips.value.length - modernChips.value.length : 0,
 )
+/* search × focus collision → keep this (focus) group, show its matches and tuck the rest
+   behind a reveal-in-place "+N more" (so 0 match ⇒ "0 present, all on +N more"). collapseModern
+   needs !q and collapseSearch needs q, so the two never overlap. */
+const collapseSearch = computed(
+  () =>
+    q.value !== '' &&
+    store.activeFilter !== 'all' &&
+    (searchChips.value?.length ?? 0) < chips.value.length,
+)
+const restSearch = computed(() =>
+  collapseSearch.value ? chips.value.length - (searchChips.value?.length ?? 0) : 0,
+)
+const collapse = computed(() => collapseModern.value || collapseSearch.value)
+const restCount = computed(() => (collapseModern.value ? restModern.value : restSearch.value))
 const shownChips = computed(() => {
-  if (q.value) return searchChips.value
-  const base = collapseModern.value
+  if (q.value && !collapseSearch.value) return searchChips.value // search-alone — unchanged
+  const relevant = q.value ? searchChips.value! : modernChips.value
+  const base = collapse.value
     ? skillsOpen.value && !store.printing
       ? chips.value
-      : modernChips.value
+      : relevant
     : chips.value
   return floatTrend(base)
 })

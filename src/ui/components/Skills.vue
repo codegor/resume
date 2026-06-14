@@ -57,8 +57,10 @@ const order = computed(() => [
   'want_to_learn',
 ])
 const visibleKeys = computed(() => {
+  // Always focus-scoped: search alone (af === 'all') still shows every group, but when a
+  // focus filter is active the search stays inside that filter's group(s) instead of
+  // overriding it (the search × focus collision — see noSkillMatch / SkillGroup collapse).
   const af = store.activeFilter
-  if (q.value) return order.value.filter((k) => skills.value[k])
   return order.value.filter(
     (k) => skills.value[k] && (af === 'all' || (filterFor.value[k] || null) === af),
   )
@@ -71,7 +73,9 @@ const hiddenCount = computed(() => {
     .filter((k) => af !== 'all' && (filterFor.value[k] || null) !== af).length
 })
 const noSkillMatch = computed(() => {
-  if (!q.value) return false
+  // search-alone only: in a search × focus collision the (focus) group collapses to "+N more"
+  // instead of showing this message.
+  if (!q.value || store.activeFilter !== 'all') return false
   return !visibleKeys.value.some((k) =>
     skillChipsFor(k, skills.value[k] as SkillGroup).some((c) => skillSearchMatch(c.name, q.value)),
   )
