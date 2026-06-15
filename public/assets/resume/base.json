@@ -100,8 +100,8 @@
     },
     {
       "id": "backend",
-      "label": "Back-end",
-      "roleLabel": "Back-end",
+      "label": "Backend",
+      "roleLabel": "Backend",
       "skillGroups": [
         "back_end"
       ],
@@ -127,8 +127,8 @@
     },
     {
       "id": "frontend",
-      "label": "Front-end",
-      "roleLabel": "Front-end",
+      "label": "Frontend",
+      "roleLabel": "Frontend",
       "skillGroups": [
         "front_end"
       ],

@@ -7,6 +7,13 @@ export const slugify = (s: string): string =>
     .replace(/[^a-z0-9]+/g, '-')
     .replace(/^-|-$/g, '')
 
+/** Display form of a URL: strip the protocol and any trailing slash (e.g. "codegor.github.io/resume"). */
+export function shortUrl(u: string): string {
+  return String(u || '')
+    .replace(/^https?:\/\//, '')
+    .replace(/\/$/, '')
+}
+
 export function langLevelPct(level: string): number {
   const l = (level || '').toLowerCase()
   if (l.includes('mastery') || l.includes('native')) return 100

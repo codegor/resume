@@ -20,8 +20,8 @@ describe('format', () => {
   })
 
   it('roleLabelsFor maps filter ids via roleTagLabels (drops unknowns)', () => {
-    setSiteConfig({ roleTagLabels: { ai: 'AI/LLM', backend: 'Back-end' } } as unknown as SiteConfig)
-    expect(roleLabelsFor(['ai', 'backend', 'unknown'])).toEqual(['AI/LLM', 'Back-end'])
+    setSiteConfig({ roleTagLabels: { ai: 'AI/LLM', backend: 'Backend' } } as unknown as SiteConfig)
+    expect(roleLabelsFor(['ai', 'backend', 'unknown'])).toEqual(['AI/LLM', 'Backend'])
     expect(roleLabelsFor(undefined)).toEqual([])
   })
 })

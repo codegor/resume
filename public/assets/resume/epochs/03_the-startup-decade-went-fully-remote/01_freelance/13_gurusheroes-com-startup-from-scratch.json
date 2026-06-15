@@ -11,7 +11,7 @@
     "architect",
     "qa"
   ],
-  "description": "Job search application. Server-side and front-end development; setting up 2 connected servers from scratch with DB replication support. I used a Vue–Laravel API library developed by me earlier and updated specially for this project, along with other libs of mine.",
+  "description": "Job search application. Server-side and frontend development; setting up 2 connected servers from scratch with DB replication support. I used a Vue–Laravel API library developed by me earlier and updated specially for this project, along with other libs of mine.",
   "technologies": [
     "PostgreSQL",
     "MySQL",

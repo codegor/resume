@@ -15,10 +15,12 @@ export const store = reactive({
   err: null as string | null,
   updated: null as string | null,
   theme: localStorage.getItem('resume-theme') || 'light',
-  compact: localStorage.getItem('resume-compact') === 'on',
+  // Headlines + Recent·5y default ON for first-time visitors (terse, recent-first first
+  // impression); a stored 'off' from a prior toggle still wins.
+  compact: (localStorage.getItem('resume-compact') ?? 'on') === 'on',
   expandAll: false,
   expandTick: 0,
-  recentOnly: localStorage.getItem('resume-recent') === 'on',
+  recentOnly: (localStorage.getItem('resume-recent') ?? 'on') === 'on',
   activeFilter: 'all',
   activeSkill: null as string | null,
   skillQuery: '',
@@ -53,7 +55,14 @@ export const store = reactive({
   },
   toggleCompact() {
     this.compact = !this.compact
-    this.recentOnly = this.compact
+    // Turning Headlines ON also enables Recent·5y; turning it OFF leaves Recent as-is (so you can
+    // drop the compact view while still browsing the recent-first timeline).
+    if (this.compact) this.recentOnly = true
+  },
+  /* Headlines reveal button: leave the compact view but KEEP Recent·5y, so the timeline opens to
+     the recent eras first (the "+N earlier eras" pill / Recent toggle reveal the rest). */
+  showProjects() {
+    this.compact = false
   },
   toggleExpandAll() {
     this.expandAll = !this.expandAll

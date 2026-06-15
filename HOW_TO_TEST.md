@@ -63,7 +63,7 @@ The site remembers **theme**, **Headlines**, and **Recent · 5y** across reloads
 ## Scene 2 — Read me through one role's lens (Focus filters)
 
 1. In the **Focus** bar, click a role chip — e.g. **AI**, **Architect**, **Team Lead**,
-   **Back-end**, **Front-end**, **QA**, or **DevOps**. Each chip shows a **count**.
+   **Backend**, **Frontend**, **QA**, or **DevOps**. Each chip shows a **count**.
 2. **See:**
    - The chip turns terracotta (active).
    - **Skills** narrow to that role's groups/skills.
@@ -230,7 +230,30 @@ Click the **download (⤓)** button in the top bar. It opens a menu with three i
    - **Clickable** contact links; role dates shown **inline**.
    - Language bars keep their colour; a clickable page-link in the footer.
    - No cream background bleeding onto the page (it shouldn't).
-3. Close the dialog → the page returns to its previous theme (light/dark restored).
+   - **Save-as filename** defaults to `egor_berezovsky_resume_print_MM-YYYY` (set via `document.title`;
+     works on Android. On Windows "Microsoft Print to PDF" the field comes up blank — a platform
+     limitation, not something the page controls). The print running-header shows that same slug.
+   - Each **timeline conference / course** card shows its **description + event link** (online
+     they only appear after you expand the card).
+   - The **footer** swaps its screen "New here?" + AI lines for a print **promo paragraph** with
+     accent links to the live résumé (the "How to use guide" + the URL).
+   - **In Headlines mode**, the timeline section collapses to its header + an accent link "See the
+     projects on the timeline — on the interactive, AI-ready online version" (online it's a "Show
+     recent projects on the timeline" button that drops Headlines but keeps Recent·5y).
+3. **With Recent · 5y ON** (or any focus filter / skill / search active), also see:
+   - A centered **status line** in the folio header listing the active view + filters, e.g.
+     "Recent 5 years · Architect role · skill: Vue.js only — more on interactive online"
+     ("Headlines" replaces "Recent 5 years" when Headlines is on; "·"-joined).
+   - The Skills **"+N more"** and the **"+N earlier eras"** pill read **"… on interactive online"**
+     and are accent **links** to the live résumé.
+   - The **Always learning** section prints at most **2 courses + 2 conferences**, each followed by
+     a "+N more … on interactive online" accent link.
+4. Close the dialog → the page returns to its previous theme (light/dark restored) and the tab
+   title is restored to "{name} — Résumé".
+
+> The screen footer carries an **AI-ready advert** ("Hiring with AI? … Download Markdown (.md)")
+> whose button triggers the same Markdown export as the ⤓ menu — this is the one change visible in
+> the normal (non-print) view.
 
 > A4 ≈ 794px wide, which is below the 980px mobile breakpoint — print and mobile layouts
 > are independent, so verify both separately.

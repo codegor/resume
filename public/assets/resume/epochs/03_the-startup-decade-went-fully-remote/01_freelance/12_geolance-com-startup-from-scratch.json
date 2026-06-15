@@ -9,7 +9,7 @@
     "devops",
     "qa"
   ],
-  "description": "An app where you can post an ad about any work and other users respond to it. Server-side and front-end development, plus management of Docker containers. I used a Vue–Laravel API library developed by me earlier and updated specially for this project.",
+  "description": "An app where you can post an ad about any work and other users respond to it. Server-side and frontend development, plus management of Docker containers. I used a Vue–Laravel API library developed by me earlier and updated specially for this project.",
   "technologies": [
     "MySQL",
     "PHP 7.1",

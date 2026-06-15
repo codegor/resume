@@ -1,12 +1,33 @@
 <template>
-  <section-block id="timeline" :compact="true">
+  <!-- NOT :compact — the section must stay visible in Headlines so it can show the reveal
+       button/print link (the [data-compact] .compact-hide rule would display:none the whole
+       section). The compact collapse is handled by the v-if branches below. -->
+  <section-block id="timeline">
     <section-head
       :eyebrow="$t('03 — Experience')"
       :title="$t('A timeline of my work')"
       :rule="true"
-      :count="headCount"
+      :count="store.compact ? '' : headCount"
     />
-    <div ref="container" class="timeline">
+    <!-- Headlines collapse: interactive → a reveal button (showProjects keeps Recent·5y);
+         print → an accent link to the live site. -->
+    <a
+      v-if="store.compact && store.printing"
+      class="more-pill more-online timeline-reveal"
+      :href="onlineResumeUrl()"
+      >{{
+        $t(
+          'See the projects, conferences & courses on the timeline — on the interactive, AI-ready online version',
+        )
+      }}</a
+    >
+    <div v-else-if="store.compact" class="timeline-reveal-row">
+      <button class="more-pill timeline-reveal" @click="store.showProjects()">
+        <span><t>Show recent projects, conferences & courses on the timeline</t></span
+        ><span class="mp-arrow"> ▾</span>
+      </button>
+    </div>
+    <div v-else ref="container" class="timeline">
       <timeline-spine :recompute-key="recomputeKey" />
       <div class="epochs">
         <epoch
@@ -21,6 +42,7 @@
           <more-pill
             :open="false"
             :more="hiddenEpochCount"
+            :online="true"
             :more-text="
               store.printing
                 ? $tc('+{n} earlier era', '+{n} earlier eras', hiddenEpochCount)
@@ -43,6 +65,7 @@ import { ref, computed, watch, nextTick, onMounted, onBeforeUnmount } from 'vue'
 import { useStore } from '@/composables/useStore'
 import { siteConfig } from '@/config'
 import { t as $t, tc as $tc } from '@/composables/i18n'
+import { onlineResumeUrl } from '@/utils/dom'
 import {
   tokensForFilter,
   projectInFilter,
@@ -206,3 +229,15 @@ onBeforeUnmount(() => {
 
 watch(recomputeKey, () => nextTick(() => onScroll()))
 </script>
+
+<style scoped lang="scss">
+.timeline-reveal-row {
+  display: flex;
+  justify-content: center;
+  margin: 8px 0;
+}
+
+.timeline-reveal {
+  margin: 8px 0;
+}
+</style>

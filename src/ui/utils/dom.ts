@@ -77,7 +77,7 @@ export function scrollToId(id: string): void {
 }
 
 /**
- * Scroll to the skill group (Back-end, DevOps, …) containing the active
+ * Scroll to the skill group (Backend, DevOps, …) containing the active
  * (highlighted) skill chip — the first one in DOM order, i.e. where the skill
  * appears first. Falls back to the Skills section header when no highlighted
  * chip is rendered/visible (group hidden by search/filter, or the chip is
@@ -107,6 +107,16 @@ function isOfflineBuild(): boolean {
  */
 export function siteHomeUrl(): string {
   return isOfflineBuild() ? siteConfig().resumeUrl || '#top' : '#top'
+}
+
+/**
+ * Absolute URL of the live, interactive résumé. Unlike `siteHomeUrl()` (which scrolls to
+ * `#top` on the hosted build), this ALWAYS returns the canonical online address — used by the
+ * print-only "… on interactive online" links and the footer promo so a PDF/offline copy points
+ * the reader back to the live site.
+ */
+export function onlineResumeUrl(): string {
+  return siteConfig().resumeUrl || '#top'
 }
 
 /**

@@ -1,6 +1,22 @@
 import { test as base, expect, type Page } from '@playwright/test'
 
-export const test = base
+// Headlines + Recent·5y now default ON for a fresh visitor (collapses the timeline & compacts
+// skills). The suite's feature tests assume the FULL view, so pin both OFF before the app boots
+// (an init script runs before the app reads localStorage, on http AND file:// pages). The
+// default-on behaviour itself is covered explicitly in compact-recent.spec.ts.
+export const test = base.extend({
+  page: async ({ page }, use) => {
+    await page.addInitScript(() => {
+      try {
+        localStorage.setItem('resume-compact', 'off')
+        localStorage.setItem('resume-recent', 'off')
+      } catch {
+        /* localStorage unavailable — ignore */
+      }
+    })
+    await use(page)
+  },
+})
 export { expect }
 
 /** Navigate to the app (clearing persisted view-state), wait until it's mounted,

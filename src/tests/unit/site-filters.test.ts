@@ -8,7 +8,7 @@ beforeAll(() => {
   setSiteConfig({
     filters: [
       { id: 'all', label: 'All' },
-      { id: 'backend', label: 'Back-end', skillGroups: ['back_end'], keywords: ['php', 'symfony'] },
+      { id: 'backend', label: 'Backend', skillGroups: ['back_end'], keywords: ['php', 'symfony'] },
     ],
     skillAliases: { 'vue.js': 'vue', vue: 'vue', 'node.js': 'node', node: 'node' },
     projects: { 'Co::P': { filters: ['backend'] } },

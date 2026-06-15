@@ -35,6 +35,7 @@ import { useStore } from '@/composables/useStore'
 import { setSiteConfig } from '@/config'
 import { buildDerivedConfig } from '@/utils/site-data'
 import { loadAllImages } from '@/utils/dom'
+import { printFileName } from '@/utils/offline-name'
 // `t` is aliased to $t because this SFC's template uses the <t> component — a `t`
 // script binding would shadow the tag.
 import { lang, t as $t } from '@/composables/i18n'
@@ -51,20 +52,42 @@ document.documentElement.setAttribute('data-compact', store.compact ? 'on' : 'of
 window.__openVideo = (k: string) => store.openVideo(k)
 
 let prevTheme: string | null = null
-window.addEventListener('beforeprint', () => {
+// non-null ⇄ the print theme+title swap is applied; doubles as the idempotency guard for the
+// several print signals below (so they don't re-apply or clobber the saved prevTitle)
+let prevTitle: string | null = null
+function enterPrint(): void {
   store.printing = true
-  // Card/photo images load lazily while browsing; force the just-expanded + below-fold
-  // ones to load so the print/PDF paints them instead of blank boxes. (The app's own
-  // "Print / Save as PDF" button awaits this first via store.print(); on a raw Ctrl+P
-  // this is best-effort alongside the browser's own print-time lazy-load.)
-  loadAllImages()
+  loadAllImages() // force lazy/below-fold images to load so the PDF doesn't paint blank boxes
+  if (prevTitle !== null) return
   prevTheme = document.documentElement.getAttribute('data-theme')
   document.documentElement.setAttribute('data-theme', 'light')
-})
-window.addEventListener('afterprint', () => {
+  // PDF "Save as" filename via document.title (works on Android; Windows blanks it regardless)
+  prevTitle = document.title
+  document.title = printFileName(store.data?.name, store.data?.updated)
+}
+function exitPrint(): void {
   store.printing = false
+  if (prevTitle === null) return
   if (prevTheme) document.documentElement.setAttribute('data-theme', prevTheme)
-})
+  document.title = prevTitle
+  prevTitle = null
+  prevTheme = null
+}
+// `afterprint` is unreliable (Windows "Microsoft Print to PDF" and Escape-cancel skip it), which
+// would leave store.printing stuck true — so also exit on the print-media change AND on regaining
+// focus/visibility. enter/exitPrint are idempotent (prevTitle guard), so overlapping signals are safe.
+// (Listeners are wired in onMounted / torn down in onBeforeUnmount below.)
+const printMq = window.matchMedia('print')
+function resetIfNotPrinting(): void {
+  if (store.printing && !printMq.matches) exitPrint()
+}
+function onPrintMqChange(e: MediaQueryListEvent): void {
+  if (e.matches) enterPrint()
+  else exitPrint()
+}
+function onVisibilityChange(): void {
+  if (document.visibilityState === 'visible') resetIfNotPrinting()
+}
 
 interface Loaded<T> {
   j: T
@@ -206,12 +229,22 @@ onMounted(() => {
   window.addEventListener('scroll', onSwitchesScroll, { passive: true })
   window.addEventListener('resize', onSwitchesScroll)
   mqMobile.addEventListener('change', onMqChange)
+  window.addEventListener('beforeprint', enterPrint)
+  window.addEventListener('afterprint', exitPrint)
+  printMq.addEventListener?.('change', onPrintMqChange)
+  window.addEventListener('focus', resetIfNotPrinting)
+  document.addEventListener('visibilitychange', onVisibilityChange)
   applyMobile()
 })
 onBeforeUnmount(() => {
   window.removeEventListener('scroll', onSwitchesScroll)
   window.removeEventListener('resize', onSwitchesScroll)
   mqMobile.removeEventListener('change', onMqChange)
+  window.removeEventListener('beforeprint', enterPrint)
+  window.removeEventListener('afterprint', exitPrint)
+  printMq.removeEventListener?.('change', onPrintMqChange)
+  window.removeEventListener('focus', resetIfNotPrinting)
+  document.removeEventListener('visibilitychange', onVisibilityChange)
   if (switchesRaf) cancelAnimationFrame(switchesRaf)
 })
 
@@ -234,6 +267,16 @@ watch(
   (v) => {
     localStorage.setItem('resume-recent', v ? 'on' : 'off')
     revealNew()
+  },
+)
+// Engaging a focus filter, a skill highlight, or a search means the user wants to SEE results —
+// drop Headlines (which hides the timeline & compacts skills) but KEEP Recent·5y. Centralised
+// here so it fires no matter how the state was set (chip, skill chip, tech tag, search input).
+watch(
+  () => [store.activeFilter, store.activeSkill, store.skillQuery],
+  () => {
+    const active = store.activeFilter !== 'all' || !!store.activeSkill || !!store.skillQuery.trim()
+    if (store.compact && active) store.compact = false
   },
 )
 watch(

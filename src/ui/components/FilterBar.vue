@@ -226,10 +226,11 @@ function collapse(): void {
 }
 function onFilterClick(id: string): void {
   store.setFilter(id)
-  if (store.isMobile) {
-    if (store.focusOpen) store.setFocusOpen(false)
-    scrollToId('skills')
-  }
+  if (store.isMobile && store.focusOpen) store.setFocusOpen(false)
+  // Jump to the role's Skills group (Skills shows only the active role's group). Selecting a role
+  // also drops Headlines (App.vue watcher) → the page height changes, so scroll on the NEXT tick,
+  // after that relayout, or we land off-target.
+  nextTick(() => scrollToId('skills'))
 }
 function onSearch(e: Event) {
   const was = (store.skillQuery || '').trim()
