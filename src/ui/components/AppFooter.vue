@@ -19,6 +19,23 @@
           <t>How&nbsp;to&nbsp;use guide</t></button
         >.
       </p>
+      <!-- long sentences come from $t() computeds (aiPromo/printPromo): a multi-line <t> would be
+           wrapped by Prettier with a split close tag the i18n extractor can't match -->
+      <p class="footer-ai">
+        {{ aiPromo
+        }}<!-- explicit space -->{{ ' '
+        }}<button type="button" class="footer-help-link" @click="store.exportMd()">
+          <t>Download Markdown (.md)</t></button
+        >.
+      </p>
+      <p v-if="resumeUrl" class="footer-help-print">
+        {{ printPromo
+        }}<!-- explicit space -->{{ ' ' }}<t>See it live and open the</t>{{ ' '
+        }}<a :href="resumeUrl" class="footer-help-print-link"><t>How to use guide</t></a
+        >{{ ' ' }}<t>at</t>{{ ' '
+        }}<a :href="resumeUrl" class="footer-help-print-link">{{ shortResumeUrl }}</a
+        >.
+      </p>
       <div class="footer-grid">
         <div>
           <div class="footer-name"><t>Let's build something.</t></div>
@@ -77,13 +94,27 @@ import { computed } from 'vue'
 import { useStore } from '@/composables/useStore'
 import { siteConfig } from '@/config'
 import { openContactWithMessage } from '@/utils/contact'
-import { lang, setLang, availableLangs } from '@/composables/i18n'
+import { shortUrl } from '@/utils/format'
+// `t` aliased to $t — this SFC's template uses the <t> component, so a bare `t` binding
+// would shadow the tag.
+import { lang, setLang, availableLangs, t as $t } from '@/composables/i18n'
 
 const store = useStore()
 const langs = availableLangs()
 
 const c = computed(() => siteConfig().contacts!)
 const resumeUrl = computed(() => siteConfig().resumeUrl)
+const shortResumeUrl = computed(() => shortUrl(resumeUrl.value || ''))
+const aiPromo = computed(() =>
+  $t(
+    'Hiring with AI? This résumé is AI-ready — export the whole thing as Markdown for ChatGPT, Claude or an ATS.',
+  ),
+)
+const printPromo = computed(() =>
+  $t(
+    "This is a static snapshot. The live résumé is fully interactive — filter everything by role focus (AI · Architect · Team Lead · Backend · Frontend · QA · DevOps), open the full timeline of projects, and watch short intro videos. It's also AI-ready: export it as Markdown for ChatGPT, Claude or an ATS.",
+  ),
+)
 const updatedLabel = computed(() => {
   const updated = (store.data && store.data.updated) || store.updated
   if (!updated) return null
@@ -161,17 +192,31 @@ const openContact = openContactWithMessage
   text-transform: uppercase;
 }
 
-.footer-help {
+.footer-help,
+.footer-ai {
   font-family: var(--sans);
   font-size: 14px;
   line-height: 1.6;
   color: color-mix(in srgb, var(--bg) 72%, transparent);
-  margin: 0 0 36px;
   max-width: 60ch;
 }
 
-[data-theme='dark'] .footer-help {
+.footer-help {
+  margin: 0 0 14px;
+}
+
+.footer-ai {
+  margin: 0 0 36px;
+}
+
+[data-theme='dark'] .footer-help,
+[data-theme='dark'] .footer-ai {
   color: var(--muted);
+}
+
+/* print-only promo — shown via @media print in _print.scss */
+.footer-help-print {
+  display: none;
 }
 
 .footer-help-link {

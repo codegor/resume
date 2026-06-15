@@ -9,7 +9,7 @@
     "devops",
     "qa"
   ],
-  "description": "App for construction budget calculation. Server-side and front-end development; setting up 2 connected servers from scratch with file replication and DB (MySQL) replication support. I used a Vue–Laravel API library developed by me earlier and updated specially for this project.",
+  "description": "App for construction budget calculation. Server-side and frontend development; setting up 2 connected servers from scratch with file replication and DB (MySQL) replication support. I used a Vue–Laravel API library developed by me earlier and updated specially for this project.",
   "technologies": [
     "MySQL",
     "PHP 5.6",

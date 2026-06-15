@@ -34,7 +34,7 @@
     "poster": "assets/intro-poster.jpg",
     "caption": "Inside the high-load sports platform & the AI content service."
   },
-  "description": "Back-end and front-end (Twig) development — creating new services, fixing bugs, and adding features. I refactored legacy code, proposed improvement concepts, sped it up, and made it more flexible and easier to maintain.",
+  "description": "Backend and frontend (Twig) development — creating new services, fixing bugs, and adding features. I refactored legacy code, proposed improvement concepts, sped it up, and made it more flexible and easier to maintain.",
   "key_achievements": [
     "Generative AI: built and maintained an AI content-generation service on OpenAI and Claude — text generation via the Batch API, news embeddings, content checks via the Moderation API, and automatic match video-predictions. Added an AI content-review step that flags rude or low-quality text before publishing.",
     "Memory & stability: fixed a memory leak in a back-office consumer that ran on every admin-panel save — cutting its peak memory from a 2 GB overflow to ~16 MB — and made it stateless by resetting from config on each run, so a job never executes against a previous message's configuration.",
@@ -250,5 +250,5 @@
     "SSH"
   ],
   "team": "20 persons",
-  "responsibility": "Back-end and full-stack development, production-incident resolution, performance and cache optimization, observability, asynchronous queues, and third-party API integration"
+  "responsibility": "Backend and full-stack development, production-incident resolution, performance and cache optimization, observability, asynchronous queues, and third-party API integration"
 }

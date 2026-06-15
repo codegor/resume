@@ -35,12 +35,18 @@
         </button>
       </template>
       <button
-        v-if="collapse && (!skillsOpen || store.printing) && restCount > 0"
+        v-if="collapse && !skillsOpen && !store.printing && restCount > 0"
         class="skill skill-more"
         @click="skillsOpen = true"
       >
         +{{ restCount }} <t>more</t>
       </button>
+      <a
+        v-if="collapse && store.printing && restCount > 0"
+        class="skill skill-more more-online"
+        :href="onlineResumeUrl()"
+        >+{{ restCount }} <t>more on interactive online</t></a
+      >
       <button
         v-if="collapse && skillsOpen && !store.printing"
         class="skill skill-more"
@@ -57,6 +63,7 @@ import { ref, computed, watch } from 'vue'
 import { useStore } from '@/composables/useStore'
 import { siteConfig } from '@/config'
 import { t as $t } from '@/composables/i18n'
+import { onlineResumeUrl } from '@/utils/dom'
 import { skillMatchesTech, looseMatch } from '@/utils/site-filters'
 import {
   skillChipsFor,

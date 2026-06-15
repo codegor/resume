@@ -15,7 +15,7 @@ const res = {
   filters: [
     { id: 'all', label: 'All' },
     { id: 'ai', label: 'AI / LLM', roleLabel: 'AI/LLM', skillGroups: ['agent_development'] },
-    { id: 'backend', label: 'Back-end', roleLabel: 'Back-end', skillGroups: ['back_end'] },
+    { id: 'backend', label: 'Backend', roleLabel: 'Backend', skillGroups: ['back_end'] },
   ],
   providers: { fwdays: { logo: 'fw.png' } },
   skills: {},
@@ -51,7 +51,7 @@ describe('buildDerivedConfig', () => {
   })
 
   it('reconstructs roleTagLabels from filters[].roleLabel (skips "all")', () => {
-    expect(d.roleTagLabels).toEqual({ ai: 'AI/LLM', backend: 'Back-end' })
+    expect(d.roleTagLabels).toEqual({ ai: 'AI/LLM', backend: 'Backend' })
   })
 
   it('builds the projects map keyed by "Company::project" with filters + outcomes', () => {

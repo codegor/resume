@@ -1,5 +1,5 @@
 {
-  "role": "Front-end Developer (Vue.js)",
+  "role": "Frontend Developer (Vue.js)",
   "client": "Acronis",
   "period": "12.2020 – 06.2022",
   "project": "www.acronis.com",
@@ -9,7 +9,7 @@
     "qa",
     "devops"
   ],
-  "description": "I worked on the front-end with integration plugins for Acronis services: Kaseya VSA, Kaseya BMS, Tiger Paw, Auto Task, ConnectWise, Cloud Blue, Datto. Each integration was covered by tests at more than 80%. I also worked on creating an internal library for working with the API and on an integration constructor. The integration constructor is a pure JS library that creates any front-end app using a JSON file. We created 2 apps: first — an easy editor with a visual constructor of the needed result; second — a renderer of the app from a JSON file (with framework-agnostic principles). We created a Vue.js renderer for the library. I also worked on e2e tests for Acronis written in TestCafe, and I developed a Node proxy-server utility for getting mocks of API requests for TestCafe e2e tests.",
+  "description": "I worked on the frontend with integration plugins for Acronis services: Kaseya VSA, Kaseya BMS, Tiger Paw, Auto Task, ConnectWise, Cloud Blue, Datto. Each integration was covered by tests at more than 80%. I also worked on creating an internal library for working with the API and on an integration constructor. The integration constructor is a pure JS library that creates any frontend app using a JSON file. We created 2 apps: first — an easy editor with a visual constructor of the needed result; second — a renderer of the app from a JSON file (with framework-agnostic principles). We created a Vue.js renderer for the library. I also worked on e2e tests for Acronis written in TestCafe, and I developed a Node proxy-server utility for getting mocks of API requests for TestCafe e2e tests.",
   "technologies": [
     "Vue.js 2.6.14",
     "TypeScript",

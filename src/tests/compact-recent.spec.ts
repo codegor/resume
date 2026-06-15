@@ -23,3 +23,45 @@ test('Recent·5y narrows the timeline to fewer eras', async ({ page }) => {
   await page.locator('.tb-toggles .essw:visible', { hasText: 'Recent' }).click()
   await expect(page.locator('.epoch-group')).not.toHaveCount(all)
 })
+
+// The fixtures pin the toggles OFF; clear that override to see the real first-visit defaults.
+test('first visit defaults to Headlines + Recent, timeline collapses to a reveal button', async ({
+  page,
+}) => {
+  await page.addInitScript(() => {
+    localStorage.removeItem('resume-compact')
+    localStorage.removeItem('resume-recent')
+  })
+  await openApp(page)
+  const html = page.locator('html')
+  await expect(html).toHaveAttribute('data-compact', 'on')
+  await expect(page.locator('.tb-toggles .essw.on:visible', { hasText: 'Recent' })).toHaveCount(1)
+
+  // timeline collapses to the single reveal button (no epoch cards)
+  await expect(page.locator('#timeline .timeline-reveal')).toBeVisible()
+  await expect(page.locator('.epoch-group')).toHaveCount(0)
+
+  // clicking it drops Headlines but KEEPS Recent·5y → opens to the recent timeline
+  await page.locator('#timeline .timeline-reveal').click()
+  await expect(html).toHaveAttribute('data-compact', 'off')
+  await expect(page.locator('.tb-toggles .essw.on:visible', { hasText: 'Recent' })).toHaveCount(1)
+  await expect(page.locator('.epoch-group').first()).toBeVisible()
+  // Recent still hides older eras, so the "+N earlier eras" pill is offered
+  await expect(page.locator('.epoch-more-row')).toBeVisible()
+})
+
+// Engaging a focus filter / skill / search while in Headlines should drop Headlines (so the
+// results are visible) but keep Recent·5y.
+test('clicking a focus filter in Headlines drops Headlines, keeps Recent·5y', async ({ page }) => {
+  await page.addInitScript(() => {
+    localStorage.removeItem('resume-compact')
+    localStorage.removeItem('resume-recent')
+  })
+  await openApp(page)
+  const html = page.locator('html')
+  await expect(html).toHaveAttribute('data-compact', 'on')
+
+  await page.locator('button.chip', { hasText: 'Backend' }).first().click()
+  await expect(html).toHaveAttribute('data-compact', 'off')
+  await expect(page.locator('.tb-toggles .essw.on:visible', { hasText: 'Recent' })).toHaveCount(1)
+})

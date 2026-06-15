@@ -155,6 +155,14 @@
   .hero-folio {
     margin-bottom: 14px;
   }
+  /* active view + filters notice, centered in the folio line */
+  .folio-status {
+    flex: 1;
+    text-align: center;
+    color: var(--accent) !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
   .hero-grid {
     display: grid !important;
     grid-template-columns: 150px 1fr;
@@ -330,6 +338,37 @@
   .footer-contacts a,
   .print-footer a {
     color: var(--accent) !important;
+  }
+
+  /* opt-in "… on interactive online" links: shown (override the .more-pill hide above),
+     accent + underlined so they read as real links in the PDF */
+  .more-online {
+    display: inline-block !important;
+    color: var(--accent) !important;
+    text-decoration: underline;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  /* footer: swap the screen help/AI lines for the print promo */
+  .footer-help,
+  .footer-ai {
+    display: none !important;
+  }
+  .footer-help-print {
+    display: block !important;
+    font-family: var(--sans);
+    font-size: 11pt;
+    line-height: 1.5;
+    color: #333 !important;
+    max-width: 70ch;
+    margin: 0 0 12px;
+  }
+  .footer-help-print a {
+    color: var(--accent) !important;
+    text-decoration: underline;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
   }
 
   /* page-link footer (clickable) repeated at the foot of the document */

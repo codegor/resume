@@ -94,8 +94,8 @@ function confMeta(title: string) {
     }
   if (t.includes('javascript'))
     return {
-      skills: ['JavaScript', 'Vue.js', 'Front-end'],
-      desc: 'Modern JavaScript & front-end — Vue ecosystem, tooling and patterns.',
+      skills: ['JavaScript', 'Vue.js', 'Frontend'],
+      desc: 'Modern JavaScript & frontend — Vue ecosystem, tooling and patterns.',
     }
   return { skills: [], desc: '' }
 }
@@ -135,7 +135,7 @@ const url = computed(() => (cm.value && cm.value.url) || props.m.url || 'https:/
 const isFwdays = computed(() => /fwdays\.com/i.test(url.value))
 const skills = computed(() => meta.value.skills || [])
 const hasMore = computed(() => !!meta.value.desc)
-const effOpen = computed(() => hasMore.value && open.value)
+const effOpen = computed(() => hasMore.value && (open.value || store.printing))
 /* when a skill/filter is active, show only the matching skill chips + '+N more' */
 const relevant = computed(() => {
   if (q.value) return skills.value.filter((s: string) => queryHit(s, q.value))

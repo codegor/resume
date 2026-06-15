@@ -81,7 +81,7 @@ const stories = computed(() => {
       goal: $t("Read me through one role's lens"),
       steps: [$t('Focus bar'), $t('pick a role')],
       see: $t(
-        'Skills, timeline projects and courses all filter to that role (AI · Architect · Team Lead · Back-end · Front-end · QA · DevOps). Each project shows only the technologies relevant to that role; the rest collapse behind “+N more”.',
+        'Skills, timeline projects and courses all filter to that role (AI · Architect · Team Lead · Backend · Frontend · QA · DevOps). Each project shows only the technologies relevant to that role; the rest collapse behind “+N more”.',
       ),
     },
     {

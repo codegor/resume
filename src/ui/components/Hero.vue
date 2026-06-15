@@ -2,6 +2,9 @@
   <section id="top" class="hero wrap">
     <div class="hero-folio">
       <span><t :params="{ year: folioYear }">The Résumé · No. {year}</t></span>
+      <span v-if="showPrintStatus" class="folio-status"
+        >{{ printFilters.join(' · ') }}{{ ' ' }}<t>only — more on interactive online</t></span
+      >
       <span
         ><span class="folio-tg">{{ data.contacts && data.contacts.telegram }} · </span
         ><t :params="{ year: 2009 }">Est. {year}</t></span
@@ -46,9 +49,28 @@
 import { computed } from 'vue'
 import { useStore } from '@/composables/useStore'
 import { siteConfig } from '@/config'
-import { emphasize } from '@/utils/format'
+import { emphasize, shortUrl } from '@/utils/format'
+import { t as $t } from '@/composables/i18n'
 
 const store = useStore()
+
+/* Print-only folio notice listing the active view + filters (Headlines subsumes Recent) — so a
+   printed/PDF copy says what it's showing and points to the live site. */
+const printFilters = computed<string[]>(() => {
+  const parts: string[] = []
+  if (store.compact) parts.push($t('Headlines'))
+  else if (store.recentOnly) parts.push($t('Recent 5 years'))
+  if (store.activeFilter && store.activeFilter !== 'all') {
+    const f = (siteConfig().filters || []).find((d) => d.id === store.activeFilter)
+    const label = (f && (f.label || f.id)) || store.activeFilter
+    parts.push($t('{role} role', { role: label }))
+  }
+  if (store.activeSkill) parts.push($t('skill: {skill}', { skill: store.activeSkill }))
+  const q = (store.skillQuery || '').trim()
+  if (q) parts.push($t('search: “{q}”', { q }))
+  return parts
+})
+const showPrintStatus = computed(() => store.printing && printFilters.value.length > 0)
 
 const data = computed(() => store.data!)
 const folioYear = computed(() => {
@@ -62,10 +84,4 @@ const contacts = computed(() => siteConfig().contacts!)
 const resumeUrl = computed(() => siteConfig().resumeUrl || '')
 const facts = computed(() => siteConfig().hero?.facts || [])
 const interview = computed(() => data.value.about_me?.short_interview)
-
-function shortUrl(u: string) {
-  return String(u || '')
-    .replace(/^https?:\/\//, '')
-    .replace(/\/$/, '')
-}
 </script>

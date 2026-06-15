@@ -35,6 +35,15 @@
       "
       @toggle="courseOpen = !courseOpen"
     />
+    <more-pill
+      v-if="coursePrintMore > 0"
+      :online="true"
+      :more="coursePrintMore"
+      :style="{ marginTop: '12px' }"
+      :more-text="
+        $tc('+{n} more course & certificate', '+{n} more courses & certificates', coursePrintMore)
+      "
+    />
 
     <template v-if="confs.length > 0">
       <div class="sub-h" style="margin-top: 42px"><t>Conferences attended</t></div>
@@ -60,6 +69,13 @@
         "
         :style="{ marginTop: '12px' }"
         @toggle="confOpen = !confOpen"
+      />
+      <more-pill
+        v-if="confPrintMore > 0"
+        :online="true"
+        :more="confPrintMore"
+        :style="{ marginTop: '12px' }"
+        :more-text="$tc('+{n} more conference', '+{n} more conferences', confPrintMore)"
       />
     </template>
   </section-block>
@@ -191,15 +207,35 @@ const courseCap = computed(() => (vw.value <= 980 ? 1 : vw.value <= 1180 ? 3 : 4
 const confCap = computed(() => (vw.value <= 980 ? 1 : 3))
 const courseParts = computed(() => partition(courses.value, 'certificate', courseCap.value))
 const confParts = computed(() => partition(confs.value, 'conference', confCap.value))
-const shownCourses = computed(() =>
-  courseOpen.value || store.printing
-    ? [...courseParts.value.primary, ...courseParts.value.secondary]
-    : courseParts.value.primary,
+/* print under Recent·5y keeps the document short: at most this many per sub-section, with a
+   "+N more on interactive online" link standing in for the rest (incl. older items). */
+const PRINT_RECENT_CAP = 2
+const shownCourses = computed(() => {
+  const all = [...courseParts.value.primary, ...courseParts.value.secondary]
+  if (store.printing) return store.recentOnly ? all.slice(0, PRINT_RECENT_CAP) : all
+  return courseOpen.value ? all : courseParts.value.primary
+})
+const shownConfs = computed(() => {
+  const all = [...confParts.value.primary, ...confParts.value.secondary]
+  if (store.printing) return store.recentOnly ? all.slice(0, PRINT_RECENT_CAP) : all
+  return confOpen.value ? all : confParts.value.primary
+})
+/* full counts (incl. items the Recent·5y filter dropped) → how many are only online in print */
+const allCoursesCount = computed(
+  () => ((data.value.professional_courses && data.value.professional_courses.items) || []).length,
 )
-const shownConfs = computed(() =>
-  confOpen.value || store.printing
-    ? [...confParts.value.primary, ...confParts.value.secondary]
-    : confParts.value.primary,
+const allConfsCount = computed(
+  () => ((data.value.conferences && data.value.conferences.items) || []).length,
+)
+const coursePrintMore = computed(() =>
+  store.printing && store.recentOnly
+    ? Math.max(0, allCoursesCount.value - shownCourses.value.length)
+    : 0,
+)
+const confPrintMore = computed(() =>
+  store.printing && store.recentOnly
+    ? Math.max(0, allConfsCount.value - shownConfs.value.length)
+    : 0,
 )
 
 function ts(s?: string): number {
