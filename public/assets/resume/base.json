@@ -1,6 +1,6 @@
 {
   "name": "Egor Berezovsky",
-  "updated": "2026-06-13",
+  "updated": "2026-06-15",
   "contacts": {
     "telegram": "@esbukraine",
     "email": "codeegor@gmail.com",
@@ -103,7 +103,7 @@
       "label": "Backend",
       "roleLabel": "Backend",
       "skillGroups": [
-        "back_end"
+        "backend"
       ],
       "keywords": [
         "php",
@@ -130,7 +130,7 @@
       "label": "Frontend",
       "roleLabel": "Frontend",
       "skillGroups": [
-        "front_end"
+        "frontend"
       ],
       "keywords": [
         "javascript",
@@ -378,7 +378,7 @@
         }
       ]
     },
-    "back_end": {
+    "backend": {
       "experience": "15y",
       "items": [
         {
@@ -715,7 +715,7 @@
         }
       ]
     },
-    "front_end": {
+    "frontend": {
       "experience": "15y",
       "items": [
         {

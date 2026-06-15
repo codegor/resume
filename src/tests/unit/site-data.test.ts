@@ -15,7 +15,7 @@ const res = {
   filters: [
     { id: 'all', label: 'All' },
     { id: 'ai', label: 'AI / LLM', roleLabel: 'AI/LLM', skillGroups: ['agent_development'] },
-    { id: 'backend', label: 'Backend', roleLabel: 'Backend', skillGroups: ['back_end'] },
+    { id: 'backend', label: 'Backend', roleLabel: 'Backend', skillGroups: ['backend'] },
   ],
   providers: { fwdays: { logo: 'fw.png' } },
   skills: {},
