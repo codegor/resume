@@ -163,25 +163,32 @@
     -webkit-print-color-adjust: exact;
     print-color-adjust: exact;
   }
+  /* the "… more on interactive online" phrase is a real link back to the live résumé in the PDF */
+  .folio-status-link {
+    color: var(--accent) !important;
+    text-decoration: underline;
+  }
+  /* same magazine float as desktop, mirrored — the portrait floats LEFT and the name/roles/lead
+     wrap around it, the long intro paragraph continuing full-width beneath. flow-root contains
+     the float so the stats/coda below clear it. */
   .hero-grid {
-    display: grid !important;
-    grid-template-columns: 150px 1fr;
-    column-gap: 26px;
-    row-gap: 0;
-    align-items: start;
-    grid-template-areas: 'photo name' 'photo roles' 'photo lead' 'photo pc' !important;
+    display: flow-root !important;
   }
   .hg-photo {
-    align-self: start;
+    float: left;
+    margin: 0 26px 8px 0;
   }
   .hero-photo-col {
     align-items: flex-start;
   }
-  .hero-photo {
-    display: block; /* kill the inline baseline gap so the photo fills its frame (no fallback strip) */
+  .hero-photo-frame {
     width: 150px;
     height: 188px;
     box-shadow: none;
+  }
+  .hero-lead,
+  .hero-lead-next {
+    max-width: none;
   }
   .hero-name {
     font-size: 46px !important;
@@ -232,7 +239,7 @@
     display: block;
     justify-content: flex-start;
     --cardw: 100%;
-    padding-left: 14px;
+    padding-left: 8px; /* less left indent for the timeline project text */
     border-left: 2.5px solid var(--ec);
   }
   .epoch-card,
@@ -299,6 +306,75 @@
   .hero-quote {
     break-inside: avoid;
   }
+  /* Skills: the headline caps (SkillGroup capHeadline / Skills headlineActive fire on
+     store.printing) already shrink the section to the visible groups × their curated 7 chips;
+     these rules just tighten it so it fits ~one page. Single column. Scoped to #skills only. */
+  /* start "What I do" on a fresh page so the capped section sits whole on one page (per request,
+     the one deliberate forced break — see the no-forced-breaks note above). */
+  #skills {
+    break-before: page;
+  }
+  #skills .skills-grid {
+    gap: 10px;
+  }
+  #skills .skillgroup {
+    padding: 9px 13px;
+  }
+  #skills .sg-head {
+    margin-bottom: 2px;
+  }
+  #skills .sg-head h3 {
+    font-size: 13pt;
+  }
+  #skills .skill-items {
+    column-gap: 3px; /* tighter between chips on a row… */
+    row-gap: 7px; /* …but keep the row separation */
+  }
+  #skills .skill,
+  #skills .skill-long {
+    font-size: 9pt;
+    padding: 2px 5px; /* less side padding → skills sit closer (borderless, so still legible) */
+    /* no chip outlines in print — cleaner (overrides the skill-top / active emphasis borders) */
+    border-color: transparent !important;
+  }
+  /* no "NEW" badges/dots on paper (skills chips + timeline project tech) */
+  .skill-new,
+  .skill-newdot,
+  .ttag-new {
+    display: none !important;
+  }
+  /* Print is WYSIWYG: it honors the visible Headlines toggle. In Headlines the timeline prints the
+     same short teaser (the rules below style it); with Headlines off it prints the full timeline.
+     These teaser rules are inert when no teaser element renders. */
+  #timeline {
+    padding-top: 4px;
+    margin-top: 20px; /* 20px between the end of Skills and the start of the timeline */
+  }
+  /* tighten the gap between "A timeline of my work" and the era intro; drop the screen-only
+     "tap a card…" hint (meaningless on paper) */
+  #timeline .section-head {
+    margin-bottom: 12px;
+  }
+  #timeline .section-head .count {
+    display: none;
+  }
+  /* print: the teaser renders only the era intro (preview, no project cards), so show it fully —
+     no clip/fade — with the "read online" link just below it (5px gap). No epoch dot in print, so
+     drop the screen's left bleed too (less left indent). */
+  #timeline .timeline-teaser-clip {
+    max-height: none;
+    mask-image: none;
+    margin-left: 0;
+    padding-left: 0;
+  }
+  #timeline .timeline-teaser > a.timeline-reveal {
+    margin-top: 5px;
+  }
+  /* shorten the preview by one line — clamp the era summary to a single line */
+  #timeline .timeline-teaser .epoch-summary {
+    overflow: hidden;
+    max-height: 1.5em;
+  }
   /* flatten the Q&A card for print: no surface fill, keep the accent bar as a border */
   .hero-qa {
     background: none;
@@ -346,6 +422,10 @@
     display: inline-block !important;
     color: var(--accent) !important;
     text-decoration: underline;
+    /* plain accent link in print — no chip/pill box */
+    border: 0 !important;
+    background: none !important;
+    box-shadow: none !important;
     -webkit-print-color-adjust: exact;
     print-color-adjust: exact;
   }

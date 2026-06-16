@@ -26,6 +26,7 @@ import SkillBanner from '@/components/SkillBanner.vue'
 import VideoNote from '@/components/VideoNote.vue'
 import VideoModal from '@/components/VideoModal.vue'
 import GuideModal from '@/components/GuideModal.vue'
+import RevealNotice from '@/components/RevealNotice.vue'
 import FeedbackForm from '@/components/FeedbackForm.vue'
 import ViewToggles from '@/components/ViewToggles.vue'
 import ContactMenu from '@/components/ContactMenu.vue'
@@ -77,6 +78,7 @@ const components: Record<string, unknown> = {
   'video-note': VideoNote,
   'video-modal': VideoModal,
   'guide-modal': GuideModal,
+  'reveal-notice': RevealNotice,
   'feedback-form': FeedbackForm,
   'view-toggles': ViewToggles,
   'contact-menu': ContactMenu,

@@ -3,12 +3,12 @@
     <div class="hero-folio">
       <span><t :params="{ year: folioYear }">The Résumé · No. {year}</t></span>
       <span v-if="showPrintStatus" class="folio-status"
-        >{{ printFilters.join(' · ') }}{{ ' ' }}<t>only — more on interactive online</t></span
+        >{{ printFilters.join(' · ') }}{{ ' ' }}<t>only —</t>{{ ' '
+        }}<a class="folio-status-link" :href="onlineResumeUrl()"
+          ><t>more on interactive online</t></a
+        ></span
       >
-      <span
-        ><span class="folio-tg">{{ data.contacts && data.contacts.telegram }} · </span
-        ><t :params="{ year: 2009 }">Est. {year}</t></span
-      >
+      <span><t :params="{ year: 2009 }">Est. {year}</t></span>
     </div>
     <div v-if="facts.length" class="hero-facts">
       <span v-for="(f, i) in facts" :key="i" class="hf"
@@ -16,8 +16,8 @@
       >
     </div>
     <div class="hero-grid">
-      <hero-name class="hg-name" />
       <hero-portrait class="hg-photo" />
+      <hero-name class="hg-name" />
       <hero-roles class="hg-roles" />
       <hero-lead class="hg-lead" />
       <div class="print-contacts hg-pc">
@@ -50,6 +50,7 @@ import { computed } from 'vue'
 import { useStore } from '@/composables/useStore'
 import { siteConfig } from '@/config'
 import { emphasize, shortUrl } from '@/utils/format'
+import { onlineResumeUrl } from '@/utils/dom'
 import { t as $t } from '@/composables/i18n'
 
 const store = useStore()

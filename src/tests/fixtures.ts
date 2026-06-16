@@ -66,7 +66,8 @@ export async function enterPrintMode(page: Page): Promise<void> {
 
 /**
  * Assert the print/PDF layout is healthy (no big blank gaps, nothing missing):
- *  • no forced page-break before the long sections (they flow continuously),
+ *  • #skills starts on a fresh page (intended — the capped "What I do" sits whole on one
+ *    page); timeline/certificates still flow continuously (no forced break),
  *  • the epoch header chain isn't `break-after: avoid` (that dragged content to the
  *    next page and left a gap),
  *  • every visible image has actually loaded (no blank cert / photo boxes),
@@ -89,11 +90,10 @@ export async function assertPrintHealthy(page: Page): Promise<void> {
       blank,
     }
   })
-  expect(r.breakBefore, 'sections must flow (no forced page-break)').toEqual([
-    'auto',
-    'auto',
-    'auto',
-  ])
+  expect(
+    r.breakBefore,
+    'skills starts on its own page (intended); timeline/certificates flow',
+  ).toEqual(['page', 'auto', 'auto'])
   expect(r.epochTitleBreakAfter, 'epoch header must not be pinned (causes gaps)').not.toBe('avoid')
   expect(r.blank, `blank/unloaded images in print: ${r.blank.join(', ')}`).toEqual([])
   await expect(page.locator('.print-contacts').first()).toBeVisible()

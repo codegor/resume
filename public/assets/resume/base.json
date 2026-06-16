@@ -1,6 +1,6 @@
 {
   "name": "Egor Berezovsky",
-  "updated": "2026-06-15",
+  "updated": "2026-06-16",
   "contacts": {
     "telegram": "@esbukraine",
     "email": "codeegor@gmail.com",
@@ -8,6 +8,7 @@
   },
   "experience_years": "16+",
   "summary": "16+ years of experience in development of scalable and reliable web applications.",
+  "learning_summary": "What I want to learn next — or get more practice with: staying in the loop on AI trends and bringing AI assistants and automation into projects; sharpening my command of AI in day-to-day development; doing more AI-driven documentation on code; Kubernetes for production orchestration, scaling and cluster operations; and AI agent building — multi-agent systems and agentic workflows.",
   "tagline": "If you look for a person with scrupulousness and attention to detail, we are exactly on the way!",
   "about_me": {
     "short_interview": {
@@ -198,11 +199,24 @@
       "logo": "assets/providers/vueschool.png"
     }
   },
+  "skillsHeadline": {
+    "groups": ["agent_development", "software_architect", "team_lead", "backend", "frontend"],
+    "limit": 7
+  },
   "skills": {
     "note": "y – years, m – months of experience",
     "agent_development": {
       "title": "Agent Development (AI / LLM)",
       "experience": "1.5y",
+      "headline": [
+        "Agentic AI Development",
+        "RAG",
+        "LLM integration",
+        "OpenAI API",
+        "Prompt engineering",
+        "Tool calling / function calling",
+        "MCP"
+      ],
       "items": [
         "Agentic AI Development (1y)",
         "Claude Code (6m)",
@@ -222,7 +236,7 @@
         "AI Image generation (1y)",
         "DALL·E (1y)",
         "Reliable AI services (1.5y)",
-        "RAG — Retrieval-Augmented Generation (1y)",
+        "RAG (1y)",
         "Vector databases — pgvector (1y)",
         "Tool calling / function calling (1y)",
         "Structured outputs — JSON schema (1y)",
@@ -231,7 +245,7 @@
         "LLM evaluation — LLM-as-judge (1y)",
         "LLM observability — custom tracing (1y)",
         "Guardrails & prompt-injection safety (1y)",
-        "MCP — Model Context Protocol (6m)",
+        "MCP (6m)",
         "Hybrid search & reranking (1y)",
         "Multi-agent orchestration (1y)",
         "Multimodal AI — vision (1y)"
@@ -239,6 +253,15 @@
     },
     "software_architect": {
       "experience": "13y",
+      "headline": [
+        "System Design",
+        "Microservices",
+        "Distributed systems",
+        "Scalable architecture design",
+        "Event-driven Architecture",
+        "Observability architecture",
+        "Cloud-native architecture"
+      ],
       "items": [
         "Scalable architecture design (8y)",
         "Software Architecture (14y)",
@@ -285,6 +308,15 @@
     },
     "team_lead": {
       "experience": "3.5y",
+      "headline": [
+        "Technical Leadership",
+        "Agile / Scrum",
+        "Stakeholder Communication",
+        "Mentoring & Coaching",
+        "Cross-functional Leadership",
+        "Strategic Planning",
+        "Code Review"
+      ],
       "tools": [
         {
           "name": "Jira",
@@ -380,6 +412,15 @@
     },
     "backend": {
       "experience": "15y",
+      "headline": [
+        "PHP 8.3",
+        "PostgreSQL",
+        "Microservices",
+        "REST API",
+        "Redis",
+        "Kafka",
+        "Elasticsearch"
+      ],
       "items": [
         {
           "name": "Node.js",
@@ -717,6 +758,15 @@
     },
     "frontend": {
       "experience": "15y",
+      "headline": [
+        "TypeScript",
+        "Vue.js",
+        "JavaScript",
+        "Composition API",
+        "Tailwind CSS",
+        "Core Web Vitals",
+        "State management"
+      ],
       "items": [
         {
           "name": "JavaScript",
@@ -920,6 +970,15 @@
     },
     "qa": {
       "experience": "16y",
+      "headline": [
+        "Playwright",
+        "E2E testing",
+        "Tests in CI/CD",
+        "Cypress",
+        "Jest",
+        "Integration testing",
+        "Test coverage 80%+"
+      ],
       "items": [
         {
           "name": "Jest",
@@ -1007,6 +1066,15 @@
     "devops": {
       "title": "DevOps (SRE)",
       "experience": "13y",
+      "headline": [
+        "Kubernetes",
+        "Docker",
+        "CI/CD",
+        "AWS",
+        "GitHub Actions",
+        "Observability",
+        "Linux"
+      ],
       "items": [
         {
           "name": "AWS",

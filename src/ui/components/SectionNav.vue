@@ -21,7 +21,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, onMounted, onUnmounted, nextTick } from 'vue'
+import { ref, computed, watch, onMounted, onUnmounted, nextTick } from 'vue'
 import { useStore } from '@/composables/useStore'
 import { scrollToId, cancelScrollCorrection } from '@/utils/dom'
 
@@ -45,9 +45,24 @@ const activeId = ref('')
 let io: IntersectionObserver | null = null
 let raf = 0
 
-// 'top' always works; section buttons only render when their anchor exists
-// (e.g. How I work is data-driven and may be absent).
+// 'top' always works; section buttons only render when their anchor exists AND is currently
+// visible — How I work is data-driven (may be absent) AND display:none in Headlines (compact),
+// so its button must drop in that view.
 const items = computed(() => TARGETS.filter((t) => t.id === 'top' || present.value[t.id]))
+
+// A display:none section (e.g. How I work in Headlines) has no client rects and reports a
+// zero-rect at top 0 — it must be ignored or it would permanently win the scrollspy below.
+function sectionShown(id: string): boolean {
+  const el = document.getElementById(id)
+  return !!el && el.getClientRects().length > 0
+}
+function refreshPresent(): void {
+  const map: Record<string, boolean> = {}
+  TARGETS.forEach((t) => {
+    map[t.id] = sectionShown(t.id)
+  })
+  present.value = map
+}
 
 function go(id: string): void {
   if (id === 'top') {
@@ -66,7 +81,8 @@ function trackActive(): void {
   for (const t of TARGETS) {
     if (t.id === 'top') continue
     const el = document.getElementById(t.id)
-    if (el && el.getBoundingClientRect().top <= 120) cur = t.id
+    if (!el || el.getClientRects().length === 0) continue // skip hidden sections (Headlines)
+    if (el.getBoundingClientRect().top <= 120) cur = t.id
   }
   activeId.value = cur
 }
@@ -74,13 +90,16 @@ function onScroll(): void {
   if (!raf) raf = requestAnimationFrame(trackActive)
 }
 
+// Headlines (compact) hides How I work — refresh the visible-section map when it toggles so the
+// button appears/disappears with the section.
+watch(
+  () => store.compact,
+  () => nextTick(refreshPresent),
+)
+
 onMounted(() => {
   nextTick(() => {
-    const map: Record<string, boolean> = {}
-    TARGETS.forEach((t) => {
-      map[t.id] = !!document.getElementById(t.id)
-    })
-    present.value = map
+    refreshPresent()
 
     const hero = document.getElementById('top')
     if (hero && window.IntersectionObserver) {

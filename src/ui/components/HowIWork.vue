@@ -1,5 +1,5 @@
 <template>
-  <section-block v-if="hw" id="how-i-work">
+  <section-block v-if="hw" id="how-i-work" :compact="true">
     <section-head
       :eyebrow="$t('04 — How I work')"
       :title="hw.title"

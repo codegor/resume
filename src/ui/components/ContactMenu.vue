@@ -45,7 +45,8 @@
            here (zipped to one line) so they stay reachable. App.vue sets the flag. -->
       <template v-if="store.switchesInMenu">
         <div class="tb-menu-sep"></div>
-        <div class="tb-menu-switches" @click.stop><view-toggles compact /></div>
+        <!-- toggling a switch also dismisses the menu (it reflows the page under it) -->
+        <div class="tb-menu-switches" @click="store.closeMenus()"><view-toggles compact /></div>
       </template>
     </div>
   </div>

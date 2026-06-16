@@ -1,7 +1,7 @@
 <template>
   <div class="hero-photo-col">
     <div class="hero-photo-wrap">
-      <a class="plain-link" :href="homeUrl" @click="goHome">
+      <a class="plain-link hero-photo-frame" :href="homeUrl" @click="goHome">
         <div class="hero-photo-fallback" aria-hidden="true">
           <span class="hpf-mono">EB</span><span class="hpf-label"><t>foto</t></span>
         </div>
