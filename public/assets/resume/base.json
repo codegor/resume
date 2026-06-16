@@ -414,12 +414,12 @@
       "experience": "15y",
       "headline": [
         "PHP 8.3",
-        "PostgreSQL",
+        "SQL",
         "Microservices",
-        "REST API",
+        "Laravel 9",
         "Redis",
         "Kafka",
-        "Elasticsearch"
+        "Symfony 6.4"
       ],
       "items": [
         {
@@ -432,41 +432,34 @@
         },
         {
           "name": "PHP 8.3",
-          "experience": "12y",
-          "details": [
-            {
-              "name": "Laravel 9",
-              "experience": "4y"
-            },
-            {
-              "name": "Symfony 6.4",
-              "experience": "4y",
-              "components": [
-                "Messenger",
-                "Console",
-                "HttpClient"
-              ]
-            },
-            {
-              "name": "Laravel Nova",
-              "experience": "1y"
-            },
-            {
-              "name": "Laravel Horizon",
-              "experience": "5m"
-            },
-            {
-              "name": "Laravel Passport",
-              "experience": "1y"
-            },
-            {
-              "name": "pthreads"
-            },
-            {
-              "name": "GraphQL",
-              "experience": "3y"
-            }
-          ]
+          "experience": "12y"
+        },
+        {
+          "name": "Laravel 9",
+          "experience": "4y"
+        },
+        {
+          "name": "Symfony 6.4",
+          "experience": "4y"
+        },
+        {
+          "name": "Laravel Nova",
+          "experience": "1y"
+        },
+        {
+          "name": "Laravel Horizon",
+          "experience": "5m"
+        },
+        {
+          "name": "Laravel Passport",
+          "experience": "1y"
+        },
+        {
+          "name": "pthreads"
+        },
+        {
+          "name": "GraphQL",
+          "experience": "3y"
         },
         {
           "name": "MySQL",
@@ -584,12 +577,16 @@
         },
         {
           "name": "OpenAI API",
-          "experience": "3y",
-          "details": [
-            "Batch API",
-            "Moderation API",
-            "embeddings"
-          ]
+          "experience": "3y"
+        },
+        {
+          "name": "Batch API"
+        },
+        {
+          "name": "Moderation API"
+        },
+        {
+          "name": "embeddings"
         },
         {
           "name": "OpenRouter",

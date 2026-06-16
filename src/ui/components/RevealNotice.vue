@@ -33,7 +33,6 @@ const cardEl = ref<HTMLElement | null>(null)
 const title = computed(() =>
   store.revealNotice === 'recent' ? $t('Now showing everything') : $t('Here’s more about me'),
 )
-// One <p> per phrase — easier to read than a single dense block.
 const paragraphs = computed<string[]>(() =>
   store.revealNotice === 'recent'
     ? [
