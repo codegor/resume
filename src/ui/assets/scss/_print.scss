@@ -178,13 +178,18 @@
     float: left;
     margin: 0 26px 8px 0;
   }
-  .hero-photo-col {
-    align-items: flex-start;
-  }
   .hero-photo-frame {
     width: 150px;
     height: 188px;
     box-shadow: none;
+  }
+  /* fallback portrait ("EB"/"foto", shown only if the photo fails) is sized for the 300px screen
+     frame — scale it to the 150px print frame so the arch doesn't clip "EB". */
+  .hpf-mono {
+    font-size: 52px;
+  }
+  .hpf-label {
+    font-size: 8px;
   }
   .hero-lead,
   .hero-lead-next {

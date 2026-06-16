@@ -188,6 +188,8 @@ function copyAssetsPlugin(): Plugin {
         },
       })
       writeAssembled(here('./dist/assets'), srcRoot)
+      // robots.txt lives at the dist root (not under assets/), so copy it separately.
+      cpSync(here('./public/robots.txt'), here('./dist/robots.txt'))
     },
   }
 }
