@@ -1,5 +1,5 @@
 <template>
-  <section-block v-if="tst && tst.quote" id="reference" :narrow="true">
+  <section-block v-if="tst && tst.quote" id="reference" :narrow="true" :compact="true">
     <section-head :eyebrow="$t('05 — Reference')" :title="$t('From a colleague')" :small="true" />
     <figure class="tst reveal-up">
       <blockquote class="tst-quote">{{ tst.quote }}</blockquote>

@@ -9,23 +9,41 @@
       :rule="true"
       :count="store.compact ? '' : headCount"
     />
-    <!-- Headlines collapse: interactive → a reveal button (showProjects keeps Recent·5y);
-         print → an accent link to the live site. -->
-    <a
-      v-if="store.compact && store.printing"
-      class="more-pill more-online timeline-reveal"
-      :href="onlineResumeUrl()"
-      >{{
-        $t(
-          'See the projects, conferences & courses on the timeline — on the interactive, AI-ready online version',
-        )
-      }}</a
-    >
-    <div v-else-if="store.compact" class="timeline-reveal-row">
-      <button class="more-pill timeline-reveal" @click="store.showProjects()">
-        <span><t>Show recent projects, conferences & courses on the timeline</t></span
-        ><span class="mp-arrow"> ▾</span>
-      </button>
+    <!-- Headlines collapse: show a faded TEASER — a real glimpse of the timeline start that fades
+         out into the page (like a news-site "preview → read more") — with a reveal control at the
+         foot: interactive → a button (showProjects keeps Recent·5y); print → an "online" link.
+         The teaser renders the actual most-recent epoch (responsive: desktop spine / mobile column),
+         so it previews exactly what opens. -->
+    <div v-if="store.compact" class="timeline timeline-teaser">
+      <div class="timeline-teaser-clip" aria-hidden="true">
+        <timeline-spine :recompute-key="recomputeKey" />
+        <div class="epochs">
+          <epoch
+            v-if="shownWork[0]"
+            :exp="shownWork[0]"
+            :ecfg="ecfgFor(shownWork[0], 0)"
+            :markers="markersByEpoch[shownWork[0].period || ''] || []"
+            :tech-tokens="techTokens"
+            :preview="true"
+          />
+        </div>
+      </div>
+      <a
+        v-if="store.printing"
+        class="more-pill more-online timeline-reveal"
+        :href="onlineResumeUrl()"
+        >{{
+          $t(
+            'See the projects, conferences & courses on the timeline — on the interactive, AI-ready online version',
+          )
+        }}</a
+      >
+      <div v-else class="timeline-reveal-row">
+        <button class="more-pill timeline-reveal" @click="store.showProjects()">
+          <span><t>Show recent projects, conferences & courses on the timeline</t></span
+          ><span class="mp-arrow"> ▾</span>
+        </button>
+      </div>
     </div>
     <div v-else ref="container" class="timeline">
       <timeline-spine :recompute-key="recomputeKey" />
@@ -37,6 +55,7 @@
           :ecfg="ecfgFor(exp, i)"
           :markers="markersByEpoch[exp.period || ''] || []"
           :tech-tokens="techTokens"
+          :first-epoch="i === 0"
         />
         <div v-if="hiddenEpochCount > 0" class="epoch-more-row">
           <more-pill
@@ -239,5 +258,46 @@ watch(recomputeKey, () => nextTick(() => onScroll()))
 
 .timeline-reveal {
   margin: 8px 0;
+}
+
+/* Headlines teaser: a real glimpse of the timeline that fades out via an alpha mask (so it blends
+   to whatever page bg — cream on screen, white in print) with the reveal control pulled up over it. */
+.timeline-teaser {
+  position: relative;
+}
+
+.timeline-teaser-clip {
+  position: relative;
+
+  /* left bleed so the epoch dot (sits at left:-6px) isn't sliced by overflow:hidden — the negative
+     margin + equal padding widens the clip leftward while keeping the content aligned. */
+  margin-left: -16px;
+  padding-left: 16px;
+  max-height: 190px; /* just the era intro (era · company · period · summary) — fades before the cards */
+  overflow: hidden;
+  pointer-events: none; /* the preview is a promo, not interactive — only the reveal control acts */
+  mask-image: linear-gradient(to bottom, #000 56%, transparent 98%);
+}
+
+.timeline-teaser > .timeline-reveal-row,
+.timeline-teaser > a.timeline-reveal {
+  position: relative;
+  z-index: 2;
+  margin-top: 18px; /* sit BELOW the faded preview with a little empty space, not over it */
+}
+
+/* opaque button so the faded preview behind it doesn't bleed through and hurt readability */
+.timeline-teaser > .timeline-reveal-row .timeline-reveal {
+  background: color-mix(in srgb, var(--ink) 5%, var(--bg));
+}
+
+.timeline-teaser > .timeline-reveal-row .timeline-reveal:hover {
+  background: color-mix(in srgb, var(--accent) 10%, var(--bg));
+}
+
+@media (max-width: 980px) {
+  .timeline-teaser-clip {
+    max-height: 224px;
+  }
 }
 </style>

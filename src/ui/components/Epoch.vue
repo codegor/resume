@@ -21,7 +21,7 @@
               <span v-if="exp.duration" class="mtag">· {{ exp.duration }}</span>
             </div>
             <p v-if="exp.summary" class="epoch-summary">{{ exp.summary }}</p>
-            <div class="epoch-projects">
+            <div v-if="!preview" class="epoch-projects">
               <project
                 v-for="(p, i) in shownProjects"
                 :key="i"
@@ -30,6 +30,7 @@
                 :tags="tagsFor(p)"
                 :ecolor-var="cv"
                 :tech-tokens="techTokens"
+                :first="!!firstEpoch && i === 0"
               />
               <more-pill
                 v-if="filterActive"
@@ -46,7 +47,7 @@
                 @toggle="projOpen = !projOpen"
               />
             </div>
-            <conf-list :markers="markers" :cv="cv" />
+            <conf-list v-if="!preview" :markers="markers" :cv="cv" />
           </template>
           <template v-else>
             <div class="proj-empty">{{ emptyText }}</div>
@@ -78,6 +79,9 @@ const props = defineProps<{
   ecfg: EpochConfig
   markers?: Marker[]
   techTokens?: string[] | null
+  firstEpoch?: boolean
+  // teaser glimpse: render only the era intro (era · company · period · summary), no project cards
+  preview?: boolean
 }>()
 
 const store = useStore()

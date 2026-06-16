@@ -46,6 +46,22 @@
     "SEO & i18n: Hreflang, meta-tags, canonical URLs, multilingual support, and locale handling across preprod / prod environments on Kubernetes.",
     "Real-time data: WordPress plugins fed from our data over WebSockets via Centrifugo."
   ],
+  "main": [
+    "PHP 8.3",
+    "Symfony 7.3",
+    "PostgreSQL",
+    "Twig",
+    "Vue 3",
+    "Observability architecture",
+    "Microservices",
+    "Technical Leadership",
+    "Mentoring & Coaching",
+    "Agentic AI Development",
+    "RAG",
+    "Playwright",
+    "Kubernetes",
+    "Tests in CI/CD"
+  ],
   "technologies": [
     "PHP 8.3",
     "Symfony 7.3",

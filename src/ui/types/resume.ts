@@ -18,6 +18,8 @@ export interface SkillGroup {
   items?: SkillEntry[]
   tools?: SkillEntry[]
   highlights?: SkillEntry[]
+  // curated "top N" skill names shown in Headlines/print for this group (see SkillGroup.vue capHeadline)
+  headline?: string[]
   [k: string]: unknown
 }
 
@@ -35,6 +37,9 @@ export interface Project {
   description?: string
   key_achievements?: string[]
   technologies?: string[]
+  // curated "main" technologies shown for this project in the Recent·5y view (rest fold into
+  // "+N more"); when absent, the top-10 by trend value are used. See Project.vue capValuable.
+  main?: string[]
   // Step-1 migration: filter tags, measured outcomes and the intro video moved
   // here from config.json (previously joined by a "Company::project" key).
   filters?: string[]
@@ -117,10 +122,14 @@ export interface ResumeData {
   contacts?: Record<string, string>
   experience_years?: number | string
   summary?: string
+  learning_summary?: string
   tagline?: string
   about_me?: { short_interview?: ShortInterview } & Record<string, unknown>
   how_i_work?: HowIWork
   skills: Skills
+  // Headlines/print skills config: which groups show (rest fold into "+N more skill areas")
+  // and the fallback per-group cap when a group has no explicit `headline` list.
+  skillsHeadline?: { groups?: string[]; limit?: number }
   // Step-1 migration: the role filters + provider logos moved here from config.json.
   filters?: FilterDef[]
   providers?: Record<string, ProviderDef>

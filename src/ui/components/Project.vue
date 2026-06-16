@@ -1,5 +1,5 @@
 <template>
-  <div :class="['project', { open: open, dim: hidden, match: matchSkill }]">
+  <div ref="rootEl" :class="['project', { open: open, dim: hidden, match: matchSkill }]">
     <div class="project-collapsed">
       <span class="dots">···</span> {{ p.role }} —
       {{ p.client ? p.client + ' · ' + p.project : p.project }}
@@ -62,16 +62,22 @@
               :trend="(mk(t)?.weight || 0) > 0"
             />
             <button
-              v-if="collapseTech && (!techOpen || store.printing) && rest.length > 0"
+              v-if="collapseTech && !techOpen && !store.printing && rest.length > 0"
               class="ttag tech-more"
               @click.stop="techOpen = true"
             >
               <tc one="+{n} more" other="+{n} more" :n="rest.length" />
             </button>
+            <a
+              v-if="collapseTech && store.printing && rest.length > 0"
+              class="ttag tech-online more-online"
+              :href="onlineResumeUrl()"
+              >+{{ rest.length }} <t>more on interactive online</t></a
+            >
             <button
               v-if="collapseTech && techOpen && !store.printing"
               class="ttag tech-more"
-              @click.stop="techOpen = false"
+              @click.stop="collapseTechs"
             >
               <t>show fewer</t>
             </button>
@@ -91,9 +97,10 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, watch } from 'vue'
+import { ref, computed, watch, nextTick } from 'vue'
 import { useStore } from '@/composables/useStore'
 import { siteConfig } from '@/config'
+import { onlineResumeUrl, scrollElToCenter } from '@/utils/dom'
 import {
   projectInFilter,
   projectUsesSkill,
@@ -107,8 +114,12 @@ import {
   makeFirstAppearance,
   projectOccurrences,
   parsePeriodStartTs,
+  trendWeightFor,
 } from '@/utils/skills'
 import type { Project } from '@/types/resume'
+
+const PROJECT_MAIN_PER_ROLE = 2 // Recent·5y: top techs shown per role the project covers
+const PROJECT_MAIN_LIMIT = 10 // fallback cap when a project matches no role
 
 const props = defineProps<{
   company: string
@@ -116,14 +127,37 @@ const props = defineProps<{
   tags?: string[]
   ecolorVar?: string
   techTokens?: string[] | null
+  // the most-recent project — opened by default in the browse view as an "expandable" hint
+  first?: boolean
 }>()
 
 const store = useStore()
 
+const rootEl = ref<HTMLElement | null>(null)
 const open = ref(false)
 const techOpen = ref(false)
+function collapseTechs(): void {
+  techOpen.value = false
+  // recentre on the "+N more" tech toggle that reappears (shared more/less rule)
+  nextTick(() =>
+    requestAnimationFrame(() => {
+      const more = rootEl.value?.querySelector('.tech-more') as HTMLElement | null
+      if (more) scrollElToCenter(more)
+    }),
+  )
+}
 
-if (store.expandAll) open.value = true
+// Open the most-recent project by default (when the timeline is shown and the reader isn't
+// filtering/searching) so it's obvious projects expand — many readers don't realise they're tappable.
+if (
+  store.expandAll ||
+  (props.first &&
+    !store.compact &&
+    store.activeFilter === 'all' &&
+    !store.activeSkill &&
+    !(store.skillQuery || '').trim())
+)
+  open.value = true
 
 watch(
   () => store.activeFilter,
@@ -139,6 +173,12 @@ watch(
 )
 watch(
   () => store.skillQuery,
+  () => {
+    techOpen.value = false
+  },
+)
+watch(
+  () => store.recentOnly,
   () => {
     techOpen.value = false
   },
@@ -202,8 +242,66 @@ const relevant = computed(() => {
   }
   return null
 })
+/* Recent·5y view: show only the project's "main" techs (its authored `main` list, else 2 top
+   per role the project covers — balanced across AI/Architect/Backend/Frontend/QA/DevOps), the
+   rest behind "+N more". Suppressed while a filter / skill / search is active (those drive the
+   `relevant` collapse below) so role filtering is untouched. */
+const norm = (s: string): string => (s || '').toLowerCase().trim()
+const mainTech = computed<string[]>(() => {
+  const list = techList.value
+  const curated = props.p.main
+  if (curated && curated.length) {
+    const picked: string[] = []
+    curated.forEach((n) => {
+      const hit = list.find((t) => norm(t) === norm(n))
+      if (hit && !picked.includes(hit)) picked.push(hit)
+    })
+    return picked
+  }
+  const skills = (store.data && store.data.skills) || {}
+  const trend = siteConfig().trendSkills
+  // 2 most in-demand techs from each role the project belongs to (filter order), deduped
+  const picked: string[] = []
+  const seen = new Set<string>()
+  ;(siteConfig().filters || [])
+    .filter((f) => f.id !== 'all')
+    .forEach((f) => {
+      if (!projectInFilter(vkey.value, list, skills, f.id)) return
+      list
+        .filter((t) => !seen.has(t) && techRelevantToFilter(t, skills, f.id))
+        .sort((a, b) => trendWeightFor(b, trend) - trendWeightFor(a, trend))
+        .slice(0, PROJECT_MAIN_PER_ROLE)
+        .forEach((t) => {
+          picked.push(t)
+          seen.add(t)
+        })
+    })
+  // fallback (project matched no role): top-N by trend value
+  if (!picked.length) {
+    return list
+      .map((t, i) => ({ t, i, w: trendWeightFor(t, trend) }))
+      .sort((a, b) => b.w - a.w || a.i - b.i)
+      .slice(0, PROJECT_MAIN_LIMIT)
+      .map((x) => x.t)
+  }
+  return picked
+})
+const capValuable = computed(
+  () =>
+    store.recentOnly &&
+    !q.value &&
+    !activeSkill.value &&
+    activeFilter.value === 'all' &&
+    mainTech.value.length < techList.value.length,
+)
+/* the limited tech set: filter/skill/search relevance first (unchanged), else the Recent·5y cap */
+const limited = computed<string[] | null>(() => {
+  if (relevant.value != null) return relevant.value
+  if (capValuable.value) return mainTech.value
+  return null
+})
 const collapseTech = computed(
-  () => relevant.value != null && relevant.value.length < techList.value.length,
+  () => limited.value != null && limited.value.length < techList.value.length,
 )
 const roleHead = computed(() => {
   const r = props.p.role || ''
@@ -217,13 +315,13 @@ const roleLast = computed(() => {
 })
 const outcomes = computed(() => ((siteConfig().projects || {})[vkey.value] || {}).outcomes || [])
 const rest = computed(() =>
-  collapseTech.value ? techList.value.filter((t: string) => !relevant.value!.includes(t)) : [],
+  collapseTech.value ? techList.value.filter((t: string) => !limited.value!.includes(t)) : [],
 )
 const shownTech = computed(() =>
   collapseTech.value
     ? techOpen.value && !store.printing
-      ? [...relevant.value!, ...rest.value]
-      : relevant.value
+      ? [...limited.value!, ...rest.value]
+      : limited.value
     : techList.value,
 )
 

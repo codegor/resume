@@ -833,3 +833,22 @@
     margin-top: 0;
   }
 }
+
+/* Phones: the desktop card insets (28px epoch indent + 30px card padding + 18px body padding)
+   waste too much width on a ~390px screen, squeezing the project body — the main read. Trim them
+   so the description/achievements get noticeably more room. Phones only (≤640) — iPad/tablet keep
+   the roomier padding. */
+@media screen and (max-width: 640px) {
+  .epoch {
+    padding-left: 10px;
+  }
+  .epoch-inner {
+    padding: 16px 10px 18px;
+  }
+  .project-head {
+    padding: 12px 10px;
+  }
+  .project-body-inner {
+    padding: 0 10px 14px;
+  }
+}

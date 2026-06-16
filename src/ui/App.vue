@@ -26,6 +26,7 @@
     <toast />
     <video-modal v-if="store.videoKey != null" :video-key="store.videoKey" />
     <guide-modal v-if="store.guideOpen" />
+    <reveal-notice />
   </template>
 </template>
 
@@ -260,13 +261,20 @@ watch(
   (v) => {
     document.documentElement.setAttribute('data-compact', v ? 'on' : 'off')
     localStorage.setItem('resume-compact', v ? 'on' : 'off')
+    // sections/skill-groups that (re)appear when leaving Headlines mount with `reveal-up`
+    // (opacity:0); the mount-time IntersectionObserver won't re-observe them, so force-reveal
+    // — else they'd stay invisible and leave empty space.
+    revealNew()
   },
 )
 watch(
   () => store.recentOnly,
-  (v) => {
+  (v, old) => {
     localStorage.setItem('resume-recent', v ? 'on' : 'off')
     revealNew()
+    // GLOBAL: any time Recent·5y switches OFF — the toggle, the "+N earlier eras — show all" pill,
+    // clearAll(), anywhere — show the "now showing everything" notice (not just the toggle button).
+    if (old && !v) store.revealNotice = 'recent'
   },
 )
 // Engaging a focus filter, a skill highlight, or a search means the user wants to SEE results —

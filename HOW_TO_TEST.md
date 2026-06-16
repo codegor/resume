@@ -40,10 +40,14 @@ The site remembers **theme**, **Headlines**, and **Recent · 5y** across reloads
 
 1. Open the page.
 2. Open dev-tools console and run `localStorage.clear()`, then reload.
-3. **You should see:** warm-cream **light** theme, full (not Headlines) view, all eras
-   present. The top bar, hero with photo + round video bubble, the **Focus** filter bar,
-   Skills, the curved timeline, "How I work", a testimonial, Certificates, Education /
-   Languages / Other, and a footer with a feedback box.
+3. **You should see:** warm-cream **light** theme. First visit defaults to **Headlines + Recent · 5y
+   ON** (the condensed first impression — a timeline teaser, capped skills, secondary sections folded
+   away). Turn **both toggles OFF** to see the **full** view, which has: the top bar, the hero (photo
+   plus round video bubble), a two-paragraph intro (the _"With 16+ years…"_ lead with a terracotta
+   drop-cap, then a _"What I want to learn next…"_ paragraph — no drop-cap; on desktop both wrap
+   around the photo, the second running full-width beneath it; on mobile/print they stack full-width),
+   the **Focus** filter bar, Skills, the curved timeline, "How I work", a testimonial, Certificates,
+   Education / Languages / Other, and a footer with a feedback box.
 
 > Tip: the in-app field guide is the canonical feature list. Click **"How to use"**
 > (top bar, ⓘ) any time — every story below mirrors one of its entries.
@@ -125,7 +129,16 @@ timeline when that filter is active.
    - The page collapses to essentials — a short intro, headline skills & languages;
      most sections hide.
    - **Recent · 5y also turns on automatically** (Headlines implies recent).
-3. Reload the page → **Headlines is still on** (persisted). Toggle it back off.
+   - **Skills** show only the configured headline groups (Agent Dev, Architect, Team Lead,
+     Backend, Frontend), each capped to its curated **top ~7** chips with a per-group **"+N more"**;
+     QA, DevOps, IDE & Want-to-learn fold into one **"+N more skill areas — show all"** pill
+     (driven by `skillsHeadline` / per-group `headline[]` in `base.json`).
+   - **Timeline** shows a **faded teaser** — a real glimpse of the most-recent era that fades to the
+     page bg — with a **"Show recent projects…"** reveal button at the foot (a news-site preview).
+     Clicking it drops Headlines but keeps Recent·5y. Reveal notice appears (Scene-7 style).
+3. Click **"+N more skill areas — show all"** → **Headlines switches OFF and every group reveals**,
+   but **Recent · 5y stays ON** (verify its toggle is still on). The full skills grid returns.
+4. Reload the page → **Headlines is still on** (persisted). Toggle it back off.
 
 ---
 
@@ -141,7 +154,17 @@ timeline when that filter is active.
    - Sanity: the **Agent Development (AI / LLM)** group shows **no "+N more"** under
      Recent (every AI skill is within 5y); a skill used only in a pre-window project
      (e.g. an old PHP-era tech) stays hidden.
-3. Toggle off → everything returns. (This one also persists across reload.)
+   - **Timeline projects** also cap their Technologies to their **main** set (a project's `main[]`
+     if authored, else **2 top techs from each role it covers**), the rest behind a **"+N more"** (in
+     print: "… on interactive online"). A focus filter / skill / search suppresses this (tech narrows
+     to the query instead).
+3. Toggle off → everything returns + a **"Now showing everything"** notice appears (closes via "Got it" / **Enter** / ✕ / Esc — no auto‑dismiss; the notice is transient and does not persist across reload).
+
+> **Reveal notices:** turning **Headlines OFF** ("Here's more about me") or **Recent·5y OFF**
+> ("Now showing everything") pops a small dismissible modal — a few short paragraphs explaining
+> what's now shown, ending with a **Tip** (Headlines → use the Focus filter; Recent → click a skill
+> or use skill search). It closes via "Got it" / **Enter** / ✕ / Esc, and only appears on an explicit
+> toggle‑off — **not** when a focus filter/skill/search auto‑drops Headlines.
 
 ---
 
@@ -225,7 +248,14 @@ Click the **download (⤓)** button in the top bar. It opens a menu with three i
    before printing). A raw **Ctrl/Cmd-P** also works.
 2. In the print preview **see:**
    - Forced **light theme**, white background.
-   - **All** collapsed content expanded.
+   - **All** collapsed content expanded. **Print is WYSIWYG — it honors the visible Headlines toggle**
+     (see the Headlines vs full bullet below); the Skills cap and timeline teaser apply **only when
+     Headlines is ON**.
+   - **With Headlines ON, Skills fit ~one page**: print shows only the configured headline groups,
+     each capped to its curated ~7 chips (single column, tightened), with "+N more … on interactive
+     online" links for the rest and one "+N more skill areas …" link for the folded groups.
+     **No other section's print layout changes.** With **Headlines OFF** the Skills section prints in
+     full — every group and every chip (no caps, no "+N more" pills).
    - Hero = **portrait left / intro right**.
    - **Clickable** contact links; role dates shown **inline**.
    - Language bars keep their colour; a clickable page-link in the footer.
@@ -237,9 +267,15 @@ Click the **download (⤓)** button in the top bar. It opens a menu with three i
      they only appear after you expand the card).
    - The **footer** swaps its screen "New here?" + AI lines for a print **promo paragraph** with
      accent links to the live résumé (the "How to use guide" + the URL).
-   - **In Headlines mode**, the timeline section collapses to its header + an accent link "See the
-     projects on the timeline — on the interactive, AI-ready online version" (online it's a "Show
-     recent projects on the timeline" button that drops Headlines but keeps Recent·5y).
+   - **In Headlines mode**, the timeline shows a **teaser** — a glimpse of the most-recent era —
+     under it an accent link "See the projects on the timeline — on the interactive, AI-ready online
+     version". **On screen** the teaser fades out via an alpha mask (and online the link is instead a
+     "Show recent projects on the timeline" button that drops Headlines but keeps Recent·5y).
+     **In print** the fade/clip is removed (`mask-image: none`, `max-height: none`), so the teaser's
+     era intro prints **in full** with the "read online" link just below. Same layout shape online and
+     in print (desktop spine / mobile single column).
+   - **With Headlines OFF (and Recent · 5y OFF)** the timeline prints in **full** — every era and
+     **every project card** (no teaser) — matching what's on screen.
 3. **With Recent · 5y ON** (or any focus filter / skill / search active), also see:
    - A centered **status line** in the folio header listing the active view + filters, e.g.
      "Recent 5 years · Architect role · skill: Vue.js only — more on interactive online"

@@ -15,7 +15,7 @@
 import { ref, computed, nextTick } from 'vue'
 import { t as $t, tc as $tc } from '@/composables/i18n'
 import { useStore } from '@/composables/useStore'
-import { onlineResumeUrl } from '@/utils/dom'
+import { onlineResumeUrl, scrollElToCenter } from '@/utils/dom'
 
 const props = withDefaults(
   defineProps<{
@@ -46,14 +46,7 @@ function onClick() {
   const wasOpen = props.open
   const el = root.value
   emit('toggle')
-  if (wasOpen && el) {
-    nextTick(() =>
-      requestAnimationFrame(() => {
-        const r = el.getBoundingClientRect()
-        const y = r.top + window.scrollY - window.innerHeight / 2 + r.height / 2
-        window.scrollTo({ top: Math.max(0, y), behavior: 'smooth' })
-      }),
-    )
-  }
+  // closing collapses a long list and jumps the page — recentre on the toggle (shared rule)
+  if (wasOpen && el) nextTick(() => requestAnimationFrame(() => scrollElToCenter(el)))
 }
 </script>

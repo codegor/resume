@@ -26,6 +26,10 @@ export const store = reactive({
   skillQuery: '',
   videoKey: null as string | null,
   guideOpen: false,
+  // a friendly "you're now seeing more" notice, shown when the reader explicitly leaves a
+  // condensed view: 'headlines' (Headlines off) | 'recent' (Recent·5y off) | null. NOT set on
+  // the auto-drop of Headlines when a filter/skill/search engages (that's not a reveal action).
+  revealNotice: null as string | null,
   // Which top-bar dropdown is open ('download' | 'contact' | null). Shared so the two
   // are mutually exclusive — opening one closes the other (each menu derives its open
   // state from this), even though their wrappers stop click propagation.
@@ -58,11 +62,13 @@ export const store = reactive({
     // Turning Headlines ON also enables Recent·5y; turning it OFF leaves Recent as-is (so you can
     // drop the compact view while still browsing the recent-first timeline).
     if (this.compact) this.recentOnly = true
+    else this.revealNotice = 'headlines'
   },
   /* Headlines reveal button: leave the compact view but KEEP Recent·5y, so the timeline opens to
      the recent eras first (the "+N earlier eras" pill / Recent toggle reveal the rest). */
   showProjects() {
     this.compact = false
+    this.revealNotice = 'headlines'
   },
   toggleExpandAll() {
     this.expandAll = !this.expandAll
@@ -75,6 +81,11 @@ export const store = reactive({
   },
   toggleRecentOnly() {
     this.recentOnly = !this.recentOnly
+    // the "now showing everything" notice fires from a GLOBAL watch on recentOnly in App.vue,
+    // so EVERY recent-off path (this toggle, the "+N earlier eras" pill's clearAll, …) shows it.
+  },
+  closeRevealNotice() {
+    this.revealNotice = null
   },
   /* a work period ("02.2023 – 05.2026") counts as recent if it ENDS within the last
      5 years — drives the "Recent · 5y" view. The window is anchored on the résumé's

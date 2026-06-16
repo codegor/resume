@@ -1,6 +1,7 @@
 <template>
   <div
     v-show="!searchHidden"
+    ref="root"
     :class="['skillgroup', 'reveal-up', { dim: dim }]"
     :style="{ '--gc': gc }"
   >
@@ -50,7 +51,7 @@
       <button
         v-if="collapse && skillsOpen && !store.printing"
         class="skill skill-more"
-        @click="skillsOpen = false"
+        @click="showFewer"
       >
         <t>show fewer</t>
       </button>
@@ -59,11 +60,11 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, watch } from 'vue'
+import { ref, computed, watch, nextTick } from 'vue'
 import { useStore } from '@/composables/useStore'
 import { siteConfig } from '@/config'
 import { t as $t } from '@/composables/i18n'
-import { onlineResumeUrl } from '@/utils/dom'
+import { onlineResumeUrl, scrollElToCenter } from '@/utils/dom'
 import { skillMatchesTech, looseMatch } from '@/utils/site-filters'
 import {
   skillChipsFor,
@@ -98,7 +99,18 @@ const groupData = computed<SkillGroup | SkillEntry[] | undefined>(() =>
 
 const store = useStore()
 
+const root = ref<HTMLElement | null>(null)
 const skillsOpen = ref(false)
+function showFewer(): void {
+  skillsOpen.value = false
+  // recentre on the "+N more" toggle that reappears (shared more/less rule)
+  nextTick(() =>
+    requestAnimationFrame(() => {
+      const more = root.value?.querySelector('.skill-more') as HTMLElement | null
+      if (more) scrollElToCenter(more)
+    }),
+  )
+}
 
 watch(
   () => store.recentOnly,
@@ -227,16 +239,61 @@ const collapseSearch = computed(
 const restSearch = computed(() =>
   collapseSearch.value ? chips.value.length - (searchChips.value?.length ?? 0) : 0,
 )
-const collapse = computed(() => collapseModern.value || collapseSearch.value)
-const restCount = computed(() => (collapseModern.value ? restModern.value : restSearch.value))
+/* Headlines/print: each VISIBLE group shows a curated "top" set (the group's authored
+   `headline` list, in that order; else a fallback of top-`limit` by skillScore), the rest
+   tucked behind the same "+N more" reveal. Takes precedence over the recent-5y collapse. */
+const norm = (s: string): string => (s || '').toLowerCase().trim()
+const headlineLimit = computed(() => store.data?.skillsHeadline?.limit ?? 7)
+const headlineChips = computed<Chip[]>(() => {
+  const top = chips.value.filter((c) => !c.sub)
+  const list = group.value?.headline
+  if (list && list.length) {
+    const out: Chip[] = []
+    list.forEach((n) => {
+      const hit = top.find((c) => norm(c.name) === norm(n))
+      if (hit) out.push(hit)
+    })
+    return out
+  }
+  return top
+    .slice()
+    .sort((a, b) => skillScore(b) - skillScore(a))
+    .slice(0, headlineLimit.value)
+})
+// Cap each group to its curated set in the Headlines view — driven by the visible Headlines toggle
+// alone, so print is WYSIWYG (Headlines off prints every chip; Headlines on prints the curated 7).
+// Recent·5y print keeps the richer recent set via collapseModern. Suppressed by a focus filter /
+// skill highlight / search.
+const capHeadline = computed(
+  () =>
+    store.compact &&
+    store.activeFilter === 'all' &&
+    !store.activeSkill &&
+    !q.value &&
+    headlineChips.value.length < chips.value.length,
+)
+const collapse = computed(() => capHeadline.value || collapseModern.value || collapseSearch.value)
+const restCount = computed(() =>
+  capHeadline.value
+    ? chips.value.length - headlineChips.value.length
+    : collapseModern.value
+      ? restModern.value
+      : restSearch.value,
+)
 const shownChips = computed(() => {
   if (q.value && !collapseSearch.value) return searchChips.value // search-alone — unchanged
-  const relevant = q.value ? searchChips.value! : modernChips.value
+  const relevant = q.value
+    ? searchChips.value!
+    : capHeadline.value
+      ? headlineChips.value
+      : modernChips.value
   const base = collapse.value
     ? skillsOpen.value && !store.printing
       ? chips.value
       : relevant
     : chips.value
+  // keep the curated headline order intact (floatTrend would reshuffle it by trend weight)
+  if (capHeadline.value && base === relevant) return base
   return floatTrend(base)
 })
 

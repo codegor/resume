@@ -73,7 +73,7 @@ const stories = computed(() => {
       goal: $t('Get the 30-second version'),
       steps: [$t('Toggle'), $t('Headlines')],
       see: $t(
-        'The page collapses to the essentials — a short 30-sec intro video, the headline skills and languages. Everything else hides. (Headlines also turns on Recent · 5y.)',
+        'The page collapses to the essentials — a short 30-sec intro video, the headline skills and languages. Each skill area shows only its top few in-demand skills (the rest behind “+N more”), and secondary areas fold into a single “+N more skill areas — show all” that reopens the full view. Everything else hides. (Headlines also turns on Recent · 5y.)',
       ),
     },
     {

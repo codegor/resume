@@ -13,6 +13,15 @@ export function cancelScrollCorrection(): void {
   activeScrollCancel?.()
 }
 
+/** Center an element in the viewport. The shared "show fewer / less" behaviour: collapsing a long
+ *  list jumps the page, so every more/less toggle (MorePill + the inline skill/tech "+N more"
+ *  buttons) re-centres on the toggle afterwards, returning the reader to where they were. */
+export function scrollElToCenter(el: Element): void {
+  const r = el.getBoundingClientRect()
+  const y = r.top + window.scrollY - window.innerHeight / 2 + r.height / 2
+  window.scrollTo({ top: Math.max(0, y), behavior: 'smooth' })
+}
+
 // Re-assert after the scroll settles: the mobile Focus bar collapses as the page crosses its home,
 // shifting everything below it ~200px mid-scroll, so a one-shot scrollTo lands off. Converges in
 // 1–2 hops, no-op when nothing shifts. (Removing the re-assert breaks the section-nav jumps.)
